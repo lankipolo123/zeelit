@@ -279,10 +279,21 @@ export class AppShowcase extends LitElement {
       `;
     };
 
+    const pageTile = (id, label) => {
+      const active = this.activePage === id;
+      return html`
+        <a @click="${() => this.navigate(id)}"
+          class="inline-flex items-center px-2.5 py-1 rounded-md cursor-pointer transition-colors text-[11px] font-medium whitespace-nowrap"
+          style="background: ${active ? 'var(--bg-hover)' : 'var(--bg-card)'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'var(--border)'}"
+        >${label}</a>
+      `;
+    };
+
     return html`
-      <div class="p-3" style="border-bottom: 1px solid var(--border)">
-        <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-2 px-1" style="color: var(--fg-subtle)">Components</h4>
+      <div class="p-3">
         <div class="flex flex-wrap gap-1">
+          ${pageTile('home', 'Introduction')}
+          ${pageTile('installation', 'Installation')}
           ${COMPONENTS.map(comp => tile(comp))}
         </div>
       </div>
