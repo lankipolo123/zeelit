@@ -28,18 +28,85 @@ const COMPONENTS = [
 
 const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
 
-function escapeHtml(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function highlightCode(code) {
+  const tokens = [];
+  const TAG_NAMES = 'app-[\\w-]+|div|span|button|input|label|h[1-6]|p|nav|header|section|svg|path|circle|line';
+  const ATTRS = 'type|placeholder|variant|size|disabled|checked|label|role|style|alertTitle|cardTitle|description|orientation|width|height|rounded|open|dialogTitle';
+  const KW = 'import|export|from|class|extends|const|let|var|return|if|else|new|this|static|get|set|constructor|super|function';
+
+  // Tokenize line by line
+  const lines = code.split('\n');
+  return lines.map(line => {
+    // Comments first
+    if (/^\s*\/\//.test(line)) {
+      return `<span class="comment">${esc(line)}</span>`;
+    }
+
+    let result = '';
+    let i = 0;
+    while (i < line.length) {
+      // Strings
+      if (line[i] === '"' || line[i] === "'") {
+        const q = line[i];
+        let end = line.indexOf(q, i + 1);
+        if (end === -1) end = line.length - 1;
+        result += `<span class="str">${esc(line.slice(i, end + 1))}</span>`;
+        i = end + 1;
+        continue;
+      }
+
+      // HTML tags: < or </
+      if (line[i] === '<') {
+        const m = line.slice(i).match(new RegExp(`^(<\\/?)(${TAG_NAMES})((?:\\s+[^>]*)?>)`));
+        if (m) {
+          const prefix = m[1];
+          const tagName = m[2];
+          const rest = m[3];
+          // Highlight attributes inside rest
+          const highlightedRest = esc(rest).replace(
+            new RegExp(`(${ATTRS})(=)`, 'g'),
+            '<span class="attr">$1</span>$2'
+          );
+          result += `<span class="tag">${esc(prefix)}${esc(tagName)}</span>${highlightedRest}`;
+          i += m[0].length;
+          continue;
+        }
+        // Self-closing or just a <
+        result += esc(line[i]);
+        i++;
+        continue;
+      }
+
+      // Keywords and numbers (word boundary)
+      const wordMatch = line.slice(i).match(/^[a-zA-Z_$][\w$]*/);
+      if (wordMatch) {
+        const word = wordMatch[0];
+        if (new RegExp(`^(${KW})$`).test(word)) {
+          result += `<span class="kw">${esc(word)}</span>`;
+        } else {
+          result += esc(word);
+        }
+        i += word.length;
+        continue;
+      }
+
+      const numMatch = line.slice(i).match(/^\d+/);
+      if (numMatch) {
+        result += `<span class="num">${numMatch[0]}</span>`;
+        i += numMatch[0].length;
+        continue;
+      }
+
+      // Everything else
+      result += esc(line[i]);
+      i++;
+    }
+    return result;
+  }).join('\n');
 }
 
-function highlightCode(code) {
-  return escapeHtml(code)
-    .replace(/(\/\/.*)/g, '<span class="comment">$1</span>')
-    .replace(/(["'])((?:(?!\1).)*?)\1/g, '<span class="str">$1$2$1</span>')
-    .replace(/\b(import|export|from|class|extends|const|let|var|return|if|else|new|this|static|get|set|constructor|super|function)\b/g, '<span class="kw">$1</span>')
-    .replace(/(&lt;\/?)(app-[\w-]+|div|span|button|input|label|h[1-6]|p|nav|header|section|svg|path|circle|line)/g, '<span class="tag">$1$2</span>')
-    .replace(/\s(class|type|placeholder|variant|size|disabled|checked|label|role|aria-[\w]+|style|alertTitle|cardTitle|description|orientation|width|height|rounded|open|dialogTitle)=/g, ' <span class="attr">$1</span>=')
-    .replace(/\b(\d+)\b/g, '<span class="num">$1</span>');
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 class AppShowcase extends LitElement {
