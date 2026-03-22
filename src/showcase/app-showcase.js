@@ -280,18 +280,16 @@ export class AppShowcase extends LitElement {
       const active = this.activePage === comp.id;
       return html`
         <a @click="${() => this.navigate(comp.id)}"
-          class="flex flex-col items-center justify-center gap-1 p-2 rounded-md cursor-pointer transition-colors text-center"
-          style="background: ${active ? 'var(--bg-hover)' : 'transparent'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'transparent'}"
-        >
-          <span class="text-[11px] leading-tight font-medium truncate w-full">${comp.label}</span>
-        </a>
+          class="inline-flex items-center px-2.5 py-1 rounded-md cursor-pointer transition-colors text-[11px] font-medium whitespace-nowrap"
+          style="background: ${active ? 'var(--bg-hover)' : 'var(--bg-card)'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'var(--border)'}"
+        >${comp.label}</a>
       `;
     };
 
     return html`
       <div class="p-3" style="border-bottom: 1px solid var(--border)">
         <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-2 px-1" style="color: var(--fg-subtle)">Components</h4>
-        <div class="grid grid-cols-3 gap-1">
+        <div class="flex flex-wrap gap-1">
           ${COMPONENTS.map(comp => tile(comp))}
         </div>
       </div>
