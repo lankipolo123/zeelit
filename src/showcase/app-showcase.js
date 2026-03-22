@@ -88,7 +88,7 @@ export class AppShowcase extends LitElement {
       ? `import '${importPath}';\n\n${code}`
       : code;
     const cdnCode = tagName
-      ? `<script type="module">\n  import '${importPath}';\n</script>\n\n${code}`
+      ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // Your component file (${tagName}.js) goes here\n  // or load it separately:\n  // import './${tagName}.js';\n</script>\n\n${code}`
       : code;
     const activeCode = view === 'cdn' ? cdnCode : importCode;
 
