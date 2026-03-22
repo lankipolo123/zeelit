@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-input.js?raw';
 
 const TAG = 'app-input';
-const IMPORT = './components/app-input.js';
+const IMPORT = '@/components/app-input.js';
 const FILE = 'app-input.js';
 
 export function inputPage(ctx) {

@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-toggle.js?raw';
 
 const TAG = 'app-toggle';
-const IMPORT = './components/app-toggle.js';
+const IMPORT = '@/components/app-toggle.js';
 const FILE = 'app-toggle.js';
 
 export function togglePage(ctx) {

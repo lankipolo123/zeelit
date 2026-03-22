@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-button.js?raw';
 
 const TAG = 'app-button';
-const IMPORT = './components/app-button.js';
+const IMPORT = '@/components/app-button.js';
 const FILE = 'app-button.js';
 
 export function buttonPage(ctx) {

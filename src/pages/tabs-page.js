@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-tabs.js?raw';
 
 const TAG = 'app-tabs';
-const IMPORT = './components/app-tabs.js';
+const IMPORT = '@/components/app-tabs.js';
 const FILE = 'app-tabs.js';
 
 export function tabsPage(ctx) {

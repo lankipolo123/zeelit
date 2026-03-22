@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-badge.js?raw';
 
 const TAG = 'app-badge';
-const IMPORT = './components/app-badge.js';
+const IMPORT = '@/components/app-badge.js';
 const FILE = 'app-badge.js';
 
 export function badgePage(ctx) {

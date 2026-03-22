@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-card.js?raw';
 
 const TAG = 'app-card';
-const IMPORT = './components/app-card.js';
+const IMPORT = '@/components/app-card.js';
 const FILE = 'app-card.js';
 
 export function cardPage(ctx) {

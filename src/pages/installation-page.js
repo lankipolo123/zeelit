@@ -36,7 +36,7 @@ export default defineConfig({
 
         <div>
           <h2 class="text-xl font-semibold mb-3">4. Import and use</h2>
-          <div class="code-block">import './components/app-button.js';
+          <div class="code-block">import '@/components/app-button.js';
 
 // Then use in your HTML or Lit templates:
 // &lt;app-button variant="default"&gt;Click me&lt;/app-button&gt;</div>

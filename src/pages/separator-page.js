@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-separator.js?raw';
 
 const TAG = 'app-separator';
-const IMPORT = './components/app-separator.js';
+const IMPORT = '@/components/app-separator.js';
 const FILE = 'app-separator.js';
 
 export function separatorPage(ctx) {

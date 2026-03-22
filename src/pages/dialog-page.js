@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-dialog.js?raw';
 
 const TAG = 'app-dialog';
-const IMPORT = './components/app-dialog.js';
+const IMPORT = '@/components/app-dialog.js';
 const FILE = 'app-dialog.js';
 
 export function dialogPage(ctx) {

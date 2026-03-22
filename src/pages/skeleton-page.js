@@ -2,7 +2,7 @@ import { html } from 'lit';
 import source from '../components/app-skeleton.js?raw';
 
 const TAG = 'app-skeleton';
-const IMPORT = './components/app-skeleton.js';
+const IMPORT = '@/components/app-skeleton.js';
 const FILE = 'app-skeleton.js';
 
 export function skeletonPage(ctx) {
