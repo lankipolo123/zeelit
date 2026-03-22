@@ -268,35 +268,23 @@ export class AppShowcase extends LitElement {
 
   /* ─── Sidebar ─── */
 
-  _sidebarComponentGrid() {
-    const tile = (comp) => {
-      const active = this.activePage === comp.id;
-      return html`
-        <a @click="${() => this.navigate(comp.id)}"
-          class="inline-flex items-center px-2.5 py-1 rounded-md cursor-pointer transition-colors text-[11px] font-medium whitespace-nowrap"
-          style="background: ${active ? 'var(--bg-hover)' : 'var(--bg-card)'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'var(--border)'}"
-        >${comp.label}</a>
-      `;
-    };
-
-    const pageTile = (id, label) => {
+  _sidebarNav() {
+    const link = (id, label) => {
       const active = this.activePage === id;
       return html`
         <a @click="${() => this.navigate(id)}"
-          class="inline-flex items-center px-2.5 py-1 rounded-md cursor-pointer transition-colors text-[11px] font-medium whitespace-nowrap"
-          style="background: ${active ? 'var(--bg-hover)' : 'var(--bg-card)'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'var(--border)'}"
+          class="block px-3 py-1.5 text-[13px] cursor-pointer transition-colors"
+          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}"
         >${label}</a>
       `;
     };
 
     return html`
-      <div class="p-3">
-        <div class="flex flex-wrap gap-1">
-          ${pageTile('home', 'Introduction')}
-          ${pageTile('installation', 'Installation')}
-          ${COMPONENTS.map(comp => tile(comp))}
-        </div>
-      </div>
+      <nav class="py-2">
+        ${link('home', 'Introduction')}
+        ${link('installation', 'Installation')}
+        ${COMPONENTS.map(comp => link(comp.id, comp.label))}
+      </nav>
     `;
   }
 
@@ -316,7 +304,7 @@ export class AppShowcase extends LitElement {
             <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
           </div>
           <!-- Component grid -->
-          ${this._sidebarComponentGrid()}
+          ${this._sidebarNav()}
         </aside>
 
         <!-- Mobile sidebar overlay -->
@@ -335,7 +323,7 @@ export class AppShowcase extends LitElement {
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
               </div>
-              ${this._sidebarComponentGrid()}
+              ${this._sidebarNav()}
             </aside>
           </div>
         ` : ''}
