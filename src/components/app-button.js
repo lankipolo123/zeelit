@@ -14,6 +14,28 @@ export class AppButton extends LitElement {
     this.variant = 'default';
     this.size = 'default';
     this.disabled = false;
+    this._userNodes = null;
+  }
+
+  connectedCallback() {
+    // Capture children BEFORE Lit renders over them
+    if (this._userNodes === null) {
+      this._userNodes = [];
+      while (this.firstChild) {
+        this._userNodes.push(this.removeChild(this.firstChild));
+      }
+    }
+    super.connectedCallback();
+  }
+
+  updated() {
+    if (this._userNodes?.length) {
+      const btn = this.querySelector('button');
+      if (btn) {
+        this._userNodes.forEach(n => btn.appendChild(n));
+        this._userNodes = [];
+      }
+    }
   }
 
   get _classes() {
@@ -40,9 +62,7 @@ export class AppButton extends LitElement {
 
   render() {
     return html`
-      <button class="${this._classes}" ?disabled=${this.disabled}>
-        <slot></slot>
-      </button>
+      <button class="${this._classes}" ?disabled=${this.disabled}></button>
     `;
   }
 }

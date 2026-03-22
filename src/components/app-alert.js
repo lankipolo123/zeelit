@@ -12,6 +12,27 @@ export class AppAlert extends LitElement {
     super();
     this.variant = 'default';
     this.alertTitle = '';
+    this._userNodes = null;
+  }
+
+  connectedCallback() {
+    if (this._userNodes === null) {
+      this._userNodes = [];
+      while (this.firstChild) {
+        this._userNodes.push(this.removeChild(this.firstChild));
+      }
+    }
+    super.connectedCallback();
+  }
+
+  updated() {
+    if (this._userNodes?.length) {
+      const el = this.querySelector('[data-alert-content]');
+      if (el) {
+        this._userNodes.forEach(n => el.appendChild(n));
+        this._userNodes = [];
+      }
+    }
   }
 
   get _icon() {
@@ -32,7 +53,7 @@ export class AppAlert extends LitElement {
           ${this._icon}
           <div class="flex-1">
             ${this.alertTitle ? html`<h5 class="mb-1 font-medium leading-none tracking-tight">${this.alertTitle}</h5>` : ''}
-            <div class="text-sm opacity-80"><slot></slot></div>
+            <div class="text-sm opacity-80" data-alert-content></div>
           </div>
         </div>
       </div>

@@ -10,6 +10,27 @@ export class AppBadge extends LitElement {
   constructor() {
     super();
     this.variant = 'default';
+    this._userNodes = null;
+  }
+
+  connectedCallback() {
+    if (this._userNodes === null) {
+      this._userNodes = [];
+      while (this.firstChild) {
+        this._userNodes.push(this.removeChild(this.firstChild));
+      }
+    }
+    super.connectedCallback();
+  }
+
+  updated() {
+    if (this._userNodes?.length) {
+      const el = this.querySelector('[data-badge]');
+      if (el) {
+        this._userNodes.forEach(n => el.appendChild(n));
+        this._userNodes = [];
+      }
+    }
   }
 
   get _classes() {
@@ -24,7 +45,7 @@ export class AppBadge extends LitElement {
   }
 
   render() {
-    return html`<div class="${this._classes}"><slot></slot></div>`;
+    return html`<div class="${this._classes}" data-badge></div>`;
   }
 }
 

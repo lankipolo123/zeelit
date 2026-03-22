@@ -14,6 +14,27 @@ export class AppDialog extends LitElement {
     this.open = false;
     this.dialogTitle = '';
     this.description = '';
+    this._userNodes = null;
+  }
+
+  connectedCallback() {
+    if (this._userNodes === null) {
+      this._userNodes = [];
+      while (this.firstChild) {
+        this._userNodes.push(this.removeChild(this.firstChild));
+      }
+    }
+    super.connectedCallback();
+  }
+
+  updated() {
+    if (this._userNodes?.length) {
+      const el = this.querySelector('[data-dialog-content]');
+      if (el) {
+        this._userNodes.forEach(n => el.appendChild(n));
+        this._userNodes = [];
+      }
+    }
   }
 
   show() { this.open = true; }
@@ -27,7 +48,7 @@ export class AppDialog extends LitElement {
   }
 
   render() {
-    if (!this.open) return html``;
+    if (!this.open) return html`<div class="hidden" data-dialog-content></div>`;
 
     return html`
       <div class="fixed inset-0 z-50 flex items-center justify-center" @click="${this._onBackdropClick}">
@@ -37,7 +58,7 @@ export class AppDialog extends LitElement {
             ${this.dialogTitle ? html`<h2 class="text-lg font-semibold text-zinc-100">${this.dialogTitle}</h2>` : ''}
             ${this.description ? html`<p class="text-sm text-zinc-400">${this.description}</p>` : ''}
           </div>
-          <div class="mt-4"><slot></slot></div>
+          <div class="mt-4" data-dialog-content></div>
           <button
             @click="${this.close}"
             class="absolute right-4 top-4 rounded-sm text-zinc-400 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"

@@ -12,6 +12,27 @@ export class AppCard extends LitElement {
     super();
     this.cardTitle = '';
     this.description = '';
+    this._userNodes = null;
+  }
+
+  connectedCallback() {
+    if (this._userNodes === null) {
+      this._userNodes = [];
+      while (this.firstChild) {
+        this._userNodes.push(this.removeChild(this.firstChild));
+      }
+    }
+    super.connectedCallback();
+  }
+
+  updated() {
+    if (this._userNodes?.length) {
+      const el = this.querySelector('[data-card-content]');
+      if (el) {
+        this._userNodes.forEach(n => el.appendChild(n));
+        this._userNodes = [];
+      }
+    }
   }
 
   render() {
@@ -23,9 +44,7 @@ export class AppCard extends LitElement {
             ${this.description ? html`<p class="text-sm text-zinc-400">${this.description}</p>` : ''}
           </div>
         ` : ''}
-        <div class="p-6 pt-0">
-          <slot></slot>
-        </div>
+        <div class="p-6 pt-0" data-card-content></div>
       </div>
     `;
   }
