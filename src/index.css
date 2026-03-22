@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+/* Code block styling */
+.code-block {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #e4e4e7;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.code-block .tag { color: #f472b6; }
+.code-block .attr { color: #38bdf8; }
+.code-block .str { color: #4ade80; }
+.code-block .kw { color: #c084fc; }
+.code-block .fn { color: #fbbf24; }
+.code-block .comment { color: #52525b; font-style: italic; }
+.code-block .punct { color: #71717a; }
+.code-block .num { color: #fb923c; }
