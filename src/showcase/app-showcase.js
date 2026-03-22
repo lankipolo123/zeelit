@@ -330,14 +330,6 @@ export class AppShowcase extends LitElement {
           ${sideLink('home', 'Introduction')}
           ${sideLink('installation', 'Installation')}
         </div>
-        ${CATEGORIES.map(cat => html`
-          <div>
-            <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">${cat}</h4>
-            <div class="space-y-0.5">
-              ${COMPONENTS.filter(c => c.category === cat).map(comp => sideLink(comp.id, comp.label))}
-            </div>
-          </div>
-        `)}
       </nav>
     `;
   }
