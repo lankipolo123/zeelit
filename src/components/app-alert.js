@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeAlert extends LitElement {
+export class AppAlert extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -40,4 +40,4 @@ export class ZeeAlert extends LitElement {
   }
 }
 
-customElements.define('zee-alert', ZeeAlert);
+customElements.define('app-alert', AppAlert);

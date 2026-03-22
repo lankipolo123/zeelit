@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeDialog extends LitElement {
+export class AppDialog extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -19,7 +19,7 @@ export class ZeeDialog extends LitElement {
   show() { this.open = true; }
   close() {
     this.open = false;
-    this.dispatchEvent(new CustomEvent('zee-close', { bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent('app-close', { bubbles: true, composed: true }));
   }
 
   _onBackdropClick(e) {
@@ -50,4 +50,4 @@ export class ZeeDialog extends LitElement {
   }
 }
 
-customElements.define('zee-dialog', ZeeDialog);
+customElements.define('app-dialog', AppDialog);

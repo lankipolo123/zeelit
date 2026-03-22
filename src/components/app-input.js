@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeInput extends LitElement {
+export class AppInput extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -22,7 +22,7 @@ export class ZeeInput extends LitElement {
 
   _onInput(e) {
     this.value = e.target.value;
-    this.dispatchEvent(new CustomEvent('zee-input', {
+    this.dispatchEvent(new CustomEvent('app-input', {
       detail: { value: this.value },
       bubbles: true, composed: true,
     }));
@@ -45,4 +45,4 @@ export class ZeeInput extends LitElement {
   }
 }
 
-customElements.define('zee-input', ZeeInput);
+customElements.define('app-input', AppInput);

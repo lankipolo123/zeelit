@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeTabs extends LitElement {
+export class AppTabs extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -22,7 +22,7 @@ export class ZeeTabs extends LitElement {
 
   _selectTab(id) {
     this.activeTab = id;
-    this.dispatchEvent(new CustomEvent('zee-tab-change', {
+    this.dispatchEvent(new CustomEvent('app-tab-change', {
       detail: { tab: id },
       bubbles: true, composed: true,
     }));
@@ -49,4 +49,4 @@ export class ZeeTabs extends LitElement {
   }
 }
 
-customElements.define('zee-tabs', ZeeTabs);
+customElements.define('app-tabs', AppTabs);

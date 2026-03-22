@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-export class ZeeSkeleton extends LitElement {
+export class AppSkeleton extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -26,4 +26,4 @@ export class ZeeSkeleton extends LitElement {
   }
 }
 
-customElements.define('zee-skeleton', ZeeSkeleton);
+customElements.define('app-skeleton', AppSkeleton);

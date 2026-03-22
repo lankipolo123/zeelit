@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeSeparator extends LitElement {
+export class AppSeparator extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -20,4 +20,4 @@ export class ZeeSeparator extends LitElement {
   }
 }
 
-customElements.define('zee-separator', ZeeSeparator);
+customElements.define('app-separator', AppSeparator);

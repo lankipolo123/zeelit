@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeCard extends LitElement {
+export class AppCard extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -31,4 +31,4 @@ export class ZeeCard extends LitElement {
   }
 }
 
-customElements.define('zee-card', ZeeCard);
+customElements.define('app-card', AppCard);

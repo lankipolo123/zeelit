@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeCodePreview extends LitElement {
+export class AppCodePreview extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -44,7 +44,7 @@ export class ZeeCodePreview extends LitElement {
       // Keywords
       .replace(/\b(import|export|from|class|extends|const|let|var|return|if|else|new|this|static|get|set|constructor|super|function)\b/g, '<span class="kw">$1</span>')
       // HTML tags in template literals
-      .replace(/(&lt;\/?)(zee-[\w-]+|div|span|button|input|label|h[1-6]|p|nav|header|section|slot|svg|path|circle|line)/g, '<span class="tag">$1$2</span>')
+      .replace(/(&lt;\/?)(app-[\w-]+|div|span|button|input|label|h[1-6]|p|nav|header|section|slot|svg|path|circle|line)/g, '<span class="tag">$1$2</span>')
       // Attributes
       .replace(/\s(class|type|placeholder|variant|size|disabled|checked|label|role|aria-[\w]+|style)=/g, ' <span class="attr">$1</span>=')
       // Numbers
@@ -96,4 +96,4 @@ export class ZeeCodePreview extends LitElement {
   }
 }
 
-customElements.define('zee-code-preview', ZeeCodePreview);
+customElements.define('app-code-preview', AppCodePreview);

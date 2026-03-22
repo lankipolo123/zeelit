@@ -1,17 +1,17 @@
 import { LitElement, html } from 'lit';
 
 // Components
-import './components/zee-button.js';
-import './components/zee-input.js';
-import './components/zee-card.js';
-import './components/zee-badge.js';
-import './components/zee-alert.js';
-import './components/zee-toggle.js';
-import './components/zee-tabs.js';
-import './components/zee-dialog.js';
-import './components/zee-separator.js';
-import './components/zee-skeleton.js';
-import './components/zee-code-preview.js';
+import './components/app-button.js';
+import './components/app-input.js';
+import './components/app-card.js';
+import './components/app-badge.js';
+import './components/app-alert.js';
+import './components/app-toggle.js';
+import './components/app-tabs.js';
+import './components/app-dialog.js';
+import './components/app-separator.js';
+import './components/app-skeleton.js';
+import './components/app-code-preview.js';
 
 const COMPONENTS = [
   { id: 'button', label: 'Button', category: 'Actions' },
@@ -28,7 +28,7 @@ const COMPONENTS = [
 
 const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
 
-class ZeeShowcase extends LitElement {
+class AppShowcase extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -70,7 +70,7 @@ class ZeeShowcase extends LitElement {
           <div class="h-7 w-7 rounded-md bg-white flex items-center justify-center">
             <span class="text-zinc-900 font-bold text-sm">Z</span>
           </div>
-          <span class="font-semibold text-lg">ZeeLit</span>
+          <span class="font-semibold text-lg">AppLit</span>
         </a>
 
         <nav class="space-y-6">
@@ -125,7 +125,7 @@ class ZeeShowcase extends LitElement {
             <button @click="${() => this.sidebarOpen = true}" class="text-zinc-400 hover:text-zinc-100 cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
-            <span class="font-semibold">ZeeLit</span>
+            <span class="font-semibold">AppLit</span>
           </div>
 
           <div class="max-w-4xl mx-auto px-6 py-12">
@@ -160,12 +160,12 @@ class ZeeShowcase extends LitElement {
     return html`
       <div class="space-y-6">
         <div>
-          <h1 class="text-4xl font-bold tracking-tight">ZeeLit</h1>
+          <h1 class="text-4xl font-bold tracking-tight">AppLit</h1>
           <p class="mt-2 text-lg text-zinc-400">Beautifully crafted Lit web components. Styled with Tailwind CSS. Open source.</p>
         </div>
         <div class="h-px bg-zinc-800"></div>
         <div class="space-y-4 text-zinc-300 text-[15px] leading-relaxed">
-          <p>ZeeLit is a collection of reusable web components built with <strong class="text-zinc-100">Lit</strong> and styled with <strong class="text-zinc-100">Tailwind CSS</strong>. Inspired by <strong class="text-zinc-100">shadcn/ui</strong>, these are not installed from npm — you copy the component source directly into your project and own the code.</p>
+          <p>AppLit is a collection of reusable web components built with <strong class="text-zinc-100">Lit</strong> and styled with <strong class="text-zinc-100">Tailwind CSS</strong>. Inspired by <strong class="text-zinc-100">shadcn/ui</strong>, these are not installed from npm — you copy the component source directly into your project and own the code.</p>
           <p>Every component is a standard Web Component. Use them in any framework or vanilla HTML — no React, no Vue required.</p>
         </div>
 
@@ -189,7 +189,7 @@ class ZeeShowcase extends LitElement {
         </div>
 
         <div class="pt-4">
-          <zee-button @click="${() => this._navigate('installation')}">Get Started</zee-button>
+          <app-button @click="${() => this._navigate('installation')}">Get Started</app-button>
         </div>
       </div>
     `;
@@ -200,7 +200,7 @@ class ZeeShowcase extends LitElement {
       <div class="space-y-6">
         <div>
           <h1 class="text-3xl font-bold tracking-tight">Installation</h1>
-          <p class="mt-2 text-zinc-400">How to set up ZeeLit in your project.</p>
+          <p class="mt-2 text-zinc-400">How to set up AppLit in your project.</p>
         </div>
         <div class="h-px bg-zinc-800"></div>
 
@@ -231,10 +231,10 @@ export default defineConfig({
 
           <div>
             <h2 class="text-xl font-semibold mb-3">4. Import and use</h2>
-            <div class="code-block">import './components/zee-button.js';
+            <div class="code-block">import './components/app-button.js';
 
 // Then use in your HTML or Lit templates:
-// &lt;zee-button variant="default"&gt;Click me&lt;/zee-button&gt;</div>
+// &lt;app-button variant="default"&gt;Click me&lt;/app-button&gt;</div>
           </div>
         </div>
       </div>
@@ -253,9 +253,9 @@ export default defineConfig({
           <div class="space-y-3">
             ${s.title ? html`<h2 class="text-xl font-semibold">${s.title}</h2>` : ''}
             ${s.description ? html`<p class="text-sm text-zinc-400">${s.description}</p>` : ''}
-            <zee-code-preview code="${s.code}">
+            <app-code-preview code="${s.code}">
               ${s.preview}
-            </zee-code-preview>
+            </app-code-preview>
           </div>
         `)}
       </div>
@@ -268,46 +268,46 @@ export default defineConfig({
     return this._componentPage('Button', 'Displays a button or a component that looks like a button.', [
       {
         title: 'Default',
-        code: `<zee-button>Button</zee-button>`,
-        preview: html`<zee-button>Button</zee-button>`,
+        code: `<app-button>Button</app-button>`,
+        preview: html`<app-button>Button</app-button>`,
       },
       {
         title: 'Variants',
         description: 'Use the variant prop to change the visual style.',
-        code: `<zee-button variant="default">Default</zee-button>
-<zee-button variant="secondary">Secondary</zee-button>
-<zee-button variant="destructive">Destructive</zee-button>
-<zee-button variant="outline">Outline</zee-button>
-<zee-button variant="ghost">Ghost</zee-button>
-<zee-button variant="link">Link</zee-button>`,
+        code: `<app-button variant="default">Default</app-button>
+<app-button variant="secondary">Secondary</app-button>
+<app-button variant="destructive">Destructive</app-button>
+<app-button variant="outline">Outline</app-button>
+<app-button variant="ghost">Ghost</app-button>
+<app-button variant="link">Link</app-button>`,
         preview: html`
           <div class="flex flex-wrap gap-3">
-            <zee-button variant="default">Default</zee-button>
-            <zee-button variant="secondary">Secondary</zee-button>
-            <zee-button variant="destructive">Destructive</zee-button>
-            <zee-button variant="outline">Outline</zee-button>
-            <zee-button variant="ghost">Ghost</zee-button>
-            <zee-button variant="link">Link</zee-button>
+            <app-button variant="default">Default</app-button>
+            <app-button variant="secondary">Secondary</app-button>
+            <app-button variant="destructive">Destructive</app-button>
+            <app-button variant="outline">Outline</app-button>
+            <app-button variant="ghost">Ghost</app-button>
+            <app-button variant="link">Link</app-button>
           </div>
         `,
       },
       {
         title: 'Sizes',
-        code: `<zee-button size="sm">Small</zee-button>
-<zee-button size="default">Default</zee-button>
-<zee-button size="lg">Large</zee-button>`,
+        code: `<app-button size="sm">Small</app-button>
+<app-button size="default">Default</app-button>
+<app-button size="lg">Large</app-button>`,
         preview: html`
           <div class="flex items-center gap-3">
-            <zee-button size="sm">Small</zee-button>
-            <zee-button size="default">Default</zee-button>
-            <zee-button size="lg">Large</zee-button>
+            <app-button size="sm">Small</app-button>
+            <app-button size="default">Default</app-button>
+            <app-button size="lg">Large</app-button>
           </div>
         `,
       },
       {
         title: 'Disabled',
-        code: `<zee-button disabled>Disabled</zee-button>`,
-        preview: html`<zee-button disabled>Disabled</zee-button>`,
+        code: `<app-button disabled>Disabled</app-button>`,
+        preview: html`<app-button disabled>Disabled</app-button>`,
       },
     ]);
   }
@@ -316,18 +316,18 @@ export default defineConfig({
     return this._componentPage('Input', 'Displays a form input field.', [
       {
         title: 'Default',
-        code: `<zee-input placeholder="Enter your email"></zee-input>`,
-        preview: html`<div class="w-80"><zee-input placeholder="Enter your email"></zee-input></div>`,
+        code: `<app-input placeholder="Enter your email"></app-input>`,
+        preview: html`<div class="w-80"><app-input placeholder="Enter your email"></app-input></div>`,
       },
       {
         title: 'With Label',
-        code: `<zee-input label="Email" placeholder="name@example.com" type="email"></zee-input>`,
-        preview: html`<div class="w-80"><zee-input label="Email" placeholder="name@example.com" type="email"></zee-input></div>`,
+        code: `<app-input label="Email" placeholder="name@example.com" type="email"></app-input>`,
+        preview: html`<div class="w-80"><app-input label="Email" placeholder="name@example.com" type="email"></app-input></div>`,
       },
       {
         title: 'Disabled',
-        code: `<zee-input label="Username" placeholder="john_doe" disabled></zee-input>`,
-        preview: html`<div class="w-80"><zee-input label="Username" placeholder="john_doe" disabled></zee-input></div>`,
+        code: `<app-input label="Username" placeholder="john_doe" disabled></app-input>`,
+        preview: html`<div class="w-80"><app-input label="Username" placeholder="john_doe" disabled></app-input></div>`,
       },
     ]);
   }
@@ -336,20 +336,20 @@ export default defineConfig({
     return this._componentPage('Card', 'Displays a card with header, content, and footer.', [
       {
         title: 'Default',
-        code: `<zee-card cardTitle="Create project" description="Deploy your new project in one-click.">
-  <zee-input label="Name" placeholder="Name of your project"></zee-input>
+        code: `<app-card cardTitle="Create project" description="Deploy your new project in one-click.">
+  <app-input label="Name" placeholder="Name of your project"></app-input>
   <div class="mt-4">
-    <zee-button>Create</zee-button>
+    <app-button>Create</app-button>
   </div>
-</zee-card>`,
+</app-card>`,
         preview: html`
           <div class="w-96">
-            <zee-card cardTitle="Create project" description="Deploy your new project in one-click.">
-              <zee-input label="Name" placeholder="Name of your project"></zee-input>
+            <app-card cardTitle="Create project" description="Deploy your new project in one-click.">
+              <app-input label="Name" placeholder="Name of your project"></app-input>
               <div class="mt-4">
-                <zee-button>Create</zee-button>
+                <app-button>Create</app-button>
               </div>
-            </zee-card>
+            </app-card>
           </div>
         `,
       },
@@ -360,16 +360,16 @@ export default defineConfig({
     return this._componentPage('Badge', 'Displays a badge or a component that looks like a badge.', [
       {
         title: 'Variants',
-        code: `<zee-badge>Default</zee-badge>
-<zee-badge variant="secondary">Secondary</zee-badge>
-<zee-badge variant="destructive">Destructive</zee-badge>
-<zee-badge variant="outline">Outline</zee-badge>`,
+        code: `<app-badge>Default</app-badge>
+<app-badge variant="secondary">Secondary</app-badge>
+<app-badge variant="destructive">Destructive</app-badge>
+<app-badge variant="outline">Outline</app-badge>`,
         preview: html`
           <div class="flex gap-3">
-            <zee-badge>Default</zee-badge>
-            <zee-badge variant="secondary">Secondary</zee-badge>
-            <zee-badge variant="destructive">Destructive</zee-badge>
-            <zee-badge variant="outline">Outline</zee-badge>
+            <app-badge>Default</app-badge>
+            <app-badge variant="secondary">Secondary</app-badge>
+            <app-badge variant="destructive">Destructive</app-badge>
+            <app-badge variant="outline">Outline</app-badge>
           </div>
         `,
       },
@@ -380,23 +380,23 @@ export default defineConfig({
     return this._componentPage('Alert', 'Displays a callout for important information.', [
       {
         title: 'Default',
-        code: `<zee-alert alertTitle="Heads up!">
+        code: `<app-alert alertTitle="Heads up!">
   You can add components to your app using the CLI.
-</zee-alert>`,
+</app-alert>`,
         preview: html`
           <div class="w-full max-w-lg">
-            <zee-alert alertTitle="Heads up!">You can add components to your app using the CLI.</zee-alert>
+            <app-alert alertTitle="Heads up!">You can add components to your app using the CLI.</app-alert>
           </div>
         `,
       },
       {
         title: 'Destructive',
-        code: `<zee-alert variant="destructive" alertTitle="Error">
+        code: `<app-alert variant="destructive" alertTitle="Error">
   Your session has expired. Please log in again.
-</zee-alert>`,
+</app-alert>`,
         preview: html`
           <div class="w-full max-w-lg">
-            <zee-alert variant="destructive" alertTitle="Error">Your session has expired. Please log in again.</zee-alert>
+            <app-alert variant="destructive" alertTitle="Error">Your session has expired. Please log in again.</app-alert>
           </div>
         `,
       },
@@ -407,18 +407,18 @@ export default defineConfig({
     return this._componentPage('Toggle', 'A switch control for toggling between two states.', [
       {
         title: 'Default',
-        code: `<zee-toggle label="Airplane Mode"></zee-toggle>`,
-        preview: html`<zee-toggle label="Airplane Mode"></zee-toggle>`,
+        code: `<app-toggle label="Airplane Mode"></app-toggle>`,
+        preview: html`<app-toggle label="Airplane Mode"></app-toggle>`,
       },
       {
         title: 'Checked',
-        code: `<zee-toggle label="Wi-Fi" checked></zee-toggle>`,
-        preview: html`<zee-toggle label="Wi-Fi" checked></zee-toggle>`,
+        code: `<app-toggle label="Wi-Fi" checked></app-toggle>`,
+        preview: html`<app-toggle label="Wi-Fi" checked></app-toggle>`,
       },
       {
         title: 'Disabled',
-        code: `<zee-toggle label="Bluetooth" disabled></zee-toggle>`,
-        preview: html`<zee-toggle label="Bluetooth" disabled></zee-toggle>`,
+        code: `<app-toggle label="Bluetooth" disabled></app-toggle>`,
+        preview: html`<app-toggle label="Bluetooth" disabled></app-toggle>`,
       },
     ]);
   }
@@ -427,18 +427,18 @@ export default defineConfig({
     return this._componentPage('Tabs', 'A set of layered sections of content, shown one at a time.', [
       {
         title: 'Default',
-        code: `<zee-tabs .tabs=\${[
+        code: `<app-tabs .tabs=\${[
   { id: 'account', label: 'Account' },
   { id: 'password', label: 'Password' },
 ]}>
   <div slot="account">Make changes to your account.</div>
   <div slot="password">Change your password here.</div>
-</zee-tabs>`,
+</app-tabs>`,
         preview: html`
-          <zee-tabs .tabs=${[{ id: 'account', label: 'Account' }, { id: 'password', label: 'Password' }]}>
+          <app-tabs .tabs=${[{ id: 'account', label: 'Account' }, { id: 'password', label: 'Password' }]}>
             <div slot="account" class="text-sm text-zinc-400">Make changes to your account here.</div>
             <div slot="password" class="text-sm text-zinc-400">Change your password here.</div>
-          </zee-tabs>
+          </app-tabs>
         `,
       },
     ]);
@@ -448,25 +448,25 @@ export default defineConfig({
     return this._componentPage('Dialog', 'A modal dialog that interrupts the user with important content.', [
       {
         title: 'Default',
-        code: `<zee-button @click=\${() => dialog.show()}>Open Dialog</zee-button>
+        code: `<app-button @click=\${() => dialog.show()}>Open Dialog</app-button>
 
-<zee-dialog id="dialog"
+<app-dialog id="dialog"
   dialogTitle="Are you sure?"
   description="This action cannot be undone.">
   <div class="flex justify-end gap-3 mt-4">
-    <zee-button variant="outline" @click=\${() => dialog.close()}>Cancel</zee-button>
-    <zee-button variant="destructive">Continue</zee-button>
+    <app-button variant="outline" @click=\${() => dialog.close()}>Cancel</app-button>
+    <app-button variant="destructive">Continue</app-button>
   </div>
-</zee-dialog>`,
+</app-dialog>`,
         preview: html`
           <div>
-            <zee-button @click=${(e) => { e.target.closest('div').querySelector('zee-dialog').show(); }}>Open Dialog</zee-button>
-            <zee-dialog dialogTitle="Are you sure?" description="This action cannot be undone. This will permanently delete your account and remove your data from our servers.">
+            <app-button @click=${(e) => { e.target.closest('div').querySelector('app-dialog').show(); }}>Open Dialog</app-button>
+            <app-dialog dialogTitle="Are you sure?" description="This action cannot be undone. This will permanently delete your account and remove your data from our servers.">
               <div class="flex justify-end gap-3 mt-4">
-                <zee-button variant="outline" @click=${(e) => { e.target.closest('zee-dialog').close(); }}>Cancel</zee-button>
-                <zee-button variant="destructive" @click=${(e) => { e.target.closest('zee-dialog').close(); }}>Continue</zee-button>
+                <app-button variant="outline" @click=${(e) => { e.target.closest('app-dialog').close(); }}>Cancel</app-button>
+                <app-button variant="destructive" @click=${(e) => { e.target.closest('app-dialog').close(); }}>Continue</app-button>
               </div>
-            </zee-dialog>
+            </app-dialog>
           </div>
         `,
       },
@@ -477,19 +477,19 @@ export default defineConfig({
     return this._componentPage('Separator', 'Visually or semantically separates content.', [
       {
         title: 'Default',
-        code: `<zee-separator></zee-separator>`,
+        code: `<app-separator></app-separator>`,
         preview: html`
           <div class="w-full max-w-sm space-y-4">
             <div>
-              <h4 class="text-sm font-medium">ZeeLit Components</h4>
+              <h4 class="text-sm font-medium">AppLit Components</h4>
               <p class="text-sm text-zinc-400">An open-source component library.</p>
             </div>
-            <zee-separator></zee-separator>
+            <app-separator></app-separator>
             <div class="flex h-5 items-center gap-4 text-sm">
               <span>Docs</span>
-              <zee-separator orientation="vertical"></zee-separator>
+              <app-separator orientation="vertical"></app-separator>
               <span>Source</span>
-              <zee-separator orientation="vertical"></zee-separator>
+              <app-separator orientation="vertical"></app-separator>
               <span>Blog</span>
             </div>
           </div>
@@ -502,15 +502,15 @@ export default defineConfig({
     return this._componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
       {
         title: 'Default',
-        code: `<zee-skeleton width="250px" height="1rem"></zee-skeleton>
-<zee-skeleton width="200px" height="1rem"></zee-skeleton>
-<zee-skeleton width="48px" height="48px" rounded="rounded-full"></zee-skeleton>`,
+        code: `<app-skeleton width="250px" height="1rem"></app-skeleton>
+<app-skeleton width="200px" height="1rem"></app-skeleton>
+<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>`,
         preview: html`
           <div class="flex items-center gap-4">
-            <zee-skeleton width="48px" height="48px" rounded="rounded-full"></zee-skeleton>
+            <app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
             <div class="space-y-2">
-              <zee-skeleton width="250px" height="1rem"></zee-skeleton>
-              <zee-skeleton width="200px" height="0.75rem"></zee-skeleton>
+              <app-skeleton width="250px" height="1rem"></app-skeleton>
+              <app-skeleton width="200px" height="0.75rem"></app-skeleton>
             </div>
           </div>
         `,
@@ -519,4 +519,4 @@ export default defineConfig({
   }
 }
 
-customElements.define('zee-showcase', ZeeShowcase);
+customElements.define('app-showcase', AppShowcase);

@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeBadge extends LitElement {
+export class AppBadge extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -28,4 +28,4 @@ export class ZeeBadge extends LitElement {
   }
 }
 
-customElements.define('zee-badge', ZeeBadge);
+customElements.define('app-badge', AppBadge);

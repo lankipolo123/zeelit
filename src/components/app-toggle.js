@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-export class ZeeToggle extends LitElement {
+export class AppToggle extends LitElement {
   createRenderRoot() { return this; }
 
   static properties = {
@@ -19,7 +19,7 @@ export class ZeeToggle extends LitElement {
   _toggle() {
     if (this.disabled) return;
     this.checked = !this.checked;
-    this.dispatchEvent(new CustomEvent('zee-change', {
+    this.dispatchEvent(new CustomEvent('app-change', {
       detail: { checked: this.checked },
       bubbles: true, composed: true,
     }));
@@ -43,4 +43,4 @@ export class ZeeToggle extends LitElement {
   }
 }
 
-customElements.define('zee-toggle', ZeeToggle);
+customElements.define('app-toggle', AppToggle);
