@@ -9,6 +9,7 @@ import './components/app-tabs.js';
 import './components/app-dialog.js';
 import './components/app-separator.js';
 import './components/app-skeleton.js';
+import './components/app-toast.js';
 
 // Showcase app
 import './showcase/app-showcase.js';

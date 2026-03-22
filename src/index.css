@@ -23,3 +23,9 @@
 .code-block .comment { color: #52525b; font-style: italic; }
 .code-block .punct { color: #71717a; }
 .code-block .num { color: #fb923c; }
+
+/* Toast slide-in animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

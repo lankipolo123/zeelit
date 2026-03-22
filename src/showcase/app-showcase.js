@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { highlightCode } from './code-highlight.js';
 import { COMPONENTS, CATEGORIES } from './component-data.js';
+import { toast } from '../components/app-toast.js';
 
 // Pages
 import { homePage } from '../pages/home-page.js';
@@ -16,6 +17,7 @@ import { tabsPage } from '../pages/tabs-page.js';
 import { dialogPage } from '../pages/dialog-page.js';
 import { separatorPage } from '../pages/separator-page.js';
 import { skeletonPage } from '../pages/skeleton-page.js';
+import { toastPage } from '../pages/toast-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -30,6 +32,7 @@ const PAGE_MAP = {
   dialog: dialogPage,
   separator: separatorPage,
   skeleton: skeletonPage,
+  toast: toastPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -74,6 +77,7 @@ export class AppShowcase extends LitElement {
 
   _copyCode(code) {
     navigator.clipboard.writeText(code);
+    toast('Copied to clipboard', { variant: 'success' });
   }
 
   /* ─── Preview + Code block ─── */
@@ -138,7 +142,7 @@ export class AppShowcase extends LitElement {
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path stroke-width="2" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                 Copy
               </button>
-              <button @click="${() => this._setView(key, expanded ? '' : 'open')}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
+              <button @click="${() => { this._setView(key, expanded ? '' : 'open'); toast(expanded ? 'Source collapsed' : 'Source expanded'); }}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
                 ${expanded ? 'Collapse' : 'Expand'}
               </button>
             </div>

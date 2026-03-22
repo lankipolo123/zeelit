@@ -8,6 +8,7 @@ export const COMPONENTS = [
   { id: 'alert', label: 'Alert', category: 'Feedback' },
   { id: 'skeleton', label: 'Skeleton', category: 'Feedback' },
   { id: 'tabs', label: 'Tabs', category: 'Navigation' },
+  { id: 'toast', label: 'Toast', category: 'Feedback' },
   { id: 'dialog', label: 'Dialog', category: 'Overlay' },
 ];
 
