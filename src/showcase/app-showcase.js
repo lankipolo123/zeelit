@@ -57,7 +57,6 @@ export class AppShowcase extends LitElement {
   static properties = {
     activePage: { type: String },
     sidebarOpen: { type: Boolean },
-    sidebarCollapsed: { type: Boolean },
     _codeVisible: { state: true },
     _copied: { state: true },
     _dark: { state: true },
@@ -67,7 +66,6 @@ export class AppShowcase extends LitElement {
     super();
     this.activePage = this._getPageFromHash() || 'home';
     this.sidebarOpen = false;
-    this.sidebarCollapsed = localStorage.getItem('zeelit-sidebar') === 'collapsed';
     this._codeVisible = {};
     this._copied = {};
     this._dark = localStorage.getItem('zeelit-theme') !== 'light';
@@ -87,11 +85,6 @@ export class AppShowcase extends LitElement {
     this._dark = !this._dark;
     this._applyTheme();
     toast(this._dark ? 'Dark mode' : 'Light mode');
-  }
-
-  _toggleSidebar() {
-    this.sidebarCollapsed = !this.sidebarCollapsed;
-    localStorage.setItem('zeelit-sidebar', this.sidebarCollapsed ? 'collapsed' : 'expanded');
   }
 
   _getPageFromHash() {
@@ -296,43 +289,6 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  _sidebarCollapseToggle() {
-    return html`
-      <button @click="${() => this._toggleSidebar()}"
-        class="flex items-center justify-center gap-2 w-full py-2 cursor-pointer transition-colors hidden md:flex"
-        style="border-bottom: 1px solid var(--border); color: var(--fg-subtle); background: var(--bg-card)"
-        title="${this.sidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'}"
-      >
-        ${this.sidebarCollapsed ? html`
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-        ` : html`
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-        `}
-        <span class="text-[11px] font-medium uppercase tracking-wider">${this.sidebarCollapsed ? 'Show nav' : 'Hide nav'}</span>
-      </button>
-    `;
-  }
-
-  _sidebarNav() {
-    const sideLink = (page, label) => {
-      const active = this.activePage === page;
-      return html`
-        <a @click="${() => this.navigate(page)}" class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors"
-          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; background: ${active ? 'var(--bg-hover)' : 'transparent'}; font-weight: ${active ? '500' : 'normal'}"
-        >${label}</a>
-      `;
-    };
-
-    return html`
-      <nav class="p-3 space-y-4 overflow-y-auto">
-        <div class="space-y-0.5">
-          <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">Getting Started</h4>
-          ${sideLink('home', 'Introduction')}
-          ${sideLink('installation', 'Installation')}
-        </div>
-      </nav>
-    `;
-  }
 
   /* ─── Layout ─── */
 
@@ -350,10 +306,6 @@ export class AppShowcase extends LitElement {
           </div>
           <!-- Component grid -->
           ${this._sidebarComponentGrid()}
-          <!-- Collapse toggle -->
-          ${this._sidebarCollapseToggle()}
-          <!-- Nav (collapsible) -->
-          ${!this.sidebarCollapsed ? this._sidebarNav() : ''}
         </aside>
 
         <!-- Mobile sidebar overlay -->
@@ -373,7 +325,6 @@ export class AppShowcase extends LitElement {
                 </button>
               </div>
               ${this._sidebarComponentGrid()}
-              ${this._sidebarNav()}
             </aside>
           </div>
         ` : ''}
