@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 // Components
 import './components/app-button.js';
@@ -106,19 +107,11 @@ class AppShowcase extends LitElement {
           ` : ''}
         </div>
         ${showCode
-          ? html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${this._renderHighlighted(code)}</div>`
+          ? html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(code))}</div>`
           : html`<div class="p-8 flex items-center justify-center min-h-[180px] bg-zinc-950/50">${preview}</div>`
         }
       </div>
     `;
-  }
-
-  _renderHighlighted(code) {
-    const el = document.createElement('div');
-    el.innerHTML = highlightCode(code);
-    const frag = document.createDocumentFragment();
-    while (el.firstChild) frag.appendChild(el.firstChild);
-    return frag;
   }
 
   /* ─── Header ─── */
