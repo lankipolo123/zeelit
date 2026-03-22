@@ -26,6 +26,7 @@ export class AppTabs extends LitElement {
       detail: { tab: id },
       bubbles: true, composed: true,
     }));
+    this.requestUpdate();
   }
 
   render() {
@@ -42,7 +43,11 @@ export class AppTabs extends LitElement {
           `)}
         </div>
         <div class="mt-4">
-          <slot name="${this.activeTab}"></slot>
+          ${this.tabs.map(tab => html`
+            <div class="${this.activeTab === tab.id ? '' : 'hidden'}">
+              ${tab.content || ''}
+            </div>
+          `)}
         </div>
       </div>
     `;

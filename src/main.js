@@ -11,22 +11,35 @@ import './components/app-tabs.js';
 import './components/app-dialog.js';
 import './components/app-separator.js';
 import './components/app-skeleton.js';
-import './components/app-code-preview.js';
 
 const COMPONENTS = [
   { id: 'button', label: 'Button', category: 'Actions' },
   { id: 'input', label: 'Input', category: 'Forms' },
+  { id: 'toggle', label: 'Toggle', category: 'Forms' },
   { id: 'card', label: 'Card', category: 'Layout' },
+  { id: 'separator', label: 'Separator', category: 'Layout' },
   { id: 'badge', label: 'Badge', category: 'Data Display' },
   { id: 'alert', label: 'Alert', category: 'Feedback' },
-  { id: 'toggle', label: 'Toggle', category: 'Forms' },
+  { id: 'skeleton', label: 'Skeleton', category: 'Feedback' },
   { id: 'tabs', label: 'Tabs', category: 'Navigation' },
   { id: 'dialog', label: 'Dialog', category: 'Overlay' },
-  { id: 'separator', label: 'Separator', category: 'Layout' },
-  { id: 'skeleton', label: 'Skeleton', category: 'Feedback' },
 ];
 
 const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function highlightCode(code) {
+  return escapeHtml(code)
+    .replace(/(\/\/.*)/g, '<span class="comment">$1</span>')
+    .replace(/(["'])((?:(?!\1).)*?)\1/g, '<span class="str">$1$2$1</span>')
+    .replace(/\b(import|export|from|class|extends|const|let|var|return|if|else|new|this|static|get|set|constructor|super|function)\b/g, '<span class="kw">$1</span>')
+    .replace(/(&lt;\/?)(app-[\w-]+|div|span|button|input|label|h[1-6]|p|nav|header|section|svg|path|circle|line)/g, '<span class="tag">$1$2</span>')
+    .replace(/\s(class|type|placeholder|variant|size|disabled|checked|label|role|aria-[\w]+|style|alertTitle|cardTitle|description|orientation|width|height|rounded|open|dialogTitle)=/g, ' <span class="attr">$1</span>=')
+    .replace(/\b(\d+)\b/g, '<span class="num">$1</span>');
+}
 
 class AppShowcase extends LitElement {
   createRenderRoot() { return this; }
@@ -34,14 +47,17 @@ class AppShowcase extends LitElement {
   static properties = {
     activePage: { type: String },
     sidebarOpen: { type: Boolean },
+    _codeVisible: { state: true },
   };
 
   constructor() {
     super();
     this.activePage = this._getPageFromHash() || 'home';
     this.sidebarOpen = false;
+    this._codeVisible = {};
     window.addEventListener('hashchange', () => {
       this.activePage = this._getPageFromHash() || 'home';
+      this._codeVisible = {};
     });
   }
 
@@ -53,85 +69,169 @@ class AppShowcase extends LitElement {
     window.location.hash = `#/${page}`;
     this.activePage = page;
     this.sidebarOpen = false;
+    this._codeVisible = {};
+    window.scrollTo(0, 0);
   }
 
-  _renderSidebar() {
+  _toggleCode(key) {
+    this._codeVisible = { ...this._codeVisible, [key]: !this._codeVisible[key] };
+  }
+
+  _copyCode(code) {
+    navigator.clipboard.writeText(code);
+  }
+
+  /* ─── Preview + Code block ─── */
+
+  _renderDemo(key, preview, code) {
+    const showCode = this._codeVisible[key];
     return html`
-      <aside class="w-64 shrink-0 border-r border-zinc-800 bg-zinc-950 overflow-y-auto h-screen sticky top-0 hidden md:block">
-        ${this._sidebarContent()}
-      </aside>
+      <div class="rounded-lg border border-zinc-800 overflow-hidden">
+        <div class="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/50 px-4">
+          <div class="flex">
+            <button
+              @click="${() => this._toggleCode(key)}"
+              class="px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${!showCode ? 'text-zinc-100 border-b-2 border-white' : 'text-zinc-500 hover:text-zinc-300'}"
+            >Preview</button>
+            <button
+              @click="${() => this._toggleCode(key)}"
+              class="px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${showCode ? 'text-zinc-100 border-b-2 border-white' : 'text-zinc-500 hover:text-zinc-300'}"
+            >Code</button>
+          </div>
+          ${showCode ? html`
+            <button @click="${() => this._copyCode(code)}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path stroke-width="2" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+          ` : ''}
+        </div>
+        ${showCode
+          ? html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${this._renderHighlighted(code)}</div>`
+          : html`<div class="p-8 flex items-center justify-center min-h-[180px] bg-zinc-950/50">${preview}</div>`
+        }
+      </div>
     `;
   }
+
+  _renderHighlighted(code) {
+    const el = document.createElement('div');
+    el.innerHTML = highlightCode(code);
+    const frag = document.createDocumentFragment();
+    while (el.firstChild) frag.appendChild(el.firstChild);
+    return frag;
+  }
+
+  /* ─── Header ─── */
+
+  _renderHeader() {
+    const navItems = [
+      { id: 'home', label: 'Docs' },
+      { id: 'installation', label: 'Installation' },
+    ];
+    const isComponentPage = COMPONENTS.some(c => c.id === this.activePage);
+
+    return html`
+      <header class="sticky top-0 z-40 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
+        <div class="flex h-14 items-center px-4 md:px-6">
+          <!-- Mobile hamburger -->
+          <button @click="${() => this.sidebarOpen = true}" class="mr-3 text-zinc-400 hover:text-zinc-100 cursor-pointer md:hidden">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+
+          <!-- Logo -->
+          <a @click="${() => this._navigate('home')}" class="flex items-center gap-2 cursor-pointer mr-8">
+            <div class="h-7 w-7 rounded-md bg-white flex items-center justify-center">
+              <span class="text-zinc-900 font-bold text-xs">Z</span>
+            </div>
+            <span class="font-semibold tracking-tight hidden sm:block">ZeeLit</span>
+          </a>
+
+          <!-- Nav tabs -->
+          <nav class="flex items-center gap-1">
+            ${navItems.map(item => html`
+              <a
+                @click="${() => this._navigate(item.id)}"
+                class="px-3 py-1.5 text-sm rounded-md cursor-pointer transition-colors ${this.activePage === item.id ? 'text-zinc-100 bg-zinc-800' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'}"
+              >${item.label}</a>
+            `)}
+            <a
+              @click="${() => this._navigate('button')}"
+              class="px-3 py-1.5 text-sm rounded-md cursor-pointer transition-colors ${isComponentPage ? 'text-zinc-100 bg-zinc-800' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'}"
+            >Components</a>
+          </nav>
+        </div>
+      </header>
+    `;
+  }
+
+  /* ─── Sidebar ─── */
 
   _sidebarContent() {
     return html`
-      <div class="p-6">
-        <a @click="${() => this._navigate('home')}" class="flex items-center gap-2 cursor-pointer mb-8">
-          <div class="h-7 w-7 rounded-md bg-white flex items-center justify-center">
-            <span class="text-zinc-900 font-bold text-sm">Z</span>
-          </div>
-          <span class="font-semibold text-lg">AppLit</span>
-        </a>
+      <nav class="p-4 space-y-5">
+        <div class="space-y-0.5">
+          <h4 class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-1.5 px-2">Getting Started</h4>
+          <a
+            @click="${() => this._navigate('home')}"
+            class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors ${this.activePage === 'home' ? 'text-zinc-100 font-medium bg-zinc-800/50' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/30'}"
+          >Introduction</a>
+          <a
+            @click="${() => this._navigate('installation')}"
+            class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors ${this.activePage === 'installation' ? 'text-zinc-100 font-medium bg-zinc-800/50' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/30'}"
+          >Installation</a>
+        </div>
 
-        <nav class="space-y-6">
+        ${CATEGORIES.map(cat => html`
           <div>
-            <a
-              @click="${() => this._navigate('home')}"
-              class="block text-sm py-1 cursor-pointer transition-colors ${this.activePage === 'home' ? 'text-zinc-100 font-medium' : 'text-zinc-400 hover:text-zinc-200'}"
-            >Introduction</a>
-            <a
-              @click="${() => this._navigate('installation')}"
-              class="block text-sm py-1 cursor-pointer transition-colors ${this.activePage === 'installation' ? 'text-zinc-100 font-medium' : 'text-zinc-400 hover:text-zinc-200'}"
-            >Installation</a>
-          </div>
-
-          ${CATEGORIES.map(cat => html`
-            <div>
-              <h4 class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">${cat}</h4>
+            <h4 class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-1.5 px-2">${cat}</h4>
+            <div class="space-y-0.5">
               ${COMPONENTS.filter(c => c.category === cat).map(comp => html`
                 <a
                   @click="${() => this._navigate(comp.id)}"
-                  class="block text-sm py-1 cursor-pointer transition-colors ${this.activePage === comp.id ? 'text-zinc-100 font-medium' : 'text-zinc-400 hover:text-zinc-200'}"
+                  class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors ${this.activePage === comp.id ? 'text-zinc-100 font-medium bg-zinc-800/50' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/30'}"
                 >${comp.label}</a>
               `)}
             </div>
-          `)}
-        </nav>
-      </div>
-    `;
-  }
-
-  _renderMobileSidebar() {
-    if (!this.sidebarOpen) return html``;
-    return html`
-      <div class="fixed inset-0 z-50 md:hidden">
-        <div class="fixed inset-0 bg-black/60" @click="${() => this.sidebarOpen = false}"></div>
-        <div class="fixed inset-y-0 left-0 w-72 bg-zinc-950 border-r border-zinc-800 overflow-y-auto">
-          ${this._sidebarContent()}
-        </div>
-      </div>
+          </div>
+        `)}
+      </nav>
     `;
   }
 
   render() {
     return html`
-      <div class="flex min-h-screen">
-        ${this._renderSidebar()}
-        ${this._renderMobileSidebar()}
+      <div class="flex flex-col h-screen">
+        ${this._renderHeader()}
 
-        <main class="flex-1 min-w-0">
-          <!-- Mobile header -->
-          <div class="md:hidden flex items-center gap-3 p-4 border-b border-zinc-800">
-            <button @click="${() => this.sidebarOpen = true}" class="text-zinc-400 hover:text-zinc-100 cursor-pointer">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
-            <span class="font-semibold">AppLit</span>
-          </div>
+        <div class="flex flex-1 overflow-hidden">
+          <!-- Desktop sidebar - scrolls independently -->
+          <aside class="w-56 shrink-0 border-r border-zinc-800 bg-zinc-950 overflow-y-auto hidden md:block">
+            ${this._sidebarContent()}
+          </aside>
 
-          <div class="max-w-4xl mx-auto px-6 py-12">
-            ${this._renderPage()}
-          </div>
-        </main>
+          <!-- Mobile sidebar overlay -->
+          ${this.sidebarOpen ? html`
+            <div class="fixed inset-0 z-50 md:hidden">
+              <div class="fixed inset-0 bg-black/60" @click="${() => this.sidebarOpen = false}"></div>
+              <aside class="fixed inset-y-0 left-0 w-72 bg-zinc-950 border-r border-zinc-800 overflow-y-auto">
+                <div class="flex items-center gap-2 p-4 border-b border-zinc-800">
+                  <div class="h-7 w-7 rounded-md bg-white flex items-center justify-center">
+                    <span class="text-zinc-900 font-bold text-xs">Z</span>
+                  </div>
+                  <span class="font-semibold tracking-tight">ZeeLit</span>
+                </div>
+                ${this._sidebarContent()}
+              </aside>
+            </div>
+          ` : ''}
+
+          <!-- Main content - scrolls independently -->
+          <main class="flex-1 overflow-y-auto">
+            <div class="max-w-3xl mx-auto px-6 py-10 lg:py-14">
+              ${this._renderPage()}
+            </div>
+          </main>
+        </div>
       </div>
     `;
   }
@@ -160,29 +260,29 @@ class AppShowcase extends LitElement {
     return html`
       <div class="space-y-6">
         <div>
-          <h1 class="text-4xl font-bold tracking-tight">AppLit</h1>
+          <h1 class="text-4xl font-bold tracking-tight">ZeeLit</h1>
           <p class="mt-2 text-lg text-zinc-400">Beautifully crafted Lit web components. Styled with Tailwind CSS. Open source.</p>
         </div>
         <div class="h-px bg-zinc-800"></div>
         <div class="space-y-4 text-zinc-300 text-[15px] leading-relaxed">
-          <p>AppLit is a collection of reusable web components built with <strong class="text-zinc-100">Lit</strong> and styled with <strong class="text-zinc-100">Tailwind CSS</strong>. Inspired by <strong class="text-zinc-100">shadcn/ui</strong>, these are not installed from npm — you copy the component source directly into your project and own the code.</p>
+          <p>ZeeLit is a collection of reusable web components built with <strong class="text-zinc-100">Lit</strong> and styled with <strong class="text-zinc-100">Tailwind CSS</strong>. Inspired by <strong class="text-zinc-100">shadcn/ui</strong>, these are not installed from npm — you copy the component source directly into your project and own the code.</p>
           <p>Every component is a standard Web Component. Use them in any framework or vanilla HTML — no React, no Vue required.</p>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4 pt-4">
-          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-600 transition-colors">
             <h3 class="font-semibold mb-2">Web Standards</h3>
             <p class="text-sm text-zinc-400">Built on standard Web Components. Works everywhere — any framework or no framework at all.</p>
           </div>
-          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-600 transition-colors">
             <h3 class="font-semibold mb-2">Copy & Paste</h3>
             <p class="text-sm text-zinc-400">Each component is a single file. Copy the source, drop it in your project, customize freely.</p>
           </div>
-          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-600 transition-colors">
             <h3 class="font-semibold mb-2">Tailwind CSS</h3>
             <p class="text-sm text-zinc-400">Styled with utility classes. Customize colors, spacing, and sizing through Tailwind.</p>
           </div>
-          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <div class="rounded-lg border border-zinc-800 p-6 hover:border-zinc-600 transition-colors">
             <h3 class="font-semibold mb-2">Accessible</h3>
             <p class="text-sm text-zinc-400">Components follow WAI-ARIA patterns with proper roles, states, and keyboard interactions.</p>
           </div>
@@ -200,7 +300,7 @@ class AppShowcase extends LitElement {
       <div class="space-y-6">
         <div>
           <h1 class="text-3xl font-bold tracking-tight">Installation</h1>
-          <p class="mt-2 text-zinc-400">How to set up AppLit in your project.</p>
+          <p class="mt-2 text-zinc-400">How to set up ZeeLit in your project.</p>
         </div>
         <div class="h-px bg-zinc-800"></div>
 
@@ -249,13 +349,11 @@ export default defineConfig({
           <p class="mt-2 text-zinc-400">${description}</p>
         </div>
         <div class="h-px bg-zinc-800"></div>
-        ${sections.map(s => html`
+        ${sections.map((s, i) => html`
           <div class="space-y-3">
             ${s.title ? html`<h2 class="text-xl font-semibold">${s.title}</h2>` : ''}
             ${s.description ? html`<p class="text-sm text-zinc-400">${s.description}</p>` : ''}
-            <app-code-preview code="${s.code}">
-              ${s.preview}
-            </app-code-preview>
+            ${this._renderDemo(`${title}-${i}`, s.preview, s.code)}
           </div>
         `)}
       </div>
@@ -428,17 +526,14 @@ export default defineConfig({
       {
         title: 'Default',
         code: `<app-tabs .tabs=\${[
-  { id: 'account', label: 'Account' },
-  { id: 'password', label: 'Password' },
-]}>
-  <div slot="account">Make changes to your account.</div>
-  <div slot="password">Change your password here.</div>
-</app-tabs>`,
+  { id: 'account', label: 'Account', content: html\`Make changes to your account.\` },
+  { id: 'password', label: 'Password', content: html\`Change your password here.\` },
+]}></app-tabs>`,
         preview: html`
-          <app-tabs .tabs=${[{ id: 'account', label: 'Account' }, { id: 'password', label: 'Password' }]}>
-            <div slot="account" class="text-sm text-zinc-400">Make changes to your account here.</div>
-            <div slot="password" class="text-sm text-zinc-400">Change your password here.</div>
-          </app-tabs>
+          <app-tabs .tabs=${[
+            { id: 'account', label: 'Account', content: html`<p class="text-sm text-zinc-400">Make changes to your account here.</p>` },
+            { id: 'password', label: 'Password', content: html`<p class="text-sm text-zinc-400">Change your password here.</p>` },
+          ]}></app-tabs>
         `,
       },
     ]);
@@ -460,11 +555,11 @@ export default defineConfig({
 </app-dialog>`,
         preview: html`
           <div>
-            <app-button @click=${(e) => { e.target.closest('div').querySelector('app-dialog').show(); }}>Open Dialog</app-button>
+            <app-button @click=${(e) => e.target.closest('div').querySelector('app-dialog').show()}>Open Dialog</app-button>
             <app-dialog dialogTitle="Are you sure?" description="This action cannot be undone. This will permanently delete your account and remove your data from our servers.">
               <div class="flex justify-end gap-3 mt-4">
-                <app-button variant="outline" @click=${(e) => { e.target.closest('app-dialog').close(); }}>Cancel</app-button>
-                <app-button variant="destructive" @click=${(e) => { e.target.closest('app-dialog').close(); }}>Continue</app-button>
+                <app-button variant="outline" @click=${(e) => e.target.closest('app-dialog').close()}>Cancel</app-button>
+                <app-button variant="destructive" @click=${(e) => e.target.closest('app-dialog').close()}>Continue</app-button>
               </div>
             </app-dialog>
           </div>
@@ -481,7 +576,7 @@ export default defineConfig({
         preview: html`
           <div class="w-full max-w-sm space-y-4">
             <div>
-              <h4 class="text-sm font-medium">AppLit Components</h4>
+              <h4 class="text-sm font-medium">ZeeLit Components</h4>
               <p class="text-sm text-zinc-400">An open-source component library.</p>
             </div>
             <app-separator></app-separator>
@@ -503,7 +598,7 @@ export default defineConfig({
       {
         title: 'Default',
         code: `<app-skeleton width="250px" height="1rem"></app-skeleton>
-<app-skeleton width="200px" height="1rem"></app-skeleton>
+<app-skeleton width="200px" height="0.75rem"></app-skeleton>
 <app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>`,
         preview: html`
           <div class="flex items-center gap-4">
