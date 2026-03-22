@@ -338,37 +338,52 @@ export class AppShowcase extends LitElement {
 
   render() {
     return html`
-      <div class="flex flex-col h-screen" style="background: var(--bg); color: var(--fg)">
-        ${this._renderHeader()}
-
-        <div class="flex flex-1 overflow-hidden">
-          <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
-            ${this._sidebarComponentGrid()}
-            ${this._sidebarCollapseToggle()}
-            ${!this.sidebarCollapsed ? this._sidebarNav() : ''}
-          </aside>
-
-          ${this.sidebarOpen ? html`
-            <div class="fixed inset-0 z-50 md:hidden">
-              <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => this.sidebarOpen = false}"></div>
-              <aside class="fixed inset-y-0 left-0 w-72 overflow-y-auto flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
-                <div class="flex items-center justify-between p-4" style="border-bottom: 1px solid var(--border)">
-                  <div class="flex items-center gap-2">
-                    <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                      <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
-                    </div>
-                    <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
-                  </div>
-                  <button @click="${() => this.sidebarOpen = false}" class="p-1 rounded cursor-pointer" style="color: var(--fg-subtle)">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                  </button>
-                </div>
-                ${this._sidebarComponentGrid()}
-                ${this._sidebarNav()}
-              </aside>
+      <div class="flex h-screen" style="background: var(--bg); color: var(--fg)">
+        <!-- 1: Sidebar — full height left -->
+        <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
+          <!-- Sidebar branding -->
+          <div class="flex items-center gap-2 px-4 py-4" style="border-bottom: 1px solid var(--border)">
+            <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+              <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
             </div>
-          ` : ''}
+            <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
+          </div>
+          <!-- Component grid -->
+          ${this._sidebarComponentGrid()}
+          <!-- Collapse toggle -->
+          ${this._sidebarCollapseToggle()}
+          <!-- Nav (collapsible) -->
+          ${!this.sidebarCollapsed ? this._sidebarNav() : ''}
+        </aside>
 
+        <!-- Mobile sidebar overlay -->
+        ${this.sidebarOpen ? html`
+          <div class="fixed inset-0 z-50 md:hidden">
+            <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => this.sidebarOpen = false}"></div>
+            <aside class="fixed inset-y-0 left-0 w-72 overflow-y-auto flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
+              <div class="flex items-center justify-between p-4" style="border-bottom: 1px solid var(--border)">
+                <div class="flex items-center gap-2">
+                  <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                    <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+                  </div>
+                  <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
+                </div>
+                <button @click="${() => this.sidebarOpen = false}" class="p-1 rounded cursor-pointer" style="color: var(--fg-subtle)">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+              ${this._sidebarComponentGrid()}
+              ${this._sidebarNav()}
+            </aside>
+          </div>
+        ` : ''}
+
+        <!-- Right side: 2 (header) + 3 (content) -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+          <!-- 2: Header — only spans right side -->
+          ${this._renderHeader()}
+
+          <!-- 3: Page content -->
           <main class="flex-1 overflow-y-auto">
             <div class="max-w-3xl mx-auto px-6 py-10 lg:py-14">
               ${this._renderPage()}
