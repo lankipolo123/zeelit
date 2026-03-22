@@ -359,8 +359,8 @@ export default defineConfig({
     return this._componentPage('Button', 'Displays a button or a component that looks like a button.', [
       {
         title: 'Default',
-        code: `<app-button>Button</app-button>`,
-        preview: html`<app-button>Button</app-button>`,
+        code: `<app-button variant="default">Default</app-button>`,
+        preview: html`<app-button variant="default">Default</app-button>`,
       },
       {
         title: 'Variants',
@@ -397,8 +397,8 @@ export default defineConfig({
       },
       {
         title: 'Disabled',
-        code: `<app-button disabled>Disabled</app-button>`,
-        preview: html`<app-button disabled>Disabled</app-button>`,
+        code: `<app-button disabled>Can't click me</app-button>`,
+        preview: html`<app-button disabled>Can't click me</app-button>`,
       },
     ]);
   }
@@ -407,8 +407,8 @@ export default defineConfig({
     return this._componentPage('Input', 'Displays a form input field.', [
       {
         title: 'Default',
-        code: `<app-input placeholder="Enter your email"></app-input>`,
-        preview: html`<div class="w-80"><app-input placeholder="Enter your email"></app-input></div>`,
+        code: `<app-input placeholder="Enter your email" type="email"></app-input>`,
+        preview: html`<div class="w-80"><app-input placeholder="Enter your email" type="email"></app-input></div>`,
       },
       {
         title: 'With Label',
@@ -416,9 +416,14 @@ export default defineConfig({
         preview: html`<div class="w-80"><app-input label="Email" placeholder="name@example.com" type="email"></app-input></div>`,
       },
       {
+        title: 'Password',
+        code: `<app-input label="Password" placeholder="Enter password" type="password"></app-input>`,
+        preview: html`<div class="w-80"><app-input label="Password" placeholder="Enter password" type="password"></app-input></div>`,
+      },
+      {
         title: 'Disabled',
-        code: `<app-input label="Username" placeholder="john_doe" disabled></app-input>`,
-        preview: html`<div class="w-80"><app-input label="Username" placeholder="john_doe" disabled></app-input></div>`,
+        code: `<app-input label="Username" value="john_doe" disabled></app-input>`,
+        preview: html`<div class="w-80"><app-input label="Username" value="john_doe" disabled></app-input></div>`,
       },
     ]);
   }
@@ -426,20 +431,35 @@ export default defineConfig({
   _cardPage() {
     return this._componentPage('Card', 'Displays a card with header, content, and footer.', [
       {
-        title: 'Default',
+        title: 'With Form',
         code: `<app-card cardTitle="Create project" description="Deploy your new project in one-click.">
-  <app-input label="Name" placeholder="Name of your project"></app-input>
-  <div class="mt-4">
-    <app-button>Create</app-button>
+  <app-input label="Project name" placeholder="my-awesome-app"></app-input>
+  <div class="mt-4 flex gap-2">
+    <app-button variant="default">Create</app-button>
+    <app-button variant="outline">Cancel</app-button>
   </div>
 </app-card>`,
         preview: html`
           <div class="w-96">
             <app-card cardTitle="Create project" description="Deploy your new project in one-click.">
-              <app-input label="Name" placeholder="Name of your project"></app-input>
-              <div class="mt-4">
-                <app-button>Create</app-button>
+              <app-input label="Project name" placeholder="my-awesome-app"></app-input>
+              <div class="mt-4 flex gap-2">
+                <app-button variant="default">Create</app-button>
+                <app-button variant="outline">Cancel</app-button>
               </div>
+            </app-card>
+          </div>
+        `,
+      },
+      {
+        title: 'Simple',
+        code: `<app-card cardTitle="Notifications" description="You have 3 unread messages.">
+  <p>Check your inbox for the latest updates.</p>
+</app-card>`,
+        preview: html`
+          <div class="w-96">
+            <app-card cardTitle="Notifications" description="You have 3 unread messages.">
+              <p class="text-sm text-zinc-400">Check your inbox for the latest updates.</p>
             </app-card>
           </div>
         `,
@@ -491,18 +511,29 @@ export default defineConfig({
           </div>
         `,
       },
+      {
+        title: 'Info',
+        code: `<app-alert alertTitle="New update available">
+  Version 2.0 is now available with new components.
+</app-alert>`,
+        preview: html`
+          <div class="w-full max-w-lg">
+            <app-alert alertTitle="New update available">Version 2.0 is now available with new components.</app-alert>
+          </div>
+        `,
+      },
     ]);
   }
 
   _togglePage() {
     return this._componentPage('Toggle', 'A switch control for toggling between two states.', [
       {
-        title: 'Default',
+        title: 'Default (Off)',
         code: `<app-toggle label="Airplane Mode"></app-toggle>`,
         preview: html`<app-toggle label="Airplane Mode"></app-toggle>`,
       },
       {
-        title: 'Checked',
+        title: 'Checked (On)',
         code: `<app-toggle label="Wi-Fi" checked></app-toggle>`,
         preview: html`<app-toggle label="Wi-Fi" checked></app-toggle>`,
       },
@@ -589,10 +620,14 @@ export default defineConfig({
   _skeletonPage() {
     return this._componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
       {
-        title: 'Default',
-        code: `<app-skeleton width="250px" height="1rem"></app-skeleton>
-<app-skeleton width="200px" height="0.75rem"></app-skeleton>
-<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>`,
+        title: 'User Profile',
+        description: 'Simulates a loading user profile with avatar and text lines.',
+        code: `<!-- Avatar -->
+<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
+
+<!-- Text lines -->
+<app-skeleton width="250px" height="1rem"></app-skeleton>
+<app-skeleton width="200px" height="0.75rem"></app-skeleton>`,
         preview: html`
           <div class="flex items-center gap-4">
             <app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
@@ -600,6 +635,22 @@ export default defineConfig({
               <app-skeleton width="250px" height="1rem"></app-skeleton>
               <app-skeleton width="200px" height="0.75rem"></app-skeleton>
             </div>
+          </div>
+        `,
+      },
+      {
+        title: 'Card Placeholder',
+        description: 'Simulates a loading card layout.',
+        code: `<app-skeleton width="100%" height="150px" rounded="rounded-lg"></app-skeleton>
+<app-skeleton width="60%" height="1.25rem"></app-skeleton>
+<app-skeleton width="100%" height="0.75rem"></app-skeleton>
+<app-skeleton width="80%" height="0.75rem"></app-skeleton>`,
+        preview: html`
+          <div class="w-72 space-y-3">
+            <app-skeleton width="100%" height="150px" rounded="rounded-lg"></app-skeleton>
+            <app-skeleton width="60%" height="1.25rem"></app-skeleton>
+            <app-skeleton width="100%" height="0.75rem"></app-skeleton>
+            <app-skeleton width="80%" height="0.75rem"></app-skeleton>
           </div>
         `,
       },
