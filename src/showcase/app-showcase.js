@@ -273,14 +273,14 @@ export class AppShowcase extends LitElement {
       const active = this.activePage === id;
       return html`
         <a @click="${() => this.navigate(id)}"
-          class="block px-3 py-1.5 text-[13px] cursor-pointer transition-colors"
-          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}"
+          class="px-2 py-1.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
+          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}; background: ${active ? 'var(--sidebar-active-bg, rgba(0,0,0,0.06))' : 'transparent'}"
         >${label}</a>
       `;
     };
 
     return html`
-      <nav class="py-2">
+      <nav class="p-3 grid grid-cols-3 gap-1.5">
         ${link('home', 'Introduction')}
         ${link('installation', 'Installation')}
         ${COMPONENTS.map(comp => link(comp.id, comp.label))}
