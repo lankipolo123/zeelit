@@ -15,8 +15,8 @@ export function tabsPage(ctx) {
 ]}></app-tabs>`,
       preview: html`
         <app-tabs .tabs=${[
-          { id: 'account', label: 'Account', content: html`<p class="text-sm text-zinc-400">Make changes to your account here.</p>` },
-          { id: 'password', label: 'Password', content: html`<p class="text-sm text-zinc-400">Change your password here.</p>` },
+          { id: 'account', label: 'Account', content: html`<p class="text-sm">Make changes to your account here.</p>` },
+          { id: 'password', label: 'Password', content: html`<p class="text-sm">Change your password here.</p>` },
         ]}></app-tabs>
       `,
     },

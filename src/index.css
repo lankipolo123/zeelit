@@ -1,16 +1,65 @@
 @import "tailwindcss";
 
-/* Code block styling */
+/* ─── Theme tokens ─── */
+:root {
+  --bg: #09090b;
+  --bg-card: #18181b;
+  --bg-muted: #27272a;
+  --bg-hover: rgb(39 39 42 / 0.5);
+  --bg-active: rgb(39 39 42 / 0.3);
+  --bg-header: rgb(9 9 11 / 0.8);
+  --bg-preview: rgb(9 9 11 / 0.5);
+  --fg: #f4f4f5;
+  --fg-heading: #f4f4f5;
+  --fg-muted: #a1a1aa;
+  --fg-subtle: #71717a;
+  --border: #27272a;
+  --logo-bg: #ffffff;
+  --logo-fg: #18181b;
+  --overlay: rgb(0 0 0 / 0.6);
+  --code-bg: #18181b;
+  --code-border: #27272a;
+  --code-fg: #e4e4e7;
+}
+
+:root.light {
+  --bg: #ffffff;
+  --bg-card: #f9fafb;
+  --bg-muted: #f3f4f6;
+  --bg-hover: rgb(243 244 246 / 0.7);
+  --bg-active: rgb(229 231 235 / 0.5);
+  --bg-header: rgb(255 255 255 / 0.85);
+  --bg-preview: #09090b;
+  --fg: #111827;
+  --fg-heading: #09090b;
+  --fg-muted: #6b7280;
+  --fg-subtle: #9ca3af;
+  --border: #e5e7eb;
+  --logo-bg: #18181b;
+  --logo-fg: #ffffff;
+  --overlay: rgb(0 0 0 / 0.3);
+  --code-bg: #1e1e2e;
+  --code-border: #313244;
+  --code-fg: #cdd6f4;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* ─── Code block styling ─── */
 .code-block {
-  background: #18181b;
-  border: 1px solid #27272a;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 0.5rem;
   padding: 1rem;
   overflow-x: auto;
   font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
   font-size: 0.8125rem;
   line-height: 1.7;
-  color: #e4e4e7;
+  color: var(--code-fg);
   white-space: pre;
   tab-size: 2;
 }

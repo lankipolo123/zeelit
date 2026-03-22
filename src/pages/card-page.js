@@ -36,7 +36,7 @@ export function cardPage(ctx) {
       preview: html`
         <div class="w-96">
           <app-card cardTitle="Notifications" description="You have 3 unread messages.">
-            <p class="text-sm text-zinc-400">Check your inbox for the latest updates.</p>
+            <p class="text-sm">Check your inbox for the latest updates.</p>
           </app-card>
         </div>
       `,

@@ -14,7 +14,7 @@ export function separatorPage(ctx) {
         <div class="w-full max-w-sm space-y-4">
           <div>
             <h4 class="text-sm font-medium">ZeeLit Components</h4>
-            <p class="text-sm text-zinc-400">An open-source component library.</p>
+            <p class="text-sm">An open-source component library.</p>
           </div>
           <app-separator></app-separator>
           <div class="flex h-5 items-center gap-4 text-sm">
