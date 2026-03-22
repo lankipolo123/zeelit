@@ -24,8 +24,20 @@
 .code-block .punct { color: #71717a; }
 .code-block .num { color: #fb923c; }
 
-/* Toast slide-in animation */
-@keyframes slideIn {
+/* Toast slide-in animations for each corner */
+@keyframes slideInTR {
   from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInTL {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInBR {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInBL {
+  from { transform: translateX(-100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }

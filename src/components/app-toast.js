@@ -1,5 +1,12 @@
 import { LitElement, html } from 'lit';
 
+const POSITIONS = [
+  { cls: 'top-4 right-4', anim: 'slideInTR' },
+  { cls: 'top-4 left-4', anim: 'slideInTL' },
+  { cls: 'bottom-4 right-4', anim: 'slideInBR' },
+  { cls: 'bottom-4 left-4', anim: 'slideInBL' },
+];
+
 class AppToast extends LitElement {
   createRenderRoot() { return this; }
 
@@ -15,7 +22,8 @@ class AppToast extends LitElement {
 
   show(message, { variant = 'default', duration = 3000 } = {}) {
     const id = ++this._id;
-    this._toasts = [...this._toasts, { id, message, variant }];
+    const pos = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
+    this._toasts = [...this._toasts, { id, message, variant, pos }];
     setTimeout(() => this.dismiss(id), duration);
   }
 
@@ -24,27 +32,37 @@ class AppToast extends LitElement {
   }
 
   render() {
+    // Group toasts by position
+    const groups = {};
+    for (const t of this._toasts) {
+      const key = t.pos.cls;
+      if (!groups[key]) groups[key] = { pos: t.pos, toasts: [] };
+      groups[key].toasts.push(t);
+    }
+
     return html`
-      <div class="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
-        ${this._toasts.map(t => {
-          const colors = t.variant === 'destructive'
-            ? 'border-red-600/50 bg-red-950 text-red-200'
-            : t.variant === 'success'
-              ? 'border-emerald-600/50 bg-emerald-950 text-emerald-200'
-              : 'border-zinc-700 bg-zinc-900 text-zinc-100';
-          return html`
-            <div class="pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg text-sm animate-[slideIn_0.2s_ease-out] ${colors}">
-              ${t.variant === 'success' ? html`
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              ` : ''}
-              <span>${t.message}</span>
-              <button @click="${() => this.dismiss(t.id)}" class="ml-2 text-zinc-400 hover:text-zinc-200 cursor-pointer shrink-0">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              </button>
-            </div>
-          `;
-        })}
-      </div>
+      ${Object.values(groups).map(g => html`
+        <div class="fixed ${g.pos.cls} z-[100] flex flex-col gap-2 pointer-events-none">
+          ${g.toasts.map(t => {
+            const colors = t.variant === 'destructive'
+              ? 'border-red-600/50 bg-red-950 text-red-200'
+              : t.variant === 'success'
+                ? 'border-emerald-600/50 bg-emerald-950 text-emerald-200'
+                : 'border-zinc-700 bg-zinc-900 text-zinc-100';
+            return html`
+              <div class="pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg text-sm ${colors}" style="animation: ${t.pos.anim} 0.2s ease-out">
+                ${t.variant === 'success' ? html`
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                ` : ''}
+                <span>${t.message}</span>
+                <button @click="${() => this.dismiss(t.id)}" class="ml-2 text-zinc-400 hover:text-zinc-200 cursor-pointer shrink-0">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+            `;
+          })}
+        </div>
+      `)}
     `;
   }
 }
