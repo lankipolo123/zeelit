@@ -1,4 +1,9 @@
 import { html } from 'lit';
+import source from '../components/app-alert.js?raw';
+
+const TAG = 'app-alert';
+const IMPORT = './components/app-alert.js';
+const FILE = 'app-alert.js';
 
 export function alertPage(ctx) {
   return ctx.componentPage('Alert', 'Displays a callout for important information.', [
@@ -35,5 +40,5 @@ export function alertPage(ctx) {
         </div>
       `,
     },
-  ]);
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

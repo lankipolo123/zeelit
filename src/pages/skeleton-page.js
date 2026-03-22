@@ -1,4 +1,9 @@
 import { html } from 'lit';
+import source from '../components/app-skeleton.js?raw';
+
+const TAG = 'app-skeleton';
+const IMPORT = './components/app-skeleton.js';
+const FILE = 'app-skeleton.js';
 
 export function skeletonPage(ctx) {
   return ctx.componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
@@ -37,5 +42,5 @@ export function skeletonPage(ctx) {
         </div>
       `,
     },
-  ]);
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

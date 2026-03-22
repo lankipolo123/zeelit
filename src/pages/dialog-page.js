@@ -1,4 +1,9 @@
 import { html } from 'lit';
+import source from '../components/app-dialog.js?raw';
+
+const TAG = 'app-dialog';
+const IMPORT = './components/app-dialog.js';
+const FILE = 'app-dialog.js';
 
 export function dialogPage(ctx) {
   return ctx.componentPage('Dialog', 'A modal dialog that interrupts the user with important content.', [
@@ -26,5 +31,5 @@ export function dialogPage(ctx) {
         </div>
       `,
     },
-  ]);
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

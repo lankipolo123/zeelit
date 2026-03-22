@@ -64,8 +64,12 @@ export class AppShowcase extends LitElement {
     window.scrollTo(0, 0);
   }
 
-  _toggleCode(key) {
-    this._codeVisible = { ...this._codeVisible, [key]: !this._codeVisible[key] };
+  _setView(key, view) {
+    this._codeVisible = { ...this._codeVisible, [key]: view };
+  }
+
+  _getView(key) {
+    return this._codeVisible[key] || 'preview';
   }
 
   _copyCode(code) {
@@ -74,37 +78,78 @@ export class AppShowcase extends LitElement {
 
   /* ─── Preview + Code block ─── */
 
-  renderDemo(key, preview, code) {
-    const showCode = this._codeVisible[key];
+  renderDemo(key, preview, code, { importPath, tagName } = {}) {
+    const view = this._getView(key);
+    const importCode = importPath
+      ? `import '${importPath}';\n\n${code}`
+      : code;
+    const cdnCode = tagName
+      ? `<script type="module">\n  import '${importPath}';\n</script>\n\n${code}`
+      : code;
+    const activeCode = view === 'cdn' ? cdnCode : importCode;
+
+    const tabBtn = (id, label) => html`
+      <button
+        @click="${() => this._setView(key, id)}"
+        class="px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${view === id ? 'text-zinc-100 border-b-2 border-white' : 'text-zinc-500 hover:text-zinc-300'}"
+      >${label}</button>
+    `;
+
     return html`
       <div class="rounded-lg border border-zinc-800 overflow-hidden">
         <div class="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/50 px-4">
           <div class="flex">
-            <button
-              @click="${() => this._toggleCode(key)}"
-              class="px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${!showCode ? 'text-zinc-100 border-b-2 border-white' : 'text-zinc-500 hover:text-zinc-300'}"
-            >Preview</button>
-            <button
-              @click="${() => this._toggleCode(key)}"
-              class="px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${showCode ? 'text-zinc-100 border-b-2 border-white' : 'text-zinc-500 hover:text-zinc-300'}"
-            >Code</button>
+            ${tabBtn('preview', 'Preview')}
+            ${tabBtn('code', 'Code')}
+            ${tabBtn('cdn', 'CDN')}
           </div>
-          ${showCode ? html`
-            <button @click="${() => this._copyCode(code)}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer flex items-center gap-1.5">
+          ${view !== 'preview' ? html`
+            <button @click="${() => this._copyCode(activeCode)}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path stroke-width="2" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
               Copy
             </button>
           ` : ''}
         </div>
-        ${showCode
-          ? html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(code))}</div>`
-          : html`<div class="p-8 flex items-center justify-center min-h-[180px] bg-zinc-950/50">${preview}</div>`
+        ${view === 'preview'
+          ? html`<div class="p-8 flex items-center justify-center min-h-[180px] bg-zinc-950/50">${preview}</div>`
+          : html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(activeCode))}</div>`
         }
       </div>
     `;
   }
 
-  componentPage(title, description, sections) {
+  /* ─── Source viewer ─── */
+
+  _renderSource(source, fileName) {
+    const key = `source-${fileName}`;
+    const expanded = this._codeVisible[key];
+    return html`
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold">Source</h2>
+          <div class="flex items-center gap-2">
+            <button @click="${() => this._copyCode(source)}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path stroke-width="2" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+            <button @click="${() => this._setView(key, expanded ? '' : 'open')}" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
+              ${expanded ? 'Collapse' : 'Expand'}
+            </button>
+          </div>
+        </div>
+        <p class="text-sm text-zinc-400">Copy this file into your project to use the component.</p>
+        <div class="rounded-lg border border-zinc-800 overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-2 border-b border-zinc-800 bg-zinc-900/50">
+            <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span class="text-xs text-zinc-400 font-mono">${fileName}</span>
+          </div>
+          <div class="code-block rounded-none border-0 ${expanded ? '' : 'max-h-[300px]'} overflow-auto">${unsafeHTML(highlightCode(source))}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
     return html`
       <div class="space-y-8">
         <div>
@@ -116,9 +161,10 @@ export class AppShowcase extends LitElement {
           <div class="space-y-3">
             ${s.title ? html`<h2 class="text-xl font-semibold">${s.title}</h2>` : ''}
             ${s.description ? html`<p class="text-sm text-zinc-400">${s.description}</p>` : ''}
-            ${this.renderDemo(`${title}-${i}`, s.preview, s.code)}
+            ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName })}
           </div>
         `)}
+        ${source ? this._renderSource(source, fileName) : ''}
       </div>
     `;
   }

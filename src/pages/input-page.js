@@ -1,4 +1,9 @@
 import { html } from 'lit';
+import source from '../components/app-input.js?raw';
+
+const TAG = 'app-input';
+const IMPORT = './components/app-input.js';
+const FILE = 'app-input.js';
 
 export function inputPage(ctx) {
   return ctx.componentPage('Input', 'Displays a form input field.', [
@@ -22,5 +27,5 @@ export function inputPage(ctx) {
       code: `<app-input label="Username" value="john_doe" disabled></app-input>`,
       preview: html`<div class="w-80"><app-input label="Username" value="john_doe" disabled></app-input></div>`,
     },
-  ]);
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

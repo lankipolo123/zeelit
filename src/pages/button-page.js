@@ -1,4 +1,9 @@
 import { html } from 'lit';
+import source from '../components/app-button.js?raw';
+
+const TAG = 'app-button';
+const IMPORT = './components/app-button.js';
+const FILE = 'app-button.js';
 
 export function buttonPage(ctx) {
   return ctx.componentPage('Button', 'Displays a button or a component that looks like a button.', [
@@ -45,5 +50,5 @@ export function buttonPage(ctx) {
       code: `<app-button disabled>Can't click me</app-button>`,
       preview: html`<app-button disabled>Can't click me</app-button>`,
     },
-  ]);
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }
