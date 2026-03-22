@@ -275,49 +275,66 @@ export class AppShowcase extends LitElement {
 
   /* ─── Sidebar ─── */
 
-  _sidebarHeader() {
+  _sidebarComponentGrid() {
+    const tile = (comp) => {
+      const active = this.activePage === comp.id;
+      return html`
+        <a @click="${() => this.navigate(comp.id)}"
+          class="flex flex-col items-center justify-center gap-1 p-2 rounded-md cursor-pointer transition-colors text-center"
+          style="background: ${active ? 'var(--bg-hover)' : 'transparent'}; color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; border: 1px solid ${active ? 'var(--border)' : 'transparent'}"
+        >
+          <span class="text-[11px] leading-tight font-medium truncate w-full">${comp.label}</span>
+        </a>
+      `;
+    };
+
     return html`
-      <div class="flex items-center justify-between px-4 py-3" style="border-bottom: 1px solid var(--border)">
-        <div class="flex items-center gap-2">
-          <div class="h-6 w-6 rounded flex items-center justify-center" style="background: var(--logo-bg)">
-            <span class="font-bold text-[10px]" style="color: var(--logo-fg)">Z</span>
-          </div>
-          ${!this.sidebarCollapsed ? html`<span class="text-sm font-semibold" style="color: var(--fg)">Components</span>` : ''}
+      <div class="p-3" style="border-bottom: 1px solid var(--border)">
+        <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-2 px-1" style="color: var(--fg-subtle)">Components</h4>
+        <div class="grid grid-cols-3 gap-1">
+          ${COMPONENTS.map(comp => tile(comp))}
         </div>
-        <button @click="${() => this._toggleSidebar()}" class="p-1 rounded cursor-pointer transition-colors hidden md:block" style="color: var(--fg-subtle)" title="${this.sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}">
-          ${this.sidebarCollapsed ? html`
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
-          ` : html`
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7M19 19l-7-7 7-7"/></svg>
-          `}
-        </button>
       </div>
     `;
   }
 
-  _sidebarContent() {
-    const collapsed = this.sidebarCollapsed;
+  _sidebarCollapseToggle() {
+    return html`
+      <button @click="${() => this._toggleSidebar()}"
+        class="flex items-center justify-center gap-2 w-full py-2 cursor-pointer transition-colors hidden md:flex"
+        style="border-bottom: 1px solid var(--border); color: var(--fg-subtle); background: var(--bg-card)"
+        title="${this.sidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'}"
+      >
+        ${this.sidebarCollapsed ? html`
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        ` : html`
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        `}
+        <span class="text-[11px] font-medium uppercase tracking-wider">${this.sidebarCollapsed ? 'Show nav' : 'Hide nav'}</span>
+      </button>
+    `;
+  }
 
+  _sidebarNav() {
     const sideLink = (page, label) => {
       const active = this.activePage === page;
       return html`
-        <a @click="${() => this.navigate(page)}" class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors ${collapsed ? 'text-center' : ''}"
+        <a @click="${() => this.navigate(page)}" class="block text-sm py-1.5 px-2 rounded cursor-pointer transition-colors"
           style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; background: ${active ? 'var(--bg-hover)' : 'transparent'}; font-weight: ${active ? '500' : 'normal'}"
-          title="${collapsed ? label : ''}"
-        >${collapsed ? label.charAt(0) : label}</a>
+        >${label}</a>
       `;
     };
 
     return html`
       <nav class="p-3 space-y-4 overflow-y-auto">
         <div class="space-y-0.5">
-          ${!collapsed ? html`<h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">Getting Started</h4>` : ''}
+          <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">Getting Started</h4>
           ${sideLink('home', 'Introduction')}
           ${sideLink('installation', 'Installation')}
         </div>
         ${CATEGORIES.map(cat => html`
           <div>
-            ${!collapsed ? html`<h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">${cat}</h4>` : ''}
+            <h4 class="text-[11px] font-semibold uppercase tracking-widest mb-1.5 px-2" style="color: var(--fg-subtle)">${cat}</h4>
             <div class="space-y-0.5">
               ${COMPONENTS.filter(c => c.category === cat).map(comp => sideLink(comp.id, comp.label))}
             </div>
@@ -330,16 +347,15 @@ export class AppShowcase extends LitElement {
   /* ─── Layout ─── */
 
   render() {
-    const sidebarWidth = this.sidebarCollapsed ? 'w-14' : 'w-[22%] min-w-[220px] max-w-[280px]';
-
     return html`
       <div class="flex flex-col h-screen" style="background: var(--bg); color: var(--fg)">
         ${this._renderHeader()}
 
         <div class="flex flex-1 overflow-hidden">
-          <aside class="${sidebarWidth} shrink-0 overflow-y-auto hidden md:flex md:flex-col transition-all duration-200" style="border-right: 1px solid var(--border); background: var(--bg)">
-            ${this._sidebarHeader()}
-            ${this._sidebarContent()}
+          <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
+            ${this._sidebarComponentGrid()}
+            ${this._sidebarCollapseToggle()}
+            ${!this.sidebarCollapsed ? this._sidebarNav() : ''}
           </aside>
 
           ${this.sidebarOpen ? html`
@@ -357,7 +373,8 @@ export class AppShowcase extends LitElement {
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                   </button>
                 </div>
-                ${this._sidebarContent()}
+                ${this._sidebarComponentGrid()}
+                ${this._sidebarNav()}
               </aside>
             </div>
           ` : ''}
