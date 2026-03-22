@@ -57,7 +57,7 @@ class ZeeShowcase extends LitElement {
 
   _renderSidebar() {
     return html`
-      <aside class="w-64 shrink-0 border-r border-zinc-800 bg-zinc-950 overflow-y-auto h-screen sticky top-0 hidden lg:block">
+      <aside class="w-64 shrink-0 border-r border-zinc-800 bg-zinc-950 overflow-y-auto h-screen sticky top-0 hidden md:block">
         ${this._sidebarContent()}
       </aside>
     `;
@@ -104,7 +104,7 @@ class ZeeShowcase extends LitElement {
   _renderMobileSidebar() {
     if (!this.sidebarOpen) return html``;
     return html`
-      <div class="fixed inset-0 z-50 lg:hidden">
+      <div class="fixed inset-0 z-50 md:hidden">
         <div class="fixed inset-0 bg-black/60" @click="${() => this.sidebarOpen = false}"></div>
         <div class="fixed inset-y-0 left-0 w-72 bg-zinc-950 border-r border-zinc-800 overflow-y-auto">
           ${this._sidebarContent()}
@@ -121,7 +121,7 @@ class ZeeShowcase extends LitElement {
 
         <main class="flex-1 min-w-0">
           <!-- Mobile header -->
-          <div class="lg:hidden flex items-center gap-3 p-4 border-b border-zinc-800">
+          <div class="md:hidden flex items-center gap-3 p-4 border-b border-zinc-800">
             <button @click="${() => this.sidebarOpen = true}" class="text-zinc-400 hover:text-zinc-100 cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
