@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-progress.js?raw';
+import pageSource from './progress-page.js?raw';
 
 export function progressPage(ctx) {
   return ctx.componentPage('Progress', 'A progress bar — set value (0–100) and variant. Use it for uploads, onboarding steps, quotas, or any measurable progress.', [
@@ -23,5 +24,5 @@ export function progressPage(ctx) {
         </div>
       `,
     },
-  ], meta('progress', source));
+  ], meta('progress', source, pageSource));
 }

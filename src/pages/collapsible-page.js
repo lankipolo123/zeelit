@@ -1,5 +1,6 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-collapsible.js?raw';
+import pageSource from './collapsible-page.js?raw';
 
 export function collapsiblePage(ctx) {
   return ctx.componentPage('Collapsible', 'A show/hide panel — use it for FAQs, settings groups, sidebar sections, or any expandable content.', [
@@ -24,5 +25,5 @@ export function collapsiblePage(ctx) {
 <app-collapsible label="Components">Button, Input, Card, Dialog, and more.</app-collapsible>
 <app-collapsible label="Theming">Colors, typography, dark mode.</app-collapsible>`,
     },
-  ], meta('collapsible', source));
+  ], meta('collapsible', source, pageSource));
 }

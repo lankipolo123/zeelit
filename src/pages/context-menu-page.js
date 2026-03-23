@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-context-menu.js?raw';
+import pageSource from './context-menu-page.js?raw';
 
 export function contextMenuPage(ctx) {
   return ctx.componentPage('Context Menu', 'A right-click menu — pass your own items and wrap any area. Use it for file managers, editors, dashboards, or any right-click interaction.', [
@@ -34,5 +35,5 @@ export function contextMenuPage(ctx) {
         </app-context-menu>
       `,
     },
-  ], meta('context-menu', source));
+  ], meta('context-menu', source, pageSource));
 }

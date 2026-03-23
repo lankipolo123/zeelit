@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-slider.js?raw';
+import pageSource from './slider-page.js?raw';
 
 export function sliderPage(ctx) {
   return ctx.componentPage('Slider', 'A range input — set label, value, min, max, and step. Use it for volume, price filters, brightness, or any numeric range.', [
@@ -21,5 +22,5 @@ export function sliderPage(ctx) {
       code: `<app-slider label="Brightness" value="75" disabled></app-slider>`,
       preview: html`<div class="w-80"><app-slider label="Brightness" value="75" disabled></app-slider></div>`,
     },
-  ], meta('slider', source));
+  ], meta('slider', source, pageSource));
 }

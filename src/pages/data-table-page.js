@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import componentSource from '../components/app-data-table.js?raw';
 import configSource from '../config/data-table.config.js?raw';
+import pageSource from './data-table-page.js?raw';
 import { paymentsTableConfig, usersTableConfig } from '../config/data-table.config.js';
 
 const TAG = 'app-data-table';
@@ -8,23 +9,6 @@ const IMPORT = '@/components/app-data-table.js';
 const FILE = 'app-data-table.js';
 
 export function dataTablePage(ctx) {
-  const usageHtml = `<!--
-  Data Table — Page Usage Example
-  Copy this into your HTML page to use the app-data-table component.
--->
-
-<!-- 1. Import the component and config -->
-<script type="module">
-  import '${IMPORT}';
-  import { paymentsTableConfig } from '@/config/data-table.config.js';
-
-  // Pass config to the table
-  document.querySelector('app-data-table').config = paymentsTableConfig;
-<\/script>
-
-<!-- 2. Use it in your HTML -->
-<app-data-table></app-data-table>`;
-
   const files = [
     {
       name: 'app-data-table.js',
@@ -32,9 +16,9 @@ export function dataTablePage(ctx) {
       code: componentSource,
     },
     {
-      name: 'usage.html',
-      path: 'pages/app-data-table-usage.html',
-      code: usageHtml,
+      name: 'data-table-page.js',
+      path: 'pages/data-table-page.js',
+      code: pageSource,
     },
     {
       name: 'data-table.config.js',
