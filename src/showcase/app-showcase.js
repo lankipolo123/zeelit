@@ -437,16 +437,17 @@ export class AppShowcase extends LitElement {
     };
 
     return html`
-      <nav class="p-4 grid grid-cols-3 gap-2.5">
-        ${this._sidebarPage === 0 ? html`
-          ${link('home', 'Introduction')}
-          ${link('installation', 'Installation')}
-          ${link('layouts', 'Layouts')}
-        ` : ''}
-        ${visibleComponents.map(comp => link(comp.id, comp.label))}
-      </nav>
-      ${totalPages > 1 ? html`
-        <div class="px-3 pb-3 flex items-center justify-between">
+      <div class="flex-1 flex flex-col">
+        <nav class="p-4 grid grid-cols-3 gap-2.5 content-start flex-1">
+          ${this._sidebarPage === 0 ? html`
+            ${link('home', 'Introduction')}
+            ${link('installation', 'Installation')}
+            ${link('layouts', 'Layouts')}
+          ` : ''}
+          ${visibleComponents.map(comp => link(comp.id, comp.label))}
+        </nav>
+        ${totalPages > 1 ? html`
+          <div class="px-3 pb-3 flex items-center justify-between shrink-0">
           <div class="flex items-center gap-1">
             <button
               @click="${() => { if (this._sidebarPage > 0) this._sidebarPage--; }}"
@@ -473,6 +474,7 @@ export class AppShowcase extends LitElement {
           >View All</button>
         </div>
       ` : ''}
+      </div>
     `;
   }
 
