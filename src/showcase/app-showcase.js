@@ -286,7 +286,24 @@ export class AppShowcase extends LitElement {
     const cdnCode = tagName
       ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // Your component file (${tagName}.js) goes here\n  // or load it separately:\n  // import './${tagName}.js';\n</script>\n\n${code}`
       : code;
-    const activeCode = view === 'cdn' ? cdnCode : importCode;
+    const htmlCode = tagName
+      ? `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${tagName} Example</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./components/${tagName}.js"><\/script>
+</head>
+<body>
+
+  ${code}
+
+</body>
+</html>`
+      : code;
+    const activeCode = view === 'html' ? htmlCode : view === 'cdn' ? cdnCode : importCode;
 
     const tabBtn = (id, label) => html`
       <button
@@ -302,6 +319,7 @@ export class AppShowcase extends LitElement {
           <div class="flex">
             ${tabBtn('preview', 'Preview')}
             ${tabBtn('code', 'Code')}
+            ${tabBtn('html', 'HTML')}
             ${tabBtn('cdn', 'CDN')}
           </div>
           ${view !== 'preview' ? this._copyButton(activeCode, `demo-${key}-${view}`) : ''}
