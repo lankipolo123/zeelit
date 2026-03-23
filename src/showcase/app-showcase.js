@@ -32,6 +32,12 @@ import { popoverPage } from '../pages/popover-page.js';
 import { sliderPage } from '../pages/slider-page.js';
 import { sheetPage } from '../pages/sheet-page.js';
 import { dataTablePage } from '../pages/data-table-page.js';
+import { paginationPage } from '../pages/pagination-page.js';
+import { hoverCardPage } from '../pages/hover-card-page.js';
+import { collapsiblePage } from '../pages/collapsible-page.js';
+import { scrollAreaPage } from '../pages/scroll-area-page.js';
+import { contextMenuPage } from '../pages/context-menu-page.js';
+import { carouselPage } from '../pages/carousel-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -61,6 +67,12 @@ const PAGE_MAP = {
   slider: sliderPage,
   sheet: sheetPage,
   'data-table': dataTablePage,
+  pagination: paginationPage,
+  'hover-card': hoverCardPage,
+  collapsible: collapsiblePage,
+  'scroll-area': scrollAreaPage,
+  'context-menu': contextMenuPage,
+  carousel: carouselPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -424,20 +436,20 @@ export class AppShowcase extends LitElement {
       <div class="flex h-screen" style="background: var(--bg); color: var(--fg)">
         <!-- 1: Sidebar — full height left -->
         ${this.sidebarCollapsed ? html`
-          <div class="relative w-10 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
+          <div class="relative w-14 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
             <!-- Branding collapsed -->
             <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
-              <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+              <div class="h-8 w-8 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                <span class="font-bold text-sm" style="color: var(--logo-fg)">Z</span>
               </div>
             </div>
             <!-- Vertical text centered -->
             <div class="flex-1 flex items-center justify-center cursor-pointer" @click="${() => this.sidebarCollapsed = false}">
-              <span class="font-bold text-[11px] tracking-[0.2em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Library Component</span>
+              <span class="font-bold text-xs tracking-[0.2em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Library Component</span>
             </div>
             <!-- Circle expand button on the border line -->
-            <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -13px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -14px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
         ` : html`

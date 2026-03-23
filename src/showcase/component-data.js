@@ -24,6 +24,12 @@ export const COMPONENTS = [
   { id: 'sheet', label: 'Sheet', category: 'Overlay' },
   { id: 'popover', label: 'Popover', category: 'Overlay' },
   { id: 'data-table', label: 'Data Table', category: 'Data Display' },
+  { id: 'pagination', label: 'Pagination', category: 'Navigation' },
+  { id: 'hover-card', label: 'Hover Card', category: 'Data Display' },
+  { id: 'collapsible', label: 'Collapsible', category: 'Layout' },
+  { id: 'scroll-area', label: 'Scroll Area', category: 'Layout' },
+  { id: 'context-menu', label: 'Context Menu', category: 'Overlay' },
+  { id: 'carousel', label: 'Carousel', category: 'Data Display' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];

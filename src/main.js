@@ -24,6 +24,12 @@ import './components/app-popover.js';
 import './components/app-slider.js';
 import './components/app-sheet.js';
 import './components/app-data-table.js';
+import './components/app-pagination.js';
+import './components/app-hover-card.js';
+import './components/app-collapsible.js';
+import './components/app-scroll-area.js';
+import './components/app-context-menu.js';
+import './components/app-carousel.js';
 
 // Showcase app
 import './showcase/app-showcase.js';
