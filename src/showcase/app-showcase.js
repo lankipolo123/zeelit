@@ -365,6 +365,14 @@ export class AppShowcase extends LitElement {
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
     }
+    // Auto-generate examples file from demo code snippets
+    if (sections.length && importPath) {
+      const examplesCode = `import '${importPath}';\n\n` + sections.map((s, i) => {
+        const header = s.title ? `/* ${s.title}${s.description ? ' — ' + s.description : ''} */` : '';
+        return (header ? header + '\n' : '') + s.code;
+      }).join('\n\n');
+      files.push({ name: 'examples.html', path: `examples/${tagName || 'component'}-examples.html`, code: examplesCode });
+    }
     // Auto-generate a standalone index.html example
     if (sections.length && tagName) {
       const usage = sections.map(s => {
