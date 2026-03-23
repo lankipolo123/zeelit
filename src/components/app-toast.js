@@ -1,10 +1,7 @@
 import { LitElement, html } from 'lit';
 
 const POSITIONS = [
-  { cls: 'top-4 right-4', anim: 'slideInTR' },
-  { cls: 'top-4 left-4', anim: 'slideInTL' },
-  { cls: 'bottom-4 right-4', anim: 'slideInBR' },
-  { cls: 'bottom-4 left-4', anim: 'slideInBL' },
+  { cls: 'top-4 left-1/2 -translate-x-1/2', anim: 'slideInTR' },
 ];
 
 class AppToast extends LitElement {

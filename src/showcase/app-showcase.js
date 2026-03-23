@@ -235,8 +235,8 @@ export class AppShowcase extends LitElement {
     `;
 
     return html`
-      <header class="sticky top-0 z-40 w-full backdrop-blur-md" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
-        <div class="flex h-14 items-center px-4 md:px-6">
+      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-14 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
+        <div class="flex h-full items-center px-4 md:px-6">
           <button @click="${() => this.sidebarOpen = true}" class="mr-3 cursor-pointer md:hidden" style="color: var(--fg-muted)">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
@@ -266,14 +266,14 @@ export class AppShowcase extends LitElement {
       const active = this.activePage === id;
       return html`
         <a @click="${() => this.navigate(id)}"
-          class="px-2 py-1.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
+          class="px-3 py-2.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
           style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}; background: ${active ? 'var(--sidebar-active-bg, rgba(0,0,0,0.06))' : 'transparent'}"
         >${label}</a>
       `;
     };
 
     return html`
-      <nav class="p-3 grid grid-cols-3 gap-1.5">
+      <nav class="p-4 grid grid-cols-3 gap-2.5">
         ${link('home', 'Introduction')}
         ${link('installation', 'Installation')}
         ${COMPONENTS.map(comp => link(comp.id, comp.label))}
