@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-hover-card.js?raw';
+import pageSource from './hover-card-page.js?raw';
 
 const TAG = 'app-hover-card';
 const IMPORT = '@/components/app-hover-card.js';
@@ -43,5 +44,5 @@ export function hoverCardPage(ctx) {
         </app-hover-card>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'hover-card-page.js' });
 }

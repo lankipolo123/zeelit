@@ -342,10 +342,13 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
+  componentPage(title, description, sections, { source, fileName, importPath, tagName, pageSource, pageFileName } = {}) {
     const files = [];
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
+    }
+    if (pageSource && pageFileName) {
+      files.push({ name: pageFileName, path: `pages/${pageFileName}`, code: pageSource });
     }
     // Auto-generate a clean examples file from the demo code snippets
     if (sections.length && importPath) {

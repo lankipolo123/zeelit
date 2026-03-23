@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-popover.js?raw';
+import pageSource from './popover-page.js?raw';
 
 const TAG = 'app-popover';
 const IMPORT = '@/components/app-popover.js';
@@ -36,5 +37,5 @@ export function popoverPage(ctx) {
         </app-popover>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'popover-page.js' });
 }

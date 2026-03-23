@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-context-menu.js?raw';
+import pageSource from './context-menu-page.js?raw';
 
 const TAG = 'app-context-menu';
 const IMPORT = '@/components/app-context-menu.js';
@@ -58,5 +59,5 @@ export function contextMenuPage(ctx) {
         </app-context-menu>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'context-menu-page.js' });
 }

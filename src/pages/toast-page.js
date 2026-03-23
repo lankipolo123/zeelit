@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-toast.js?raw';
+import pageSource from './toast-page.js?raw';
 import { toast } from '../components/app-toast.js';
 
 const TAG = 'app-toast';
@@ -48,5 +49,5 @@ toast('This stays for 5 seconds', { duration: 5000 });`,
         <app-button variant="secondary" @click="${() => toast('This stays for 5 seconds', { duration: 5000 })}">5s Toast</app-button>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'toast-page.js' });
 }

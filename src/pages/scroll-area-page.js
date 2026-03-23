@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-scroll-area.js?raw';
+import pageSource from './scroll-area-page.js?raw';
 
 const TAG = 'app-scroll-area';
 const IMPORT = '@/components/app-scroll-area.js';
@@ -36,5 +37,5 @@ export function scrollAreaPage(ctx) {
         </app-scroll-area>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'scroll-area-page.js' });
 }

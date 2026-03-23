@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-input.js?raw';
+import pageSource from './input-page.js?raw';
 
 const TAG = 'app-input';
 const IMPORT = '@/components/app-input.js';
@@ -27,5 +28,5 @@ export function inputPage(ctx) {
       code: `<app-input label="Username" value="john_doe" disabled></app-input>`,
       preview: html`<div class="w-80"><app-input label="Username" value="john_doe" disabled></app-input></div>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'input-page.js' });
 }

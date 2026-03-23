@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-checkbox.js?raw';
+import pageSource from './checkbox-page.js?raw';
 
 const TAG = 'app-checkbox';
 const IMPORT = '@/components/app-checkbox.js';
@@ -22,5 +23,5 @@ export function checkboxPage(ctx) {
       code: `<app-checkbox label="Read only option" disabled></app-checkbox>`,
       preview: html`<app-checkbox label="Read only option" disabled></app-checkbox>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'checkbox-page.js' });
 }

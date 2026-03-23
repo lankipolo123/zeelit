@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-collapsible.js?raw';
+import pageSource from './collapsible-page.js?raw';
 
 const TAG = 'app-collapsible';
 const IMPORT = '@/components/app-collapsible.js';
@@ -42,5 +43,5 @@ export function collapsiblePage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'collapsible-page.js' });
 }

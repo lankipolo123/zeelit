@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-select.js?raw';
+import pageSource from './select-page.js?raw';
 
 const TAG = 'app-select';
 const IMPORT = '@/components/app-select.js';
@@ -45,5 +46,5 @@ export function selectPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'select-page.js' });
 }

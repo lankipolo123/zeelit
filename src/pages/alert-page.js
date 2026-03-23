@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-alert.js?raw';
+import pageSource from './alert-page.js?raw';
 
 const TAG = 'app-alert';
 const IMPORT = '@/components/app-alert.js';
@@ -40,5 +41,5 @@ export function alertPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'alert-page.js' });
 }

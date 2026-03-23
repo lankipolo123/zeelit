@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-breadcrumb.js?raw';
+import pageSource from './breadcrumb-page.js?raw';
 
 const TAG = 'app-breadcrumb';
 const IMPORT = '@/components/app-breadcrumb.js';
@@ -49,5 +50,5 @@ export function breadcrumbPage(ctx) {
         ></app-breadcrumb>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'breadcrumb-page.js' });
 }
