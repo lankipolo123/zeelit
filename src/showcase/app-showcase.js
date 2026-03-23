@@ -539,8 +539,8 @@ export class AppShowcase extends LitElement {
               <span class="font-bold text-xs tracking-[0.25em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Component Library</span>
             </div>
             <!-- Circle expand button on the border line -->
-            <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -14px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -18px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
         ` : html`
@@ -557,8 +557,8 @@ export class AppShowcase extends LitElement {
               ${this._sidebarNav()}
             </aside>
             <!-- Circle collapse button — outside overflow container -->
-            <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -14px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -18px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
           </div>
         `}
