@@ -1,18 +1,13 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-avatar.js?raw';
 import pageSource from './avatar-page.js?raw';
-
-const TAG = 'app-avatar';
-const IMPORT = '@/components/app-avatar.js';
-const FILE = 'app-avatar.js';
 
 export function avatarPage(ctx) {
   return ctx.componentPage('Avatar', 'An image element with a fallback for representing the user.', [
     {
       title: 'Profile Avatars',
-      code: `<app-avatar src="https://i.imgur.com/uherCAZ.png" alt="Profile 1"></app-avatar>
-<app-avatar src="https://i.imgur.com/WqV8GTy.png" alt="Profile 2"></app-avatar>
-<app-avatar src="https://i.imgur.com/kXp4fIF.png" alt="Profile 3"></app-avatar>`,
+      code: `<app-avatar src="https://i.imgur.com/uherCAZ.png" alt="Profile"></app-avatar>`,
       preview: html`
         <div class="flex gap-3">
           <app-avatar src="https://i.imgur.com/uherCAZ.png" alt="Profile 1"></app-avatar>
@@ -23,9 +18,7 @@ export function avatarPage(ctx) {
     },
     {
       title: 'Fallback Initials',
-      code: `<app-avatar fallback="JD"></app-avatar>
-<app-avatar fallback="AB"></app-avatar>
-<app-avatar fallback="ZL"></app-avatar>`,
+      code: `<app-avatar fallback="JD"></app-avatar>`,
       preview: html`
         <div class="flex gap-3">
           <app-avatar fallback="JD"></app-avatar>
@@ -47,5 +40,5 @@ export function avatarPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'avatar-page.js' });
+  ], meta('avatar', source, pageSource));
 }

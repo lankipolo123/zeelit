@@ -1,10 +1,7 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-badge.js?raw';
 import pageSource from './badge-page.js?raw';
-
-const TAG = 'app-badge';
-const IMPORT = '@/components/app-badge.js';
-const FILE = 'app-badge.js';
 
 export function badgePage(ctx) {
   return ctx.componentPage('Badge', 'Displays a badge or a component that looks like a badge.', [
@@ -23,5 +20,5 @@ export function badgePage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'badge-page.js' });
+  ], meta('badge', source, pageSource));
 }

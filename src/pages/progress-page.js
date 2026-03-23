@@ -1,26 +1,17 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-progress.js?raw';
 import pageSource from './progress-page.js?raw';
-
-const TAG = 'app-progress';
-const IMPORT = '@/components/app-progress.js';
-const FILE = 'app-progress.js';
 
 export function progressPage(ctx) {
   return ctx.componentPage('Progress', 'Displays a horizontal progress bar indicating completion status.', [
     {
       title: 'Default',
-      description: 'A standard progress bar at 60%.',
       code: `<app-progress value="60"></app-progress>`,
-      preview: html`
-        <div class="w-full max-w-md">
-          <app-progress value="60"></app-progress>
-        </div>
-      `,
+      preview: html`<div class="w-full max-w-md"><app-progress value="60"></app-progress></div>`,
     },
     {
       title: 'Variants',
-      description: 'Progress bars with different color variants.',
       code: `<app-progress value="75" variant="success"></app-progress>
 <app-progress value="50" variant="warning"></app-progress>
 <app-progress value="30" variant="destructive"></app-progress>`,
@@ -46,5 +37,5 @@ export function progressPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'progress-page.js' });
+  ], meta('progress', source, pageSource));
 }

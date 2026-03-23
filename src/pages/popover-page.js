@@ -1,10 +1,7 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-popover.js?raw';
 import pageSource from './popover-page.js?raw';
-
-const TAG = 'app-popover';
-const IMPORT = '@/components/app-popover.js';
-const FILE = 'app-popover.js';
 
 export function popoverPage(ctx) {
   return ctx.componentPage('Popover', 'Displays rich content in a portal, triggered by a button.', [
@@ -31,5 +28,5 @@ export function popoverPage(ctx) {
         </app-popover>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'popover-page.js' });
+  ], meta('popover', source, pageSource));
 }

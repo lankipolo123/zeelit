@@ -33,3 +33,15 @@ export const COMPONENTS = [
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
+
+export function meta(id, source, pageSource) {
+  const tag = `app-${id}`;
+  return {
+    source,
+    fileName: `${tag}.js`,
+    importPath: `@/components/${tag}.js`,
+    tagName: tag,
+    pageSource,
+    pageFileName: `${id}-page.js`,
+  };
+}

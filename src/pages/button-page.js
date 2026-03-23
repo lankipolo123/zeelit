@@ -1,17 +1,14 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-button.js?raw';
 import pageSource from './button-page.js?raw';
-
-const TAG = 'app-button';
-const IMPORT = '@/components/app-button.js';
-const FILE = 'app-button.js';
 
 export function buttonPage(ctx) {
   return ctx.componentPage('Button', 'Displays a button or a component that looks like a button.', [
     {
       title: 'Default',
-      code: `<app-button variant="default">Default</app-button>`,
-      preview: html`<app-button variant="default">Default</app-button>`,
+      code: `<app-button>Default</app-button>`,
+      preview: html`<app-button>Default</app-button>`,
     },
     {
       title: 'Variants',
@@ -51,5 +48,5 @@ export function buttonPage(ctx) {
       code: `<app-button disabled>Can't click me</app-button>`,
       preview: html`<app-button disabled>Can't click me</app-button>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'button-page.js' });
+  ], meta('button', source, pageSource));
 }

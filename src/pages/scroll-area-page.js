@@ -1,10 +1,7 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-scroll-area.js?raw';
 import pageSource from './scroll-area-page.js?raw';
-
-const TAG = 'app-scroll-area';
-const IMPORT = '@/components/app-scroll-area.js';
-const FILE = 'app-scroll-area.js';
 
 export function scrollAreaPage(ctx) {
   const tags = ['Typography', 'Layout', 'Forms', 'Navigation', 'Data Display', 'Feedback', 'Overlay', 'Actions', 'Utilities', 'Animation', 'Charts', 'Icons', 'Colors', 'Spacing', 'Borders'];
@@ -17,7 +14,6 @@ export function scrollAreaPage(ctx) {
   <p>Typography</p>
   <p>Layout</p>
   <p>Forms</p>
-  <p>Navigation</p>
   <!-- ... more items -->
 </app-scroll-area>`,
       preview: html`
@@ -42,5 +38,5 @@ export function scrollAreaPage(ctx) {
         </app-scroll-area>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'scroll-area-page.js' });
+  ], meta('scroll-area', source, pageSource));
 }

@@ -1,20 +1,14 @@
 import { html } from 'lit';
+import { meta } from '../showcase/component-data.js';
 import source from '../components/app-skeleton.js?raw';
 import pageSource from './skeleton-page.js?raw';
-
-const TAG = 'app-skeleton';
-const IMPORT = '@/components/app-skeleton.js';
-const FILE = 'app-skeleton.js';
 
 export function skeletonPage(ctx) {
   return ctx.componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
     {
       title: 'User Profile',
       description: 'Simulates a loading user profile with avatar and text lines.',
-      code: `<!-- Avatar -->
-<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
-
-<!-- Text lines -->
+      code: `<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
 <app-skeleton width="250px" height="1rem"></app-skeleton>
 <app-skeleton width="200px" height="0.75rem"></app-skeleton>`,
       preview: html`
@@ -43,5 +37,5 @@ export function skeletonPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'skeleton-page.js' });
+  ], meta('skeleton', source, pageSource));
 }
