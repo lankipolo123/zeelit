@@ -291,37 +291,42 @@ export class AppShowcase extends LitElement {
       <div class="flex h-screen" style="background: var(--bg); color: var(--fg)">
         <!-- 1: Sidebar — full height left -->
         ${this.sidebarCollapsed ? html`
-          <aside class="w-14 shrink-0 hidden md:flex md:flex-col items-center cursor-pointer select-none" style="border-right: 1px solid var(--border); background: var(--bg)" @click="${() => this.sidebarCollapsed = false}">
-            <!-- Branding collapsed -->
-            <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
-              <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+          <div class="relative shrink-0 hidden md:block">
+            <aside class="w-14 h-full flex flex-col items-center cursor-pointer select-none" style="border-right: 1px solid var(--border); background: var(--bg)" @click="${() => this.sidebarCollapsed = false}">
+              <!-- Branding collapsed -->
+              <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
+                <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                  <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+                </div>
               </div>
-            </div>
-            <!-- Vertical text centered -->
-            <div class="flex-1 flex items-center justify-center">
-              <span class="font-bold text-sm tracking-[0.25em] uppercase" style="writing-mode: vertical-rl; text-orientation: mixed; color: var(--fg-muted); letter-spacing: 0.25em;">Library Component</span>
-            </div>
-          </aside>
+              <!-- Vertical text centered -->
+              <div class="flex-1 flex items-center justify-center">
+                <span class="font-bold text-sm tracking-[0.25em] uppercase" style="writing-mode: vertical-rl; text-orientation: mixed; color: var(--fg-muted); letter-spacing: 0.25em;">Library Component</span>
+              </div>
+            </aside>
+            <!-- Circle expand button on the border line -->
+            <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 -right-3.5 z-10 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-md" style="background: var(--bg-card, var(--bg)); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         ` : html`
-          <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
-            <!-- Sidebar branding -->
-            <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
-              <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+          <div class="relative shrink-0 hidden md:block">
+            <aside class="w-[22%] min-w-[220px] max-w-[300px] h-full overflow-y-auto flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
+              <!-- Sidebar branding -->
+              <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
+                <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                  <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+                </div>
+                <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
               </div>
-              <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
-            </div>
-            <!-- Component grid -->
-            ${this._sidebarNav()}
-            <!-- Collapse icon centered -->
-            <div class="flex-1"></div>
-            <div class="flex items-center justify-center py-4">
-              <button @click="${() => this.sidebarCollapsed = true}" class="p-2 rounded-md cursor-pointer transition-colors" style="color: var(--fg-muted); border: 1px solid var(--border)" title="Collapse sidebar">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-            </div>
-          </aside>
+              <!-- Component grid -->
+              ${this._sidebarNav()}
+            </aside>
+            <!-- Circle collapse button on the border line -->
+            <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 -right-3.5 z-10 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-md" style="background: var(--bg-card, var(--bg)); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+          </div>
         `}
 
         <!-- Mobile sidebar overlay -->
