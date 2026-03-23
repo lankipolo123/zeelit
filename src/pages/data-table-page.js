@@ -19,11 +19,6 @@ export function dataTablePage(ctx) {
       path: 'config/data-table.config.js',
       code: configSource,
     },
-    {
-      name: 'data-table-page.js',
-      path: 'pages/data-table-page.js',
-      code: pageSource,
-    },
   ];
 
   return html`

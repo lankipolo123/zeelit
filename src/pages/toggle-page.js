@@ -1,4 +1,3 @@
-import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-toggle.js?raw';
 
@@ -7,17 +6,14 @@ export function togglePage(ctx) {
     {
       title: 'Default (Off)',
       code: `<app-toggle label="Airplane Mode"></app-toggle>`,
-      preview: html`<app-toggle label="Airplane Mode"></app-toggle>`,
     },
     {
       title: 'Checked (On)',
       code: `<app-toggle label="Wi-Fi" checked></app-toggle>`,
-      preview: html`<app-toggle label="Wi-Fi" checked></app-toggle>`,
     },
     {
       title: 'Disabled',
       code: `<app-toggle label="Bluetooth" disabled></app-toggle>`,
-      preview: html`<app-toggle label="Bluetooth" disabled></app-toggle>`,
     },
   ], meta('toggle', source));
 }

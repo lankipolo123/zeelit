@@ -278,7 +278,12 @@ export class AppShowcase extends LitElement {
 
   /* ─── Preview + Code block ─── */
 
-  renderDemo(key, preview, code, { importPath, tagName } = {}) {
+  renderDemo(key, preview, code, { importPath, tagName, layout } = {}) {
+    // Auto-generate preview from code if not provided
+    if (!preview) {
+      const wrapper = layout ? `<div class="${layout}">` : '<div>';
+      preview = html`${unsafeHTML(wrapper + code + '</div>')}`;
+    }
     const view = this._getView(key);
     const importCode = importPath
       ? `import '${importPath}';\n\n${code}`
@@ -408,7 +413,7 @@ ${usage}
           <div class="space-y-3">
             ${s.title ? html`<h2 class="text-xl font-semibold" style="color: var(--fg-heading)">${s.title}</h2>` : ''}
             ${s.description ? html`<p class="text-sm" style="color: var(--fg-muted)">${s.description}</p>` : ''}
-            ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName })}
+            ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName, layout: s.layout })}
           </div>
         `)}
         ${files.length ? html`
