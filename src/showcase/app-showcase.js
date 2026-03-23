@@ -421,7 +421,7 @@ export class AppShowcase extends LitElement {
   /* ─── Sidebar ─── */
 
   _sidebarNav() {
-    const perPage = 32;
+    const perPage = 36;
     const totalPages = Math.ceil(COMPONENTS.length / perPage);
     const start = this._sidebarPage * perPage;
     const visibleComponents = COMPONENTS.slice(start, start + perPage);
@@ -430,14 +430,14 @@ export class AppShowcase extends LitElement {
       const active = this.activePage === id;
       return html`
         <a @click="${() => this.navigate(id)}"
-          class="px-2 py-2 text-[12px] cursor-pointer transition-colors rounded-md text-center truncate"
+          class="px-3 py-2.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
           style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}; background: ${active ? 'var(--sidebar-active-bg, rgba(0,0,0,0.06))' : 'transparent'}"
         >${label}</a>
       `;
     };
 
     return html`
-      <nav class="p-3 grid grid-cols-4 gap-1.5">
+      <nav class="p-4 grid grid-cols-3 gap-2.5">
         ${this._sidebarPage === 0 ? html`
           ${link('home', 'Introduction')}
           ${link('installation', 'Installation')}
