@@ -37,11 +37,11 @@ export class AppCard extends LitElement {
 
   render() {
     return html`
-      <div class="rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-sm">
+      <div class="rounded-lg shadow-sm" style="border: 1px solid var(--border); background: var(--bg-card); color: var(--fg)">
         ${this.cardTitle || this.description ? html`
           <div class="flex flex-col space-y-1.5 p-6">
             ${this.cardTitle ? html`<h3 class="text-2xl font-semibold leading-none tracking-tight">${this.cardTitle}</h3>` : ''}
-            ${this.description ? html`<p class="text-sm text-zinc-400">${this.description}</p>` : ''}
+            ${this.description ? html`<p class="text-sm" style="color: var(--fg-muted)">${this.description}</p>` : ''}
           </div>
         ` : ''}
         <div class="p-6 pt-0" data-card-content></div>

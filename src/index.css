@@ -20,6 +20,25 @@
   --code-bg: #18181b;
   --code-border: #27272a;
   --code-fg: #e4e4e7;
+
+  /* Component tokens */
+  --primary: #ffffff;
+  --primary-fg: #18181b;
+  --secondary: #27272a;
+  --secondary-fg: #f4f4f5;
+  --destructive: #dc2626;
+  --destructive-fg: #ffffff;
+  --accent: #27272a;
+  --accent-fg: #f4f4f5;
+  --input: #3f3f46;
+  --input-bg: #18181b;
+  --ring: #d4d4d8;
+  --ring-offset: #09090b;
+  --skeleton: #27272a;
+  --toggle-off: #3f3f46;
+  --toggle-thumb: #a1a1aa;
+  --tab-bg: #18181b;
+  --tab-active-bg: #09090b;
 }
 
 :root.light {
@@ -29,7 +48,7 @@
   --bg-hover: rgb(243 244 246 / 0.7);
   --bg-active: rgb(229 231 235 / 0.5);
   --bg-header: rgb(255 255 255 / 0.85);
-  --bg-preview: #09090b;
+  --bg-preview: #f9fafb;
   --fg: #111827;
   --fg-heading: #09090b;
   --fg-muted: #6b7280;
@@ -41,6 +60,25 @@
   --code-bg: #1e1e2e;
   --code-border: #313244;
   --code-fg: #cdd6f4;
+
+  /* Component tokens */
+  --primary: #18181b;
+  --primary-fg: #fafafa;
+  --secondary: #f4f4f5;
+  --secondary-fg: #18181b;
+  --destructive: #dc2626;
+  --destructive-fg: #fafafa;
+  --accent: #f4f4f5;
+  --accent-fg: #18181b;
+  --input: #d1d5db;
+  --input-bg: #ffffff;
+  --ring: #a1a1aa;
+  --ring-offset: #ffffff;
+  --skeleton: #e5e7eb;
+  --toggle-off: #d1d5db;
+  --toggle-thumb: #ffffff;
+  --tab-bg: #f4f4f5;
+  --tab-active-bg: #ffffff;
 }
 
 body {

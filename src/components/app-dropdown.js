@@ -68,13 +68,16 @@ export class AppDropdown extends LitElement {
         <div data-dropdown-trigger @click=${() => this._toggle()} class="cursor-pointer">
         </div>
         ${this.open ? html`
-          <div class="absolute left-0 mt-1 z-50 min-w-[8rem] rounded-md border border-zinc-800 bg-zinc-900 p-1 shadow-md">
+          <div class="absolute left-0 mt-1 z-50 min-w-[8rem] rounded-md p-1 shadow-md" style="border: 1px solid var(--border); background: var(--bg-card); color: var(--fg)">
             ${this.items.map(item => html`
               <button
                 @click=${() => this._selectItem(item)}
-                class="flex w-full items-center rounded-sm px-2 py-1.5 text-sm text-zinc-100 ${item.disabled
+                class="flex w-full items-center rounded-sm px-2 py-1.5 text-sm ${item.disabled
                   ? 'opacity-50 cursor-not-allowed'
-                  : 'hover:bg-zinc-800 cursor-pointer'}"
+                  : 'cursor-pointer'}"
+                style="color: var(--fg); background: transparent;"
+                @mouseenter=${(e) => { if (!item.disabled) e.target.style.background = 'var(--accent)'; }}
+                @mouseleave=${(e) => { e.target.style.background = 'transparent'; }}
                 ?disabled=${item.disabled}
               >
                 ${item.label}

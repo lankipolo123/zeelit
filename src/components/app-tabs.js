@@ -32,11 +32,12 @@ export class AppTabs extends LitElement {
   render() {
     return html`
       <div>
-        <div class="inline-flex h-10 items-center justify-center rounded-md bg-zinc-900 p-1 text-zinc-400">
+        <div class="inline-flex h-10 items-center justify-center rounded-md p-1" style="background: var(--tab-bg); color: var(--fg-muted)">
           ${this.tabs.map(tab => html`
             <button
               @click="${() => this._selectTab(tab.id)}"
-              class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all cursor-pointer ${this.activeTab === tab.id ? 'bg-zinc-950 text-zinc-100 shadow-sm' : 'hover:text-zinc-100'}"
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all cursor-pointer"
+              style="${this.activeTab === tab.id ? `background: var(--tab-active-bg); color: var(--fg); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);` : `color: var(--fg-muted);`}"
             >
               ${tab.label}
             </button>

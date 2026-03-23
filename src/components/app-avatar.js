@@ -28,11 +28,11 @@ export class AppAvatar extends LitElement {
   }
 
   render() {
-    const base = `relative inline-flex items-center justify-center rounded-full overflow-hidden bg-zinc-800 text-zinc-400 ${this._sizeClasses}`;
+    const base = `relative inline-flex items-center justify-center rounded-full overflow-hidden ${this._sizeClasses}`;
 
     if (this.src) {
       return html`
-        <span class="${base}">
+        <span class="${base}" style="background: var(--bg-muted); color: var(--fg-muted)">
           <img
             class="h-full w-full object-cover"
             src="${this.src}"
@@ -43,7 +43,7 @@ export class AppAvatar extends LitElement {
     }
 
     return html`
-      <span class="${base}">
+      <span class="${base}" style="background: var(--bg-muted); color: var(--fg-muted)">
         <span class="font-medium">${this.fallback}</span>
       </span>
     `;

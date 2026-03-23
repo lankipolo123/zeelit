@@ -35,10 +35,10 @@ export class AppRadio extends LitElement {
           const isDisabled = this.disabled || opt.disabled;
           return html`
             <label class="flex items-center gap-3 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}" @click="${() => !isDisabled && this._select(opt.value)}">
-              <div class="flex items-center justify-center h-5 w-5 shrink-0 rounded-full border-2 transition-colors ${selected ? 'border-white' : 'border-zinc-600'}">
-                ${selected ? html`<div class="h-2.5 w-2.5 rounded-full bg-white"></div>` : ''}
+              <div class="flex items-center justify-center h-5 w-5 shrink-0 rounded-full border-2 transition-colors" style="border-color: ${selected ? 'var(--primary)' : 'var(--input)'}">
+                ${selected ? html`<div class="h-2.5 w-2.5 rounded-full" style="background: var(--primary)"></div>` : ''}
               </div>
-              <span class="text-sm text-zinc-300">${opt.label}</span>
+              <span class="text-sm" style="color: var(--fg)">${opt.label}</span>
             </label>
           `;
         })}

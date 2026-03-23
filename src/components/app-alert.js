@@ -43,12 +43,12 @@ export class AppAlert extends LitElement {
   }
 
   render() {
-    const classes = this.variant === 'destructive'
-      ? 'border-red-600/50 text-red-400'
-      : 'border-zinc-700 text-zinc-100';
+    const style = this.variant === 'destructive'
+      ? 'border-color: rgb(220 38 38 / 0.5); color: var(--destructive);'
+      : `border-color: var(--border); color: var(--fg);`;
 
     return html`
-      <div class="relative w-full rounded-lg border p-4 ${classes}" role="alert">
+      <div class="relative w-full rounded-lg border p-4" style="${style}" role="alert">
         <div class="flex gap-3">
           ${this._icon}
           <div class="flex-1">

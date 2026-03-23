@@ -38,16 +38,28 @@ export class AppButton extends LitElement {
     }
   }
 
+  get _variantStyle() {
+    const variants = {
+      default: 'background: var(--primary); color: var(--primary-fg);',
+      destructive: 'background: var(--destructive); color: var(--destructive-fg);',
+      outline: 'background: transparent; color: var(--fg); border: 1px solid var(--input);',
+      secondary: 'background: var(--secondary); color: var(--secondary-fg);',
+      ghost: 'background: transparent; color: var(--fg);',
+      link: 'background: transparent; color: var(--fg);',
+    };
+    return variants[this.variant] || variants.default;
+  }
+
   get _classes() {
-    const base = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-950 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
+    const base = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
 
     const variants = {
-      default: 'bg-white text-zinc-900 hover:bg-zinc-200',
-      destructive: 'bg-red-600 text-white hover:bg-red-700',
-      outline: 'border border-zinc-700 text-zinc-100 hover:bg-zinc-800 hover:text-zinc-100',
-      secondary: 'bg-zinc-800 text-zinc-100 hover:bg-zinc-700',
-      ghost: 'text-zinc-100 hover:bg-zinc-800 hover:text-zinc-100',
-      link: 'text-zinc-100 underline-offset-4 hover:underline',
+      default: '',
+      destructive: '',
+      outline: '',
+      secondary: '',
+      ghost: '',
+      link: 'underline-offset-4 hover:underline',
     };
 
     const sizes = {
@@ -57,12 +69,12 @@ export class AppButton extends LitElement {
       icon: 'h-10 w-10',
     };
 
-    return `${base} ${variants[this.variant] || variants.default} ${sizes[this.size] || sizes.default}`;
+    return `${base} ${variants[this.variant] || ''} ${sizes[this.size] || sizes.default}`;
   }
 
   render() {
     return html`
-      <button class="${this._classes}" ?disabled=${this.disabled}></button>
+      <button class="${this._classes}" style="${this._variantStyle} --tw-ring-color: var(--ring); --tw-ring-offset-color: var(--ring-offset);" ?disabled=${this.disabled}></button>
     `;
   }
 }

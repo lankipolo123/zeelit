@@ -33,19 +33,18 @@ export class AppBadge extends LitElement {
     }
   }
 
-  get _classes() {
-    const base = 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors';
+  get _style() {
     const variants = {
-      default: 'bg-white text-zinc-900',
-      secondary: 'bg-zinc-800 text-zinc-100',
-      destructive: 'bg-red-600 text-white',
-      outline: 'border border-zinc-700 text-zinc-100',
+      default: `background: var(--primary); color: var(--primary-fg);`,
+      secondary: `background: var(--secondary); color: var(--secondary-fg);`,
+      destructive: `background: var(--destructive); color: var(--destructive-fg);`,
+      outline: `background: transparent; color: var(--fg); border: 1px solid var(--input);`,
     };
-    return `${base} ${variants[this.variant] || variants.default}`;
+    return variants[this.variant] || variants.default;
   }
 
   render() {
-    return html`<div class="${this._classes}" data-badge></div>`;
+    return html`<div class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors" style="${this._style}" data-badge></div>`;
   }
 }
 

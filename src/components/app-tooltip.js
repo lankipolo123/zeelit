@@ -41,7 +41,7 @@ export class AppTooltip extends LitElement {
   _hide() { this._visible = false; }
 
   get _tooltipClasses() {
-    const base = 'absolute z-50 px-2.5 py-1.5 text-xs rounded-md border bg-zinc-900 text-zinc-100 border-zinc-700 shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150';
+    const base = 'absolute z-50 px-2.5 py-1.5 text-xs rounded-md shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150';
     const visibility = this._visible ? 'opacity-100' : 'opacity-0 invisible';
     const positions = {
       top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
@@ -58,7 +58,7 @@ export class AppTooltip extends LitElement {
         @mouseenter="${this._show}"
         @mouseleave="${this._hide}">
         <div data-tooltip-trigger></div>
-        <div class="${this._tooltipClasses}" role="tooltip">${this.text}</div>
+        <div class="${this._tooltipClasses}" style="background: var(--primary); color: var(--primary-fg); border: 1px solid var(--border);" role="tooltip">${this.text}</div>
       </div>
     `;
   }

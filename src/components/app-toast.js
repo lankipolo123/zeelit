@@ -28,6 +28,16 @@ class AppToast extends LitElement {
     this._toasts = this._toasts.filter(t => t.id !== id);
   }
 
+  _getColors(variant) {
+    if (variant === 'destructive') {
+      return 'border-color: rgb(220 38 38 / 0.5); background: #7f1d1d; color: #fecaca;';
+    }
+    if (variant === 'success') {
+      return 'border-color: rgb(5 150 105 / 0.5); background: #064e3b; color: #a7f3d0;';
+    }
+    return `border-color: var(--border); background: var(--bg-card); color: var(--fg);`;
+  }
+
   render() {
     // Group toasts by position
     const groups = {};
@@ -40,24 +50,17 @@ class AppToast extends LitElement {
     return html`
       ${Object.values(groups).map(g => html`
         <div class="fixed ${g.pos.cls} z-[100] flex flex-col gap-2 pointer-events-none">
-          ${g.toasts.map(t => {
-            const colors = t.variant === 'destructive'
-              ? 'border-red-600/50 bg-red-950 text-red-200'
-              : t.variant === 'success'
-                ? 'border-emerald-600/50 bg-emerald-950 text-emerald-200'
-                : 'border-zinc-700 bg-zinc-900 text-zinc-100';
-            return html`
-              <div class="pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg text-sm ${colors}" style="animation: ${t.pos.anim} 0.2s ease-out">
-                ${t.variant === 'success' ? html`
-                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                ` : ''}
-                <span>${t.message}</span>
-                <button @click="${() => this.dismiss(t.id)}" class="ml-2 text-zinc-400 hover:text-zinc-200 cursor-pointer shrink-0">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-              </div>
-            `;
-          })}
+          ${g.toasts.map(t => html`
+            <div class="pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg text-sm" style="${this._getColors(t.variant)} animation: ${t.pos.anim} 0.2s ease-out;">
+              ${t.variant === 'success' ? html`
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              ` : ''}
+              <span>${t.message}</span>
+              <button @click="${() => this.dismiss(t.id)}" class="ml-2 cursor-pointer shrink-0 opacity-70 hover:opacity-100" style="color: inherit;">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+          `)}
         </div>
       `)}
     `;

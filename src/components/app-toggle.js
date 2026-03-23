@@ -33,11 +33,12 @@ export class AppToggle extends LitElement {
           aria-checked="${this.checked}"
           ?disabled="${this.disabled}"
           @click="${this._toggle}"
-          class="relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-950 cursor-pointer ${this.checked ? 'bg-white' : 'bg-zinc-700'}"
+          class="relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer"
+          style="background: ${this.checked ? 'var(--primary)' : 'var(--toggle-off)'}; --tw-ring-color: var(--ring); --tw-ring-offset-color: var(--ring-offset);"
         >
-          <span class="pointer-events-none block h-5 w-5 rounded-full shadow-lg ring-0 transition-transform ${this.checked ? 'translate-x-5 bg-zinc-900' : 'translate-x-0 bg-zinc-400'}"></span>
+          <span class="pointer-events-none block h-5 w-5 rounded-full shadow-lg ring-0 transition-transform ${this.checked ? 'translate-x-5' : 'translate-x-0'}" style="background: ${this.checked ? 'var(--primary-fg)' : 'var(--toggle-thumb)'}"></span>
         </button>
-        ${this.label ? html`<span class="text-sm text-zinc-200">${this.label}</span>` : ''}
+        ${this.label ? html`<span class="text-sm" style="color: var(--fg)">${this.label}</span>` : ''}
       </label>
     `;
   }

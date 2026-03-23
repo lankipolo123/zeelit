@@ -22,20 +22,20 @@ export class AppProgress extends LitElement {
 
   get _barColor() {
     const colors = {
-      default: 'bg-white',
-      success: 'bg-emerald-500',
-      warning: 'bg-amber-500',
-      destructive: 'bg-red-500',
+      default: 'var(--primary)',
+      success: '#10b981',
+      warning: '#f59e0b',
+      destructive: '#ef4444',
     };
     return colors[this.variant] || colors.default;
   }
 
   render() {
     return html`
-      <div class="bg-zinc-800 rounded-full h-2 w-full overflow-hidden">
+      <div class="rounded-full h-2 w-full overflow-hidden" style="background: var(--bg-muted)">
         <div
-          class="transition-all rounded-full h-full ${this._barColor}"
-          style="width: ${this._percent}%;"
+          class="transition-all rounded-full h-full"
+          style="width: ${this._percent}%; background: ${this._barColor};"
         ></div>
       </div>
     `;

@@ -19,8 +19,8 @@ export class AppSkeleton extends LitElement {
   render() {
     return html`
       <div
-        class="animate-pulse bg-zinc-800 ${this.rounded}"
-        style="width: ${this.width}; height: ${this.height};"
+        class="animate-pulse ${this.rounded}"
+        style="width: ${this.width}; height: ${this.height}; background: var(--skeleton);"
       ></div>
     `;
   }
