@@ -3,25 +3,34 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-carousel.js?raw';
 
 export function carouselPage(ctx) {
-  const slides = [
-    { title: 'Welcome', description: 'Get started with ZeeLit components.', icon: '👋' },
-    { title: 'Customizable', description: 'Every component supports theming out of the box.', icon: '🎨' },
-    { title: 'Lightweight', description: 'Built with Lit for minimal overhead.', icon: '⚡' },
-    { title: 'Accessible', description: 'Keyboard and screen reader friendly.', icon: '♿' },
-  ];
-
-  return ctx.componentPage('Carousel', 'A slideshow component for cycling through content.', [
+  return ctx.componentPage('Carousel', 'A slideshow — pass your own slides array. Use it for onboarding, feature highlights, testimonials, or image galleries.', [
     {
-      title: 'Content Slides',
-      description: 'Cycle through cards with navigation arrows and dot indicators.',
-      code: `<app-carousel .slides=\${slides}></app-carousel>`,
-      preview: html`<app-carousel .slides=${slides}></app-carousel>`,
+      title: 'Feature Highlights',
+      description: 'Pass slides with title, description, and icon.',
+      code: `<app-carousel .slides=\${[
+  { title: 'Fast Setup', description: 'Install and start building in seconds.', icon: '⚡' },
+  { title: 'Themeable', description: 'Customize colors with CSS variables.', icon: '🎨' },
+  { title: 'Accessible', description: 'Keyboard and screen reader support.', icon: '♿' },
+]}></app-carousel>`,
+      preview: html`<app-carousel .slides=${[
+        { title: 'Fast Setup', description: 'Install and start building in seconds.', icon: '⚡' },
+        { title: 'Themeable', description: 'Customize colors with CSS variables.', icon: '🎨' },
+        { title: 'Accessible', description: 'Keyboard and screen reader support.', icon: '♿' },
+      ]}></app-carousel>`,
     },
     {
-      title: 'Autoplay',
-      description: 'Automatically advances every 3 seconds.',
-      code: `<app-carousel .slides=\${slides} autoplay="3000"></app-carousel>`,
-      preview: html`<app-carousel .slides=${slides} autoplay="3000"></app-carousel>`,
+      title: 'Autoplay Testimonials',
+      description: 'Add autoplay with a duration in ms.',
+      code: `<app-carousel autoplay="3000" .slides=\${[
+  { title: 'Great library!', description: '— Sarah, Frontend Dev', icon: '⭐' },
+  { title: 'Saved us weeks', description: '— Mike, Tech Lead', icon: '🚀' },
+  { title: 'Clean API', description: '— Lisa, Designer', icon: '✨' },
+]}></app-carousel>`,
+      preview: html`<app-carousel autoplay="3000" .slides=${[
+        { title: 'Great library!', description: '— Sarah, Frontend Dev', icon: '⭐' },
+        { title: 'Saved us weeks', description: '— Mike, Tech Lead', icon: '🚀' },
+        { title: 'Clean API', description: '— Lisa, Designer', icon: '✨' },
+      ]}></app-carousel>`,
     },
   ], meta('carousel', source));
 }

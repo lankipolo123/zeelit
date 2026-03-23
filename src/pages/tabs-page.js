@@ -3,17 +3,20 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-tabs.js?raw';
 
 export function tabsPage(ctx) {
-  return ctx.componentPage('Tabs', 'A set of layered sections of content, shown one at a time.', [
+  return ctx.componentPage('Tabs', 'Tabbed content — pass your own tabs array with id, label, and content. Use it for settings pages, docs, dashboards, or any multi-view layout.', [
     {
-      title: 'Default',
+      title: 'Account Settings',
+      description: 'Pass tabs with id, label, and content.',
       code: `<app-tabs .tabs=\${[
-  { id: 'account', label: 'Account', content: html\`Make changes to your account.\` },
-  { id: 'password', label: 'Password', content: html\`Change your password here.\` },
+  { id: 'profile', label: 'Profile', content: html\`Edit your name, avatar, and bio.\` },
+  { id: 'security', label: 'Security', content: html\`Change password and enable 2FA.\` },
+  { id: 'billing', label: 'Billing', content: html\`Manage your plan and payment method.\` },
 ]}></app-tabs>`,
       preview: html`
         <app-tabs .tabs=${[
-          { id: 'account', label: 'Account', content: html`<p class="text-sm">Make changes to your account here.</p>` },
-          { id: 'password', label: 'Password', content: html`<p class="text-sm">Change your password here.</p>` },
+          { id: 'profile', label: 'Profile', content: html`<p class="text-sm">Edit your name, avatar, and bio.</p>` },
+          { id: 'security', label: 'Security', content: html`<p class="text-sm">Change password and enable 2FA.</p>` },
+          { id: 'billing', label: 'Billing', content: html`<p class="text-sm">Manage your plan and payment method.</p>` },
         ]}></app-tabs>
       `,
     },

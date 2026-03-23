@@ -3,10 +3,10 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-skeleton.js?raw';
 
 export function skeletonPage(ctx) {
-  return ctx.componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
+  return ctx.componentPage('Skeleton', 'A loading placeholder — set width, height, and rounded to match whatever content is loading.', [
     {
-      title: 'User Profile',
-      description: 'Simulates a loading user profile with avatar and text lines.',
+      title: 'Loading Profile',
+      description: 'Mimic a user card while data loads.',
       code: `<app-skeleton width="48px" height="48px" rounded="rounded-full"></app-skeleton>
 <app-skeleton width="250px" height="1rem"></app-skeleton>
 <app-skeleton width="200px" height="0.75rem"></app-skeleton>`,
@@ -21,8 +21,8 @@ export function skeletonPage(ctx) {
       `,
     },
     {
-      title: 'Card Placeholder',
-      description: 'Simulates a loading card layout.',
+      title: 'Loading Article',
+      description: 'Same component shaped like an article card.',
       code: `<app-skeleton width="100%" height="150px" rounded="rounded-lg"></app-skeleton>
 <app-skeleton width="60%" height="1.25rem"></app-skeleton>
 <app-skeleton width="100%" height="0.75rem"></app-skeleton>

@@ -3,34 +3,34 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-context-menu.js?raw';
 
 export function contextMenuPage(ctx) {
-  return ctx.componentPage('Context Menu', 'A right-click menu that appears at the cursor position.', [
+  return ctx.componentPage('Context Menu', 'A right-click menu — pass your own items and wrap any area. Use it for file managers, editors, dashboards, or any right-click interaction.', [
     {
-      title: 'Basic',
-      description: 'Right-click the area below to open the context menu.',
-      code: `<app-context-menu .items=\${['Cut', 'Copy', 'Paste', '-', 'Select All']}>
-  <p>Right-click here</p>
+      title: 'File Actions',
+      description: 'Right-click the area to see the menu. Pass items as strings.',
+      code: `<app-context-menu .items=\${['Open', 'Rename', 'Move to Trash', '-', 'Properties']}>
+  <div>Right-click this area</div>
 </app-context-menu>`,
       preview: html`
-        <app-context-menu .items=${['Cut', 'Copy', 'Paste', '-', 'Select All']}>
-          <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">Right-click here</div>
+        <app-context-menu .items=${['Open', 'Rename', 'Move to Trash', '-', 'Properties']}>
+          <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">Right-click this area</div>
         </app-context-menu>
       `,
     },
     {
-      title: 'With Shortcuts',
-      description: 'Items can include keyboard shortcut labels.',
+      title: 'Editor Shortcuts',
+      description: 'Pass objects with label and shortcut for keyboard hints.',
       code: `<app-context-menu .items=\${[
   { label: 'Cut', shortcut: '⌘X' },
   { label: 'Copy', shortcut: '⌘C' },
   { label: 'Paste', shortcut: '⌘V' },
   '-',
-  { label: 'Delete', shortcut: '⌫' },
+  { label: 'Select All', shortcut: '⌘A' },
 ]}>
-  <p>Right-click for shortcuts</p>
+  <div>Right-click for editor actions</div>
 </app-context-menu>`,
       preview: html`
-        <app-context-menu .items=${[{ label: 'Cut', shortcut: '⌘X' }, { label: 'Copy', shortcut: '⌘C' }, { label: 'Paste', shortcut: '⌘V' }, '-', { label: 'Select All', shortcut: '⌘A' }, '-', { label: 'Delete', shortcut: '⌫' }]}>
-          <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">Right-click for shortcuts</div>
+        <app-context-menu .items=${[{ label: 'Cut', shortcut: '⌘X' }, { label: 'Copy', shortcut: '⌘C' }, { label: 'Paste', shortcut: '⌘V' }, '-', { label: 'Select All', shortcut: '⌘A' }]}>
+          <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">Right-click for editor actions</div>
         </app-context-menu>
       `,
     },

@@ -3,9 +3,10 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-popover.js?raw';
 
 export function popoverPage(ctx) {
-  return ctx.componentPage('Popover', 'Displays rich content in a portal, triggered by a button.', [
+  return ctx.componentPage('Popover', 'A floating panel — put any content inside. Use it for settings forms, extra info, quick actions, or anything that needs a popup.', [
     {
-      title: 'Default',
+      title: 'Dimension Settings',
+      description: 'A form inside a popover.',
       code: `<app-popover>
   <h4>Dimensions</h4>
   <p>Set the dimensions for the layer.</p>

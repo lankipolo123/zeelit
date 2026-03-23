@@ -3,10 +3,10 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-hover-card.js?raw';
 
 export function hoverCardPage(ctx) {
-  return ctx.componentPage('Hover Card', 'A card that appears on hover, useful for showing preview info.', [
+  return ctx.componentPage('Hover Card', 'A preview card on hover — put any content in the trigger and content slots. Use it for user profiles, link previews, or product info.', [
     {
-      title: 'User Preview',
-      description: 'Hover over the link to see a preview card.',
+      title: 'User Profile Preview',
+      description: 'Hover the link to see a user card.',
       code: `<app-hover-card>
   <a slot="trigger">@zeelit</a>
   <div slot="content">

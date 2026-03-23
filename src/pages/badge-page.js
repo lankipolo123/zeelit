@@ -2,14 +2,23 @@ import { meta } from '../showcase/component-data.js';
 import source from '../components/app-badge.js?raw';
 
 export function badgePage(ctx) {
-  return ctx.componentPage('Badge', 'Displays a badge or a component that looks like a badge.', [
+  return ctx.componentPage('Badge', 'A small label — use it for status, categories, counts, or tags. Change variant and text for any context.', [
     {
-      title: 'Variants',
+      title: 'Status Labels',
+      description: 'Show different statuses with variants.',
       layout: 'flex gap-3',
-      code: `<app-badge>Default</app-badge>
-<app-badge variant="secondary">Secondary</app-badge>
-<app-badge variant="destructive">Destructive</app-badge>
-<app-badge variant="outline">Outline</app-badge>`,
+      code: `<app-badge>Active</app-badge>
+<app-badge variant="secondary">Pending</app-badge>
+<app-badge variant="destructive">Overdue</app-badge>
+<app-badge variant="outline">Archived</app-badge>`,
+    },
+    {
+      title: 'Category Tags',
+      description: 'Same component for content tags.',
+      layout: 'flex gap-2',
+      code: `<app-badge variant="secondary">Design</app-badge>
+<app-badge variant="secondary">Frontend</app-badge>
+<app-badge variant="secondary">Open Source</app-badge>`,
     },
   ], meta('badge', source));
 }
