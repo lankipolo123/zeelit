@@ -1,5 +1,6 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-badge.js?raw';
+import pageSource from './badge-page.js?raw';
 
 export function badgePage(ctx) {
   return ctx.componentPage('Badge', 'A small label — use it for status, categories, counts, or tags. Change variant and text for any context.', [
@@ -20,5 +21,5 @@ export function badgePage(ctx) {
 <app-badge variant="secondary">Frontend</app-badge>
 <app-badge variant="secondary">Open Source</app-badge>`,
     },
-  ], meta('badge', source));
+  ], meta('badge', source, pageSource));
 }

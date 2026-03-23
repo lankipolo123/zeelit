@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-sheet.js?raw';
+import pageSource from './sheet-page.js?raw';
 
 export function sheetPage(ctx) {
   return ctx.componentPage('Sheet', 'A panel that slides in from any side. Use it for navigation, settings, editing — just change the props.', [
@@ -59,5 +60,5 @@ export function sheetPage(ctx) {
         </app-sheet>
       `,
     },
-  ], meta('sheet', source));
+  ], meta('sheet', source, pageSource));
 }

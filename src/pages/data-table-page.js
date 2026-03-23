@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import componentSource from '../components/app-data-table.js?raw';
 import configSource from '../config/data-table.config.js?raw';
+import pageSource from './data-table-page.js?raw';
 import { paymentsTableConfig, usersTableConfig } from '../config/data-table.config.js';
 
 const TAG = 'app-data-table';
@@ -13,6 +14,11 @@ export function dataTablePage(ctx) {
       name: 'app-data-table.js',
       path: 'components/app-data-table.js',
       code: componentSource,
+    },
+    {
+      name: 'data-table-page.js',
+      path: 'pages/data-table-page.js',
+      code: pageSource,
     },
     {
       name: 'data-table.config.js',

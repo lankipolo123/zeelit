@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-textarea.js?raw';
+import pageSource from './textarea-page.js?raw';
 
 export function textareaPage(ctx) {
   return ctx.componentPage('Textarea', 'A multi-line text field — use it for comments, bios, feedback, or any long-form input.', [
@@ -21,5 +22,5 @@ export function textareaPage(ctx) {
       code: `<app-textarea label="Terms" value="You agree to our terms of service..." disabled></app-textarea>`,
       preview: html`<div class="w-80"><app-textarea label="Terms" value="You agree to our terms of service..." disabled></app-textarea></div>`,
     },
-  ], meta('textarea', source));
+  ], meta('textarea', source, pageSource));
 }

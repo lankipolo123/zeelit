@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-separator.js?raw';
+import pageSource from './separator-page.js?raw';
 
 export function separatorPage(ctx) {
   return ctx.componentPage('Separator', 'A visual divider — use horizontal between sections, vertical between inline items. Set orientation to switch.', [
@@ -35,5 +36,5 @@ export function separatorPage(ctx) {
         </div>
       `,
     },
-  ], meta('separator', source));
+  ], meta('separator', source, pageSource));
 }

@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-dialog.js?raw';
+import pageSource from './dialog-page.js?raw';
 
 export function dialogPage(ctx) {
   return ctx.componentPage('Dialog', 'A modal dialog that interrupts the user with important content. Reuse it for any purpose — confirmations, forms, info panels — just change the props.', [
@@ -61,5 +62,5 @@ export function dialogPage(ctx) {
         </div>
       `,
     },
-  ], meta('dialog', source));
+  ], meta('dialog', source, pageSource));
 }

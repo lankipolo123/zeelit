@@ -1,5 +1,6 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-pagination.js?raw';
+import pageSource from './pagination-page.js?raw';
 
 export function paginationPage(ctx) {
   return ctx.componentPage('Pagination', 'Page navigation — set total pages and current page. Use it for tables, search results, blog archives, or any paginated content.', [
@@ -18,5 +19,5 @@ export function paginationPage(ctx) {
       description: 'Just a few pages — no ellipses needed.',
       code: `<app-pagination total="3" current="2"></app-pagination>`,
     },
-  ], meta('pagination', source));
+  ], meta('pagination', source, pageSource));
 }

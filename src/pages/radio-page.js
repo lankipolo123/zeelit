@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-radio.js?raw';
+import pageSource from './radio-page.js?raw';
 
 export function radioPage(ctx) {
   return ctx.componentPage('Radio Group', 'A single-choice selector — pass your own options array. Use it for settings, preferences, plan selection, or any exclusive choice.', [
@@ -44,5 +45,5 @@ export function radioPage(ctx) {
         { label: 'Yearly', value: 'yearly' },
       ]}"></app-radio>`,
     },
-  ], meta('radio', source));
+  ], meta('radio', source, pageSource));
 }
