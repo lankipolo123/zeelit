@@ -342,13 +342,18 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  componentPage(title, description, sections, { source, fileName, importPath, tagName, pageSource, pageFileName } = {}) {
+  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
     const files = [];
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
     }
-    if (pageSource && pageFileName) {
-      files.push({ name: pageFileName, path: `pages/${pageFileName}`, code: pageSource });
+    // Auto-generate a clean examples file from the demo code snippets
+    if (sections.length && importPath) {
+      const examplesCode = `import '${importPath}';\n\n` + sections.map((s, i) => {
+        const header = s.title ? `/* ${s.title}${s.description ? ' — ' + s.description : ''} */` : '';
+        return (header ? header + '\n' : '') + s.code;
+      }).join('\n\n');
+      files.push({ name: 'examples.html', path: `examples/${tagName || 'component'}-examples.html`, code: examplesCode });
     }
 
     return html`
@@ -416,7 +421,7 @@ export class AppShowcase extends LitElement {
   /* ─── Sidebar ─── */
 
   _sidebarNav() {
-    const perPage = 21;
+    const perPage = 27;
     const totalPages = Math.ceil(COMPONENTS.length / perPage);
     const start = this._sidebarPage * perPage;
     const visibleComponents = COMPONENTS.slice(start, start + perPage);
@@ -544,7 +549,7 @@ export class AppShowcase extends LitElement {
             </button>
           </div>
         ` : html`
-          <div class="relative shrink-0 hidden md:block" style="width: clamp(260px, 25%, 340px)">
+          <div class="relative shrink-0 hidden md:block" style="width: clamp(300px, 28%, 420px)">
             <aside class="h-full overflow-y-auto flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
               <!-- Sidebar branding -->
               <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">

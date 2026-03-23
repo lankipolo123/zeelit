@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-button.js?raw';
-import pageSource from './button-page.js?raw';
 
 const TAG = 'app-button';
 const IMPORT = '@/components/app-button.js';
@@ -51,5 +50,5 @@ export function buttonPage(ctx) {
       code: `<app-button disabled>Can't click me</app-button>`,
       preview: html`<app-button disabled>Can't click me</app-button>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'button-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

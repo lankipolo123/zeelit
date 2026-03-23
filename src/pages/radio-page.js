@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-radio.js?raw';
-import pageSource from './radio-page.js?raw';
 
 const TAG = 'app-radio';
 const IMPORT = '@/components/app-radio.js';
@@ -53,5 +52,5 @@ export function radioPage(ctx) {
         { label: 'Comfortable', value: 'comfortable' },
       ]}"></app-radio>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'radio-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

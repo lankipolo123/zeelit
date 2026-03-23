@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-dropdown.js?raw';
-import pageSource from './dropdown-page.js?raw';
 
 const TAG = 'app-dropdown';
 const IMPORT = '@/components/app-dropdown.js';
@@ -46,5 +45,5 @@ export function dropdownPage(ctx) {
         </app-dropdown>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'dropdown-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-badge.js?raw';
-import pageSource from './badge-page.js?raw';
 
 const TAG = 'app-badge';
 const IMPORT = '@/components/app-badge.js';
@@ -23,5 +22,5 @@ export function badgePage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'badge-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

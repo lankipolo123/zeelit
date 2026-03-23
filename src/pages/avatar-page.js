@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-avatar.js?raw';
-import pageSource from './avatar-page.js?raw';
 
 const TAG = 'app-avatar';
 const IMPORT = '@/components/app-avatar.js';
@@ -47,5 +46,5 @@ export function avatarPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'avatar-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

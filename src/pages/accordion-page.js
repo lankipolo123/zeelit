@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-accordion.js?raw';
-import pageSource from './accordion-page.js?raw';
 
 const TAG = 'app-accordion';
 const IMPORT = '@/components/app-accordion.js';
@@ -38,5 +37,5 @@ export function accordionPage(ctx) {
 ></app-accordion>`,
       preview: html`<div class="w-full max-w-md"><app-accordion multiple .items="${faqItems}"></app-accordion></div>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'accordion-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

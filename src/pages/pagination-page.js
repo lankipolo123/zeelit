@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-pagination.js?raw';
-import pageSource from './pagination-page.js?raw';
 
 const TAG = 'app-pagination';
 const IMPORT = '@/components/app-pagination.js';
@@ -24,5 +23,5 @@ export function paginationPage(ctx) {
       code: `<app-pagination total="3" current="2"></app-pagination>`,
       preview: html`<app-pagination total="3" current="2"></app-pagination>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'pagination-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

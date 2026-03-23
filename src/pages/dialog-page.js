@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-dialog.js?raw';
-import pageSource from './dialog-page.js?raw';
 
 const TAG = 'app-dialog';
 const IMPORT = '@/components/app-dialog.js';
@@ -32,5 +31,5 @@ export function dialogPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'dialog-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

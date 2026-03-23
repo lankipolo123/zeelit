@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-carousel.js?raw';
-import pageSource from './carousel-page.js?raw';
 
 const TAG = 'app-carousel';
 const IMPORT = '@/components/app-carousel.js';
@@ -32,5 +31,5 @@ export function carouselPage(ctx) {
       code: `<app-carousel .slides=\${slides} autoplay="3000"></app-carousel>`,
       preview: html`<app-carousel .slides=${contentSlides} autoplay="3000"></app-carousel>`,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'carousel-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

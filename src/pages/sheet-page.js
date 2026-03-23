@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-sheet.js?raw';
-import pageSource from './sheet-page.js?raw';
 
 const TAG = 'app-sheet';
 const IMPORT = '@/components/app-sheet.js';
@@ -52,5 +51,5 @@ export function sheetPage(ctx) {
         </app-sheet>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'sheet-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }

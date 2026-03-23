@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import source from '../components/app-tooltip.js?raw';
-import pageSource from './tooltip-page.js?raw';
 
 const TAG = 'app-tooltip';
 const IMPORT = '@/components/app-tooltip.js';
@@ -46,5 +45,5 @@ export function tooltipPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'tooltip-page.js' });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
 }
