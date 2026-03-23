@@ -18,6 +18,12 @@ import './components/app-textarea.js';
 import './components/app-checkbox.js';
 import './components/app-radio.js';
 import './components/app-accordion.js';
+import './components/app-select.js';
+import './components/app-breadcrumb.js';
+import './components/app-popover.js';
+import './components/app-slider.js';
+import './components/app-sheet.js';
+import './components/app-data-table.js';
 
 // Showcase app
 import './showcase/app-showcase.js';

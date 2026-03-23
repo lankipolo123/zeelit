@@ -246,7 +246,7 @@ export class AppShowcase extends LitElement {
           ${view !== 'preview' ? this._copyButton(activeCode, `demo-${key}-${view}`) : ''}
         </div>
         ${view === 'preview'
-          ? html`<div class="p-8 flex items-center justify-center min-h-[180px]" style="background: var(--bg-preview)">${preview}</div>`
+          ? html`<div class="p-6 min-h-[180px]" style="background: var(--bg-preview)">${preview}</div>`
           : html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(activeCode))}</div>`
         }
       </div>
