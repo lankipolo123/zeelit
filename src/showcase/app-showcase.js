@@ -421,11 +421,6 @@ export class AppShowcase extends LitElement {
   /* ─── Sidebar ─── */
 
   _sidebarNav() {
-    const perPage = 27;
-    const totalPages = Math.ceil(COMPONENTS.length / perPage);
-    const start = this._sidebarPage * perPage;
-    const visibleComponents = COMPONENTS.slice(start, start + perPage);
-
     const link = (id, label) => {
       const active = this.activePage === id;
       return html`
@@ -438,39 +433,11 @@ export class AppShowcase extends LitElement {
 
     return html`
       <nav class="p-4 grid grid-cols-3 gap-2.5">
-        ${this._sidebarPage === 0 ? html`
-          ${link('home', 'Introduction')}
-          ${link('installation', 'Installation')}
-          ${link('layouts', 'Layouts')}
-        ` : ''}
-        ${visibleComponents.map(comp => link(comp.id, comp.label))}
+        ${link('home', 'Introduction')}
+        ${link('installation', 'Installation')}
+        ${link('layouts', 'Layouts')}
+        ${COMPONENTS.map(comp => link(comp.id, comp.label))}
       </nav>
-      <div class="px-4 pb-4 flex items-center justify-between">
-        <div class="flex items-center gap-1">
-          <button
-            @click="${() => { if (this._sidebarPage > 0) this._sidebarPage--; }}"
-            class="h-7 w-7 rounded inline-flex items-center justify-center cursor-pointer transition-colors"
-            style="color: ${this._sidebarPage === 0 ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${this._sidebarPage === 0 ? '0.4' : '1'}; ${this._sidebarPage === 0 ? 'cursor: default;' : ''}"
-            @mouseenter=${(e) => { if (this._sidebarPage > 0) e.currentTarget.style.background = 'var(--bg-muted)'; }}
-            @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-          ><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-          <span class="text-xs px-1" style="color: var(--fg-subtle)">${this._sidebarPage + 1}/${totalPages}</span>
-          <button
-            @click="${() => { if (this._sidebarPage < totalPages - 1) this._sidebarPage++; }}"
-            class="h-7 w-7 rounded inline-flex items-center justify-center cursor-pointer transition-colors"
-            style="color: ${this._sidebarPage >= totalPages - 1 ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${this._sidebarPage >= totalPages - 1 ? '0.4' : '1'}; ${this._sidebarPage >= totalPages - 1 ? 'cursor: default;' : ''}"
-            @mouseenter=${(e) => { if (this._sidebarPage < totalPages - 1) e.currentTarget.style.background = 'var(--bg-muted)'; }}
-            @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-          ><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
-        </div>
-        <button
-          @click="${() => { this._viewAllOpen = true; }}"
-          class="text-xs font-medium px-2.5 py-1.5 rounded-md cursor-pointer transition-colors"
-          style="color: var(--primary); background: transparent;"
-          @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
-          @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-        >View All</button>
-      </div>
     `;
   }
 
