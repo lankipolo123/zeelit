@@ -292,9 +292,11 @@ export class AppShowcase extends LitElement {
         <!-- 1: Sidebar — full height left -->
         ${this.sidebarCollapsed ? html`
           <aside class="w-14 shrink-0 hidden md:flex md:flex-col items-center cursor-pointer select-none" style="border-right: 1px solid var(--border); background: var(--bg)" @click="${() => this.sidebarCollapsed = false}">
-            <!-- Collapse toggle top -->
+            <!-- Branding collapsed -->
             <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
-              <svg class="w-5 h-5" style="color: var(--fg-muted)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+              </div>
             </div>
             <!-- Vertical text centered -->
             <div class="flex-1 flex items-center justify-center">
@@ -308,13 +310,17 @@ export class AppShowcase extends LitElement {
               <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
                 <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
               </div>
-              <span class="font-semibold tracking-tight flex-1" style="color: var(--fg)">ZeeLit</span>
-              <button @click="${() => this.sidebarCollapsed = true}" class="p-1.5 rounded-md cursor-pointer transition-colors" style="color: var(--fg-muted)" title="Collapse sidebar">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-              </button>
+              <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
             </div>
             <!-- Component grid -->
             ${this._sidebarNav()}
+            <!-- Collapse icon centered -->
+            <div class="flex-1"></div>
+            <div class="flex items-center justify-center py-4">
+              <button @click="${() => this.sidebarCollapsed = true}" class="p-2 rounded-md cursor-pointer transition-colors" style="color: var(--fg-muted); border: 1px solid var(--border)" title="Collapse sidebar">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+            </div>
           </aside>
         `}
 
