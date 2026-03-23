@@ -8,11 +8,15 @@ const FILE = 'app-avatar.js';
 export function avatarPage(ctx) {
   return ctx.componentPage('Avatar', 'An image element with a fallback for representing the user.', [
     {
-      title: 'Image Avatar',
-      code: `<app-avatar src="https://i.pravatar.cc/80?img=3" alt="User avatar"></app-avatar>`,
+      title: 'Profile Avatars',
+      code: `<app-avatar src="https://i.imgur.com/uherCAZ.png" alt="Profile 1"></app-avatar>
+<app-avatar src="https://i.imgur.com/WqV8GTy.png" alt="Profile 2"></app-avatar>
+<app-avatar src="https://i.imgur.com/kXp4fIF.png" alt="Profile 3"></app-avatar>`,
       preview: html`
         <div class="flex gap-3">
-          <app-avatar src="https://i.pravatar.cc/80?img=3" alt="User avatar"></app-avatar>
+          <app-avatar src="https://i.imgur.com/uherCAZ.png" alt="Profile 1"></app-avatar>
+          <app-avatar src="https://i.imgur.com/WqV8GTy.png" alt="Profile 2"></app-avatar>
+          <app-avatar src="https://i.imgur.com/kXp4fIF.png" alt="Profile 3"></app-avatar>
         </div>
       `,
     },
