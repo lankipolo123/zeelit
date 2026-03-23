@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-dropdown.js?raw';
-import pageSource from './dropdown-page.js?raw';
 
 export function dropdownPage(ctx) {
   return ctx.componentPage('Dropdown', 'A click menu — pass your own items and trigger button. Use it for user menus, action lists, or any contextual options.', [
@@ -37,5 +36,5 @@ export function dropdownPage(ctx) {
         </app-dropdown>
       `,
     },
-  ], meta('dropdown', source, pageSource));
+  ], meta('dropdown', source));
 }

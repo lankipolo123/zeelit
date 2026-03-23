@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-carousel.js?raw';
-import pageSource from './carousel-page.js?raw';
 
 export function carouselPage(ctx) {
   return ctx.componentPage('Carousel', 'A slideshow — pass your own slides array. Use it for onboarding, feature highlights, testimonials, or image galleries.', [
@@ -33,5 +32,5 @@ export function carouselPage(ctx) {
         { title: 'Clean API', description: '— Lisa, Designer', icon: '✨' },
       ]}></app-carousel>`,
     },
-  ], meta('carousel', source, pageSource));
+  ], meta('carousel', source));
 }

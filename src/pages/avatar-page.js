@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-avatar.js?raw';
-import pageSource from './avatar-page.js?raw';
 
 export function avatarPage(ctx) {
   return ctx.componentPage('Avatar', 'A user image with fallback — set src for photos, fallback for initials, size to scale. Use it for profiles, comments, team lists, or anywhere you show a user.', [
@@ -29,5 +28,5 @@ export function avatarPage(ctx) {
 <app-avatar fallback="MD" size="default"></app-avatar>
 <app-avatar fallback="LG" size="lg"></app-avatar>`,
     },
-  ], meta('avatar', source, pageSource));
+  ], meta('avatar', source));
 }

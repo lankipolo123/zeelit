@@ -365,13 +365,10 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  componentPage(title, description, sections, { source, fileName, importPath, tagName, pageSource, pageFileName } = {}) {
+  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
     const files = [];
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
-    }
-    if (pageSource && pageFileName) {
-      files.push({ name: pageFileName, path: `pages/${pageFileName}`, code: pageSource });
     }
     // Auto-generate examples file from demo code snippets
     if (sections.length && importPath) {
@@ -403,6 +400,26 @@ ${usage}
 </body>
 </html>`;
       files.push({ name: 'index.html', path: 'index.html', code: indexHtml });
+    }
+    // Auto-generate a page usage file showing how to use the component in a real page
+    if (sections.length && tagName && importPath) {
+      const firstExample = sections[0];
+      const pageHtml = `<!--
+  ${title} — Page Usage Example
+  Copy this into your HTML page to use the ${tagName} component.
+-->
+
+<!-- 1. Import the component -->
+<script type="module">
+  import '${importPath}';
+<\/script>
+
+<!-- 2. Use it in your HTML -->
+${sections.map(s => {
+  const comment = s.title ? `\n<!-- ${s.title}${s.description ? ' — ' + s.description : ''} -->` : '';
+  return comment + '\n' + s.code;
+}).join('\n')}`;
+      files.push({ name: 'usage.html', path: `pages/${tagName}-usage.html`, code: pageHtml });
     }
 
     return html`

@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-card.js?raw';
-import pageSource from './card-page.js?raw';
 
 export function cardPage(ctx) {
   return ctx.componentPage('Card', 'A flexible container — use it for forms, info panels, pricing, stats, or anything. Just pass your own title, description, and content.', [
@@ -56,5 +55,5 @@ export function cardPage(ctx) {
         </div>
       `,
     },
-  ], meta('card', source, pageSource));
+  ], meta('card', source));
 }

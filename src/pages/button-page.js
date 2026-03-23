@@ -1,6 +1,5 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-button.js?raw';
-import pageSource from './button-page.js?raw';
 
 export function buttonPage(ctx) {
   return ctx.componentPage('Button', 'A clickable element — configure variant, size, and disabled state to fit any context.', [
@@ -28,5 +27,5 @@ export function buttonPage(ctx) {
       description: 'Disable until conditions are met — like form validation.',
       code: `<app-button disabled>Waiting for input...</app-button>`,
     },
-  ], meta('button', source, pageSource));
+  ], meta('button', source));
 }
