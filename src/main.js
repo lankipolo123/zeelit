@@ -10,6 +10,14 @@ import './components/app-dialog.js';
 import './components/app-separator.js';
 import './components/app-skeleton.js';
 import './components/app-toast.js';
+import './components/app-avatar.js';
+import './components/app-tooltip.js';
+import './components/app-progress.js';
+import './components/app-dropdown.js';
+import './components/app-textarea.js';
+import './components/app-checkbox.js';
+import './components/app-radio.js';
+import './components/app-accordion.js';
 
 // Showcase app
 import './showcase/app-showcase.js';
