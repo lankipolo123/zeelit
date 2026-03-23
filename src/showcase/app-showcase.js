@@ -355,7 +355,7 @@ export class AppShowcase extends LitElement {
 
           <!-- 3: Page content -->
           <main class="flex-1 overflow-y-auto">
-            <div class="max-w-3xl mx-auto px-6 py-10 lg:py-14">
+            <div class="max-w-4xl px-8 py-10 lg:py-14">
               ${this._renderPage()}
             </div>
           </main>
