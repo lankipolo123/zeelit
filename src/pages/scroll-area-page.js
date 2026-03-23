@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-scroll-area.js?raw';
-import pageSource from './scroll-area-page.js?raw';
 
 export function scrollAreaPage(ctx) {
   return ctx.componentPage('Scroll Area', 'A styled scrollable container — set height, orientation, and put any content inside. Use it for lists, logs, code panels, or any overflowing content.', [
@@ -39,5 +38,5 @@ export function scrollAreaPage(ctx) {
         </app-scroll-area>
       `,
     },
-  ], { ...meta('scroll-area', source), pageSource, pageFileName: 'scroll-area-page.js' });
+  ], meta('scroll-area', source));
 }

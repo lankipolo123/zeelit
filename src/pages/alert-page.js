@@ -1,6 +1,5 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-alert.js?raw';
-import pageSource from './alert-page.js?raw';
 
 export function alertPage(ctx) {
   return ctx.componentPage('Alert', 'A callout for any message — info, success, error, warning. Change the title, description, and variant to fit your use case.', [
@@ -23,5 +22,5 @@ export function alertPage(ctx) {
       description: 'Or scheduled downtime — same component, different text.',
       code: `<app-alert alertTitle="Scheduled maintenance">The system will be down on Sunday 2am–4am.</app-alert>`,
     },
-  ], { ...meta('alert', source), pageSource, pageFileName: 'alert-page.js' });
+  ], meta('alert', source));
 }

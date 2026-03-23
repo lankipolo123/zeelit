@@ -1,6 +1,5 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-checkbox.js?raw';
-import pageSource from './checkbox-page.js?raw';
 
 export function checkboxPage(ctx) {
   return ctx.componentPage('Checkbox', 'A check/uncheck control — use it for terms acceptance, feature toggles, multi-select lists, or any boolean choice.', [
@@ -26,5 +25,5 @@ export function checkboxPage(ctx) {
       description: 'Lock when the option can\'t be changed.',
       code: `<app-checkbox label="Required consent" disabled checked></app-checkbox>`,
     },
-  ], { ...meta('checkbox', source), pageSource, pageFileName: 'checkbox-page.js' });
+  ], meta('checkbox', source));
 }

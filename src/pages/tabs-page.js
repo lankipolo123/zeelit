@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-tabs.js?raw';
-import pageSource from './tabs-page.js?raw';
 
 export function tabsPage(ctx) {
   return ctx.componentPage('Tabs', 'Tabbed content — pass your own tabs array with id, label, and content. Use it for settings pages, docs, dashboards, or any multi-view layout.', [
@@ -21,5 +20,5 @@ export function tabsPage(ctx) {
         ]}></app-tabs>
       `,
     },
-  ], { ...meta('tabs', source), pageSource, pageFileName: 'tabs-page.js' });
+  ], meta('tabs', source));
 }

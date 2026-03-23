@@ -1,6 +1,5 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-toggle.js?raw';
-import pageSource from './toggle-page.js?raw';
 
 export function togglePage(ctx) {
   return ctx.componentPage('Toggle', 'An on/off switch — use it for any boolean setting. Set label, checked, and disabled.', [
@@ -23,5 +22,5 @@ export function togglePage(ctx) {
       description: 'Lock it when the user can\'t change the setting.',
       code: `<app-toggle label="Two-Factor Auth" disabled checked></app-toggle>`,
     },
-  ], { ...meta('toggle', source), pageSource, pageFileName: 'toggle-page.js' });
+  ], meta('toggle', source));
 }

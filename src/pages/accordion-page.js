@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-accordion.js?raw';
-import pageSource from './accordion-page.js?raw';
 
 export function accordionPage(ctx) {
   return ctx.componentPage('Accordion', 'Expandable sections — pass your own items array with any titles and content. Use it for FAQs, docs, settings, or any grouped info.', [
@@ -33,5 +32,5 @@ export function accordionPage(ctx) {
         { title: 'Billing', content: 'Plans, invoices, and payment methods.' },
       ]}"></app-accordion></div>`,
     },
-  ], { ...meta('accordion', source), pageSource, pageFileName: 'accordion-page.js' });
+  ], meta('accordion', source));
 }

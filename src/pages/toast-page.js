@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-toast.js?raw';
-import pageSource from './toast-page.js?raw';
 import { toast } from '../components/app-toast.js';
 
 export function toastPage(ctx) {
@@ -29,5 +28,5 @@ export function toastPage(ctx) {
       code: `toast('Auto-saving in 5 seconds...', { duration: 5000 });`,
       preview: html`<app-button variant="secondary" @click="${() => toast('Auto-saving in 5 seconds...', { duration: 5000 })}">Auto-save</app-button>`,
     },
-  ], { ...meta('toast', source), pageSource, pageFileName: 'toast-page.js' });
+  ], meta('toast', source));
 }

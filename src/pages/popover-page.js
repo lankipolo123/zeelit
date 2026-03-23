@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-popover.js?raw';
-import pageSource from './popover-page.js?raw';
 
 export function popoverPage(ctx) {
   return ctx.componentPage('Popover', 'A floating panel — put any content inside. Use it for settings forms, extra info, quick actions, or anything that needs a popup.', [
@@ -29,5 +28,5 @@ export function popoverPage(ctx) {
         </app-popover>
       `,
     },
-  ], { ...meta('popover', source), pageSource, pageFileName: 'popover-page.js' });
+  ], meta('popover', source));
 }

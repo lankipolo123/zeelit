@@ -1,6 +1,5 @@
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-tooltip.js?raw';
-import pageSource from './tooltip-page.js?raw';
 
 export function tooltipPage(ctx) {
   return ctx.componentPage('Tooltip', 'A hover hint — wrap any element and set the text and position. Use it on buttons, icons, links, or anything.', [
@@ -24,5 +23,5 @@ export function tooltipPage(ctx) {
   <app-button variant="outline">Right</app-button>
 </app-tooltip>`,
     },
-  ], { ...meta('tooltip', source), pageSource, pageFileName: 'tooltip-page.js' });
+  ], meta('tooltip', source));
 }
