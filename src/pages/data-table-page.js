@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import componentSource from '../components/app-data-table.js?raw';
-import configSource from '../components/data-table.config.js?raw';
+import configSource from '../config/data-table.config.js?raw';
 import pageSource from './data-table-page.js?raw';
-import { paymentsTableConfig, usersTableConfig } from '../components/data-table.config.js';
+import { paymentsTableConfig, usersTableConfig } from '../config/data-table.config.js';
 
 const TAG = 'app-data-table';
 const IMPORT = '@/components/app-data-table.js';
@@ -17,7 +17,7 @@ export function dataTablePage(ctx) {
     },
     {
       name: 'data-table.config.js',
-      path: 'components/data-table.config.js',
+      path: 'config/data-table.config.js',
       code: configSource,
     },
     {
@@ -41,7 +41,7 @@ export function dataTablePage(ctx) {
         <p class="text-sm" style="color: var(--fg-muted)">A table with search, sort, pagination, and selectable rows.</p>
         ${ctx.renderDemo('DataTable-0',
           html`<app-data-table .config=${paymentsTableConfig}></app-data-table>`,
-          `import { paymentsTableConfig } from './data-table.config.js';
+          `import { paymentsTableConfig } from '@/config/data-table.config.js';
 
 <app-data-table .config=\${paymentsTableConfig}></app-data-table>`,
           { importPath: IMPORT, tagName: TAG }
@@ -54,7 +54,7 @@ export function dataTablePage(ctx) {
         <p class="text-sm" style="color: var(--fg-muted)">A striped table without row selection.</p>
         ${ctx.renderDemo('DataTable-1',
           html`<app-data-table .config=${usersTableConfig}></app-data-table>`,
-          `import { usersTableConfig } from './data-table.config.js';
+          `import { usersTableConfig } from '@/config/data-table.config.js';
 
 <app-data-table .config=\${usersTableConfig}></app-data-table>`,
           { importPath: IMPORT, tagName: TAG }
