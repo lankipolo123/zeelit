@@ -38,6 +38,7 @@ import { collapsiblePage } from '../pages/collapsible-page.js';
 import { scrollAreaPage } from '../pages/scroll-area-page.js';
 import { contextMenuPage } from '../pages/context-menu-page.js';
 import { carouselPage } from '../pages/carousel-page.js';
+import { layoutsPage } from '../pages/layouts-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -73,6 +74,7 @@ const PAGE_MAP = {
   'scroll-area': scrollAreaPage,
   'context-menu': contextMenuPage,
   carousel: carouselPage,
+  layouts: layoutsPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -396,6 +398,7 @@ export class AppShowcase extends LitElement {
             ${navLink('home', 'Docs', this.activePage === 'home')}
             ${navLink('installation', 'Installation', this.activePage === 'installation')}
             ${navLink('button', 'Components', isComponentPage)}
+            ${navLink('layouts', 'Layouts', this.activePage === 'layouts')}
           </nav>
 
           <button @click="${() => this._toggleTheme()}" class="p-2 rounded-md cursor-pointer transition-colors" style="color: var(--fg-muted)" title="${this._dark ? 'Switch to light mode' : 'Switch to dark mode'}">
@@ -433,6 +436,7 @@ export class AppShowcase extends LitElement {
         ${this._sidebarPage === 0 ? html`
           ${link('home', 'Introduction')}
           ${link('installation', 'Installation')}
+          ${link('layouts', 'Layouts')}
         ` : ''}
         ${visibleComponents.map(comp => link(comp.id, comp.label))}
       </nav>
