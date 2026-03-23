@@ -241,13 +241,6 @@ export class AppShowcase extends LitElement {
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
 
-          <a @click="${() => this.navigate('home')}" class="flex items-center gap-2 cursor-pointer mr-8">
-            <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-              <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
-            </div>
-            <span class="font-semibold tracking-tight hidden sm:block" style="color: var(--fg)">ZeeLit</span>
-          </a>
-
           <nav class="flex items-center gap-1 flex-1">
             ${navLink('home', 'Docs', this.activePage === 'home')}
             ${navLink('installation', 'Installation', this.activePage === 'installation')}
@@ -297,7 +290,7 @@ export class AppShowcase extends LitElement {
         <!-- 1: Sidebar — full height left -->
         <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
           <!-- Sidebar branding -->
-          <div class="flex items-center gap-2 px-4 py-4" style="border-bottom: 1px solid var(--border)">
+          <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
             <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
               <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
             </div>
