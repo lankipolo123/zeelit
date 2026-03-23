@@ -85,7 +85,6 @@ export class AppShowcase extends LitElement {
     _codeVisible: { state: true },
     _copied: { state: true },
     _dark: { state: true },
-    _sidebarPage: { state: true },
     _viewAllOpen: { state: true },
   };
 
@@ -97,9 +96,7 @@ export class AppShowcase extends LitElement {
     this._codeVisible = {};
     this._copied = {};
     this._dark = localStorage.getItem('zeelit-theme') !== 'light';
-    this._sidebarPage = 0;
     this._viewAllOpen = false;
-    this._SIDEBAR_PER_PAGE = 18;
     this._applyTheme();
     window.addEventListener('hashchange', () => {
       this.activePage = this._getPageFromHash() || 'home';
@@ -424,46 +421,23 @@ export class AppShowcase extends LitElement {
       `;
     };
 
-    const perPage = this._SIDEBAR_PER_PAGE;
-    const totalPages = Math.ceil(COMPONENTS.length / perPage);
-    const start = this._sidebarPage * perPage;
-    const visibleComponents = COMPONENTS.slice(start, start + perPage);
-
-    const pageBtn = (label, page, disabled = false) => html`
-      <button
-        @click="${() => { if (!disabled) this._sidebarPage = page; }}"
-        class="h-7 min-w-[28px] px-1.5 rounded text-xs font-medium cursor-pointer transition-colors inline-flex items-center justify-center"
-        style="color: ${disabled ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${disabled ? '0.4' : '1'}; background: transparent; border: 1px solid ${disabled ? 'transparent' : 'var(--border)'}; ${disabled ? 'cursor: not-allowed;' : ''}"
-        ?disabled="${disabled}"
-        @mouseenter=${(e) => { if (!disabled) e.currentTarget.style.background = 'var(--bg-muted)'; }}
-        @mouseleave=${(e) => { if (!disabled) e.currentTarget.style.background = 'transparent'; }}
-      >${label}</button>
-    `;
-
     return html`
       <nav class="p-4 flex flex-col gap-3">
         <div class="grid grid-cols-3 gap-2.5">
           ${link('home', 'Introduction')}
           ${link('installation', 'Installation')}
-          ${visibleComponents.map(comp => link(comp.id, comp.label))}
+          ${COMPONENTS.map(comp => link(comp.id, comp.label))}
         </div>
 
-        <!-- Pagination + View All -->
-        <div class="flex items-center justify-between pt-1" style="border-top: 1px solid var(--border);">
-          ${totalPages > 1 ? html`
-            <div class="flex items-center gap-1">
-              ${pageBtn(html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>`, this._sidebarPage - 1, this._sidebarPage === 0)}
-              <span class="text-xs px-1.5" style="color: var(--fg-subtle)">${this._sidebarPage + 1}/${totalPages}</span>
-              ${pageBtn(html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`, this._sidebarPage + 1, this._sidebarPage >= totalPages - 1)}
-            </div>
-          ` : html`<div></div>`}
+        <!-- View All -->
+        <div class="flex items-center justify-center pt-2" style="border-top: 1px solid var(--border);">
           <button
             @click="${() => { this._viewAllOpen = true; }}"
-            class="text-xs font-medium px-2.5 py-1.5 rounded-md cursor-pointer transition-colors"
+            class="text-xs font-medium px-3 py-1.5 rounded-md cursor-pointer transition-colors w-full"
             style="color: var(--primary); background: transparent; border: 1px solid var(--border);"
             @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
             @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-          >View All</button>
+          >View All Components</button>
         </div>
       </nav>
     `;
