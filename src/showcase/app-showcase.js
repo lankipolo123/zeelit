@@ -401,6 +401,27 @@ ${usage}
 </html>`;
       files.push({ name: 'index.html', path: 'index.html', code: indexHtml });
     }
+    // Auto-generate a LitElement page example
+    if (sections.length && tagName && importPath) {
+      const pascal = tagName.replace(/^app-/, '').replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase()) + 'Page';
+      const indent = sections[0].code.split('\n').map(l => '        ' + l).join('\n');
+      const pageJs = `import { LitElement, html } from 'lit';
+import '${importPath}';
+
+class ${pascal} extends LitElement {
+  createRenderRoot() { return this; }
+
+  render() {
+    return html\`
+      <div>
+${indent}
+      </div>
+    \`;
+  }
+}
+customElements.define('${tagName.replace('app-', '')}-page', ${pascal});`;
+      files.push({ name: `${tagName.replace('app-', '')}-page.js`, path: `pages/${tagName.replace('app-', '')}-page.js`, code: pageJs });
+    }
 
     return html`
       <div class="space-y-8">
