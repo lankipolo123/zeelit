@@ -282,6 +282,22 @@ export class AppShowcase extends LitElement {
   }
 
   componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
+    // Build usage example file from all section codes
+    const usageCode = sections.map(s => {
+      const header = s.title ? `<!-- ${s.title} -->` : '';
+      return header ? `${header}\n${s.code}` : s.code;
+    }).join('\n\n');
+
+    const usageFile = importPath
+      ? `import '${importPath}';\n\n${usageCode}`
+      : usageCode;
+
+    const files = [];
+    if (source) {
+      files.push({ name: fileName, path: `components/${fileName}`, code: source });
+    }
+    files.push({ name: `usage.js`, path: `examples/usage.js`, code: usageFile });
+
     return html`
       <div class="space-y-8">
         <div>
@@ -296,7 +312,13 @@ export class AppShowcase extends LitElement {
             ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName })}
           </div>
         `)}
-        ${source ? this._renderSource(source, fileName) : ''}
+        ${files.length ? html`
+          <div class="space-y-3">
+            <h2 class="text-xl font-semibold" style="color: var(--fg-heading)">Source</h2>
+            <p class="text-sm" style="color: var(--fg-muted)">Browse the component source and usage examples.</p>
+            ${this.renderFileExplorer(title, files)}
+          </div>
+        ` : ''}
       </div>
     `;
   }
