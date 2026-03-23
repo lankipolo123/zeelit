@@ -111,6 +111,25 @@ body {
 .code-block .punct { color: #71717a; }
 .code-block .num { color: #fb923c; }
 
+/* Slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  cursor: pointer;
+}
+
 /* Toast slide-in animations for each corner */
 @keyframes slideInTR {
   from { transform: translateX(100%); opacity: 0; }

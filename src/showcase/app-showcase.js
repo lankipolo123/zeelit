@@ -26,6 +26,11 @@ import { textareaPage } from '../pages/textarea-page.js';
 import { checkboxPage } from '../pages/checkbox-page.js';
 import { radioPage } from '../pages/radio-page.js';
 import { accordionPage } from '../pages/accordion-page.js';
+import { selectPage } from '../pages/select-page.js';
+import { breadcrumbPage } from '../pages/breadcrumb-page.js';
+import { popoverPage } from '../pages/popover-page.js';
+import { sliderPage } from '../pages/slider-page.js';
+import { sheetPage } from '../pages/sheet-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -49,6 +54,11 @@ const PAGE_MAP = {
   checkbox: checkboxPage,
   radio: radioPage,
   accordion: accordionPage,
+  select: selectPage,
+  breadcrumb: breadcrumbPage,
+  popover: popoverPage,
+  slider: sliderPage,
+  sheet: sheetPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -300,7 +310,7 @@ export class AppShowcase extends LitElement {
             </div>
             <!-- Vertical text centered -->
             <div class="flex-1 flex items-center justify-center cursor-pointer" @click="${() => this.sidebarCollapsed = false}">
-              <span class="font-bold text-[11px] tracking-[0.2em] uppercase" style="writing-mode: vertical-rl; text-orientation: mixed; color: var(--fg-muted);">Library Component</span>
+              <span class="font-bold text-[11px] tracking-[0.2em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Library Component</span>
             </div>
             <!-- Circle expand button on the border line -->
             <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -13px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">

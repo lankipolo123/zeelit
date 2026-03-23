@@ -6,6 +6,8 @@ export const COMPONENTS = [
   { id: 'checkbox', label: 'Checkbox', category: 'Forms' },
   { id: 'radio', label: 'Radio Group', category: 'Forms' },
   { id: 'toggle', label: 'Toggle', category: 'Forms' },
+  { id: 'select', label: 'Select', category: 'Forms' },
+  { id: 'slider', label: 'Slider', category: 'Forms' },
   { id: 'card', label: 'Card', category: 'Layout' },
   { id: 'separator', label: 'Separator', category: 'Layout' },
   { id: 'accordion', label: 'Accordion', category: 'Layout' },
@@ -17,7 +19,10 @@ export const COMPONENTS = [
   { id: 'skeleton', label: 'Skeleton', category: 'Feedback' },
   { id: 'toast', label: 'Toast', category: 'Feedback' },
   { id: 'tabs', label: 'Tabs', category: 'Navigation' },
+  { id: 'breadcrumb', label: 'Breadcrumb', category: 'Navigation' },
   { id: 'dialog', label: 'Dialog', category: 'Overlay' },
+  { id: 'sheet', label: 'Sheet', category: 'Overlay' },
+  { id: 'popover', label: 'Popover', category: 'Overlay' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
