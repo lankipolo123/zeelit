@@ -404,7 +404,10 @@ ${usage}
     // Auto-generate a LitElement page example
     if (sections.length && tagName && importPath) {
       const pascal = tagName.replace(/^app-/, '').replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase()) + 'Page';
-      const indent = sections[0].code.split('\n').map(l => '        ' + l).join('\n');
+      const body = sections.map(s => {
+        const code = s.code.split('\n').map(l => '          ' + l).join('\n');
+        return code;
+      }).join('\n\n');
       const pageJs = `import { LitElement, html } from 'lit';
 import '${importPath}';
 
@@ -414,7 +417,7 @@ class ${pascal} extends LitElement {
   render() {
     return html\`
       <div>
-${indent}
+${body}
       </div>
     \`;
   }
