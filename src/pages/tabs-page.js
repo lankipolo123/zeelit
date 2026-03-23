@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-tabs.js?raw';
+import pageSource from './tabs-page.js?raw';
 
 const TAG = 'app-tabs';
 const IMPORT = '@/components/app-tabs.js';
@@ -20,5 +21,5 @@ export function tabsPage(ctx) {
         ]}></app-tabs>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'tabs-page.js' });
 }

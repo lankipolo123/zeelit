@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-progress.js?raw';
+import pageSource from './progress-page.js?raw';
 
 const TAG = 'app-progress';
 const IMPORT = '@/components/app-progress.js';
@@ -57,5 +58,5 @@ export function progressPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'progress-page.js' });
 }

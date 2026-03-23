@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-slider.js?raw';
+import pageSource from './slider-page.js?raw';
 
 const TAG = 'app-slider';
 const IMPORT = '@/components/app-slider.js';
@@ -34,5 +35,5 @@ export function sliderPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'slider-page.js' });
 }

@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-skeleton.js?raw';
+import pageSource from './skeleton-page.js?raw';
 
 const TAG = 'app-skeleton';
 const IMPORT = '@/components/app-skeleton.js';
@@ -42,5 +43,5 @@ export function skeletonPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'skeleton-page.js' });
 }

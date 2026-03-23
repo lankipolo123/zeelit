@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-separator.js?raw';
+import pageSource from './separator-page.js?raw';
 
 const TAG = 'app-separator';
 const IMPORT = '@/components/app-separator.js';
@@ -27,5 +28,5 @@ export function separatorPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'separator-page.js' });
 }

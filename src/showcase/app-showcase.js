@@ -153,12 +153,18 @@ export class AppShowcase extends LitElement {
 
   /* ─── File Explorer Code Viewer ─── */
 
+  _isFolderOpen(key) { return this._codeVisible[key] !== 'closed'; }
+  _toggleFolder(key) { this._setView(key, this._isFolderOpen(key) ? 'closed' : 'open'); }
+
   renderFileExplorer(key, files) {
     const activeFileKey = `file-explorer-${key}`;
     const activeFile = this._codeVisible[activeFileKey] || files[0]?.name;
     const currentFile = files.find(f => f.name === activeFile) || files[0];
 
-    const folderIcon = html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>`;
+    const chevron = (open) => html`<svg class="w-3 h-3 shrink-0 transition-transform ${open ? 'rotate-90' : ''}" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
+    const folderIcon = (open) => open
+      ? html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v1H2V6zm0 3h20v9a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/></svg>`
+      : html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>`;
     const fileIcon = (name) => {
       const ext = name.split('.').pop();
       const color = ext === 'js' ? '#facc15' : ext === 'json' ? '#34d399' : ext === 'css' ? '#60a5fa' : 'var(--fg-subtle)';
@@ -167,11 +173,16 @@ export class AppShowcase extends LitElement {
 
     // Group files by folder
     const tree = {};
+    const rootFiles = [];
     for (const f of files) {
       const parts = f.path ? f.path.split('/') : [f.name];
-      const folder = parts.length > 1 ? parts.slice(0, -1).join('/') : null;
-      if (!tree[folder]) tree[folder] = [];
-      tree[folder].push(f);
+      if (parts.length > 1) {
+        const folder = parts.slice(0, -1).join('/');
+        if (!tree[folder]) tree[folder] = [];
+        tree[folder].push(f);
+      } else {
+        rootFiles.push(f);
+      }
     }
 
     return html`
@@ -180,24 +191,56 @@ export class AppShowcase extends LitElement {
         <div class="w-52 shrink-0 flex flex-col overflow-y-auto" style="border-right: 1px solid var(--border); background: var(--bg-card)">
           <div class="px-3 py-2.5 text-xs font-semibold uppercase tracking-wider" style="color: var(--fg-subtle); border-bottom: 1px solid var(--border)">Explorer</div>
           <div class="py-1">
-            ${Object.entries(tree).map(([folder, folderFiles]) => html`
-              ${folder ? html`
-                <div class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium" style="color: var(--fg-muted)">
-                  ${folderIcon}
-                  <span>${folder}</span>
+            ${Object.entries(tree).map(([folder, folderFiles]) => {
+              const folderKey = `folder-${key}-${folder}`;
+              const open = this._isFolderOpen(folderKey);
+              return html`
+                <div>
+                  <!-- Folder header (clickable accordion) -->
+                  <button
+                    @click="${() => this._toggleFolder(folderKey)}"
+                    class="flex items-center gap-1.5 w-full text-left px-3 py-2 text-xs font-medium cursor-pointer transition-colors select-none"
+                    style="color: var(--fg-muted)"
+                    @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-hover)'}
+                    @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    ${chevron(open)}
+                    ${folderIcon(open)}
+                    <span>${folder}</span>
+                  </button>
+                  <!-- Folder separator -->
+                  <div class="mx-3" style="height: 1px; background: var(--border)"></div>
+                  <!-- Folder children (collapsible) -->
+                  ${open ? html`
+                    <div class="py-0.5">
+                      ${folderFiles.map(f => html`
+                        <button
+                          @click="${() => this._setView(activeFileKey, f.name)}"
+                          class="flex items-center gap-2 w-full text-left text-xs cursor-pointer transition-colors pl-8 pr-3 py-1.5"
+                          style="color: ${activeFile === f.name ? 'var(--fg)' : 'var(--fg-muted)'}; background: ${activeFile === f.name ? 'var(--accent, var(--bg-muted))' : 'transparent'}"
+                        >
+                          ${fileIcon(f.name)}
+                          <span class="truncate">${f.name}</span>
+                        </button>
+                      `)}
+                    </div>
+                  ` : ''}
                 </div>
-              ` : ''}
-              ${folderFiles.map(f => html`
+              `;
+            })}
+            ${rootFiles.length ? html`
+              ${Object.keys(tree).length ? html`<div class="mx-3 my-1" style="height: 1px; background: var(--border)"></div>` : ''}
+              ${rootFiles.map(f => html`
                 <button
                   @click="${() => this._setView(activeFileKey, f.name)}"
-                  class="flex items-center gap-2 w-full text-left text-xs cursor-pointer transition-colors ${folder ? 'pl-7' : 'pl-3'} pr-3 py-1.5"
+                  class="flex items-center gap-2 w-full text-left text-xs cursor-pointer transition-colors pl-3 pr-3 py-1.5"
                   style="color: ${activeFile === f.name ? 'var(--fg)' : 'var(--fg-muted)'}; background: ${activeFile === f.name ? 'var(--accent, var(--bg-muted))' : 'transparent'}"
                 >
                   ${fileIcon(f.name)}
                   <span class="truncate">${f.name}</span>
                 </button>
               `)}
-            `)}
+            ` : ''}
           </div>
         </div>
         <!-- Code panel -->
@@ -281,22 +324,14 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
-    // Build usage example file from all section codes
-    const usageCode = sections.map(s => {
-      const header = s.title ? `<!-- ${s.title} -->` : '';
-      return header ? `${header}\n${s.code}` : s.code;
-    }).join('\n\n');
-
-    const usageFile = importPath
-      ? `import '${importPath}';\n\n${usageCode}`
-      : usageCode;
-
+  componentPage(title, description, sections, { source, fileName, importPath, tagName, pageSource, pageFileName } = {}) {
     const files = [];
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
     }
-    files.push({ name: `usage.js`, path: `examples/usage.js`, code: usageFile });
+    if (pageSource && pageFileName) {
+      files.push({ name: pageFileName, path: `pages/${pageFileName}`, code: pageSource });
+    }
 
     return html`
       <div class="space-y-8">
@@ -315,7 +350,7 @@ export class AppShowcase extends LitElement {
         ${files.length ? html`
           <div class="space-y-3">
             <h2 class="text-xl font-semibold" style="color: var(--fg-heading)">Source</h2>
-            <p class="text-sm" style="color: var(--fg-muted)">Browse the component source and usage examples.</p>
+            <p class="text-sm" style="color: var(--fg-muted)">Browse the component source and how it's used.</p>
             ${this.renderFileExplorer(title, files)}
           </div>
         ` : ''}

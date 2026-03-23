@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import source from '../components/app-card.js?raw';
+import pageSource from './card-page.js?raw';
 
 const TAG = 'app-card';
 const IMPORT = '@/components/app-card.js';
@@ -41,5 +42,5 @@ export function cardPage(ctx) {
         </div>
       `,
     },
-  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG });
+  ], { source, fileName: FILE, importPath: IMPORT, tagName: TAG, pageSource, pageFileName: 'card-page.js' });
 }
