@@ -23,6 +23,7 @@ export const COMPONENTS = [
   { id: 'dialog', label: 'Dialog', category: 'Overlay' },
   { id: 'sheet', label: 'Sheet', category: 'Overlay' },
   { id: 'popover', label: 'Popover', category: 'Overlay' },
+  { id: 'data-table', label: 'Data Table', category: 'Data Display' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];

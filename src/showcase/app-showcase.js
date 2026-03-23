@@ -31,6 +31,7 @@ import { breadcrumbPage } from '../pages/breadcrumb-page.js';
 import { popoverPage } from '../pages/popover-page.js';
 import { sliderPage } from '../pages/slider-page.js';
 import { sheetPage } from '../pages/sheet-page.js';
+import { dataTablePage } from '../pages/data-table-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -59,6 +60,7 @@ const PAGE_MAP = {
   popover: popoverPage,
   slider: sliderPage,
   sheet: sheetPage,
+  'data-table': dataTablePage,
 };
 
 export class AppShowcase extends LitElement {
@@ -146,6 +148,70 @@ export class AppShowcase extends LitElement {
           Copy
         `}
       </button>
+    `;
+  }
+
+  /* ─── File Explorer Code Viewer ─── */
+
+  renderFileExplorer(key, files) {
+    const activeFileKey = `file-explorer-${key}`;
+    const activeFile = this._codeVisible[activeFileKey] || files[0]?.name;
+    const currentFile = files.find(f => f.name === activeFile) || files[0];
+
+    const folderIcon = html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>`;
+    const fileIcon = (name) => {
+      const ext = name.split('.').pop();
+      const color = ext === 'js' ? '#facc15' : ext === 'json' ? '#34d399' : ext === 'css' ? '#60a5fa' : 'var(--fg-subtle)';
+      return html`<svg class="w-4 h-4 shrink-0" style="color: ${color}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>`;
+    };
+
+    // Group files by folder
+    const tree = {};
+    for (const f of files) {
+      const parts = f.path ? f.path.split('/') : [f.name];
+      const folder = parts.length > 1 ? parts.slice(0, -1).join('/') : null;
+      if (!tree[folder]) tree[folder] = [];
+      tree[folder].push(f);
+    }
+
+    return html`
+      <div class="rounded-lg overflow-hidden flex" style="border: 1px solid var(--border); height: 420px;">
+        <!-- File tree sidebar -->
+        <div class="w-52 shrink-0 flex flex-col overflow-y-auto" style="border-right: 1px solid var(--border); background: var(--bg-card)">
+          <div class="px-3 py-2.5 text-xs font-semibold uppercase tracking-wider" style="color: var(--fg-subtle); border-bottom: 1px solid var(--border)">Explorer</div>
+          <div class="py-1">
+            ${Object.entries(tree).map(([folder, folderFiles]) => html`
+              ${folder ? html`
+                <div class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium" style="color: var(--fg-muted)">
+                  ${folderIcon}
+                  <span>${folder}</span>
+                </div>
+              ` : ''}
+              ${folderFiles.map(f => html`
+                <button
+                  @click="${() => this._setView(activeFileKey, f.name)}"
+                  class="flex items-center gap-2 w-full text-left text-xs cursor-pointer transition-colors ${folder ? 'pl-7' : 'pl-3'} pr-3 py-1.5"
+                  style="color: ${activeFile === f.name ? 'var(--fg)' : 'var(--fg-muted)'}; background: ${activeFile === f.name ? 'var(--accent, var(--bg-muted))' : 'transparent'}"
+                >
+                  ${fileIcon(f.name)}
+                  <span class="truncate">${f.name}</span>
+                </button>
+              `)}
+            `)}
+          </div>
+        </div>
+        <!-- Code panel -->
+        <div class="flex-1 flex flex-col overflow-hidden" style="background: var(--code-bg)">
+          <div class="flex items-center justify-between px-4 py-2 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-card)">
+            <div class="flex items-center gap-2">
+              ${fileIcon(currentFile.name)}
+              <span class="text-xs font-mono" style="color: var(--fg-muted)">${currentFile.path || currentFile.name}</span>
+            </div>
+            ${this._copyButton(currentFile.code, `explorer-${key}-${currentFile.name}`)}
+          </div>
+          <div class="code-block flex-1 overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(currentFile.code))}</div>
+        </div>
+      </div>
     `;
   }
 
