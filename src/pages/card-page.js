@@ -56,5 +56,5 @@ export function cardPage(ctx) {
         </div>
       `,
     },
-  ], meta('card', source, pageSource));
+  ], { ...meta('card', source), pageSource, pageFileName: 'card-page.js' });
 }

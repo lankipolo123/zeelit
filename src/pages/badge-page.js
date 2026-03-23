@@ -21,5 +21,5 @@ export function badgePage(ctx) {
 <app-badge variant="secondary">Frontend</app-badge>
 <app-badge variant="secondary">Open Source</app-badge>`,
     },
-  ], meta('badge', source, pageSource));
+  ], { ...meta('badge', source), pageSource, pageFileName: 'badge-page.js' });
 }

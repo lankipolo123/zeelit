@@ -60,5 +60,5 @@ export function sheetPage(ctx) {
         </app-sheet>
       `,
     },
-  ], meta('sheet', source, pageSource));
+  ], { ...meta('sheet', source), pageSource, pageFileName: 'sheet-page.js' });
 }

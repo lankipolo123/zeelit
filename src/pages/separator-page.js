@@ -36,5 +36,5 @@ export function separatorPage(ctx) {
         </div>
       `,
     },
-  ], meta('separator', source, pageSource));
+  ], { ...meta('separator', source), pageSource, pageFileName: 'separator-page.js' });
 }

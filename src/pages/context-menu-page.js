@@ -35,5 +35,5 @@ export function contextMenuPage(ctx) {
         </app-context-menu>
       `,
     },
-  ], meta('context-menu', source, pageSource));
+  ], { ...meta('context-menu', source), pageSource, pageFileName: 'context-menu-page.js' });
 }

@@ -33,5 +33,5 @@ export function carouselPage(ctx) {
         { title: 'Clean API', description: '— Lisa, Designer', icon: '✨' },
       ]}></app-carousel>`,
     },
-  ], meta('carousel', source, pageSource));
+  ], { ...meta('carousel', source), pageSource, pageFileName: 'carousel-page.js' });
 }

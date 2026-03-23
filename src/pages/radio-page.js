@@ -45,5 +45,5 @@ export function radioPage(ctx) {
         { label: 'Yearly', value: 'yearly' },
       ]}"></app-radio>`,
     },
-  ], meta('radio', source, pageSource));
+  ], { ...meta('radio', source), pageSource, pageFileName: 'radio-page.js' });
 }

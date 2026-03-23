@@ -24,5 +24,5 @@ export function tooltipPage(ctx) {
   <app-button variant="outline">Right</app-button>
 </app-tooltip>`,
     },
-  ], meta('tooltip', source, pageSource));
+  ], { ...meta('tooltip', source), pageSource, pageFileName: 'tooltip-page.js' });
 }

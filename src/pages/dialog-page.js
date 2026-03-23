@@ -62,5 +62,5 @@ export function dialogPage(ctx) {
         </div>
       `,
     },
-  ], meta('dialog', source, pageSource));
+  ], { ...meta('dialog', source), pageSource, pageFileName: 'dialog-page.js' });
 }

@@ -29,5 +29,5 @@ export function popoverPage(ctx) {
         </app-popover>
       `,
     },
-  ], meta('popover', source, pageSource));
+  ], { ...meta('popover', source), pageSource, pageFileName: 'popover-page.js' });
 }

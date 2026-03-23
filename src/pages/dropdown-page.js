@@ -37,5 +37,5 @@ export function dropdownPage(ctx) {
         </app-dropdown>
       `,
     },
-  ], meta('dropdown', source, pageSource));
+  ], { ...meta('dropdown', source), pageSource, pageFileName: 'dropdown-page.js' });
 }

@@ -33,5 +33,5 @@ export function hoverCardPage(ctx) {
         </app-hover-card>
       `,
     },
-  ], meta('hover-card', source, pageSource));
+  ], { ...meta('hover-card', source), pageSource, pageFileName: 'hover-card-page.js' });
 }

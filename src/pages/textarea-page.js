@@ -22,5 +22,5 @@ export function textareaPage(ctx) {
       code: `<app-textarea label="Terms" value="You agree to our terms of service..." disabled></app-textarea>`,
       preview: html`<div class="w-80"><app-textarea label="Terms" value="You agree to our terms of service..." disabled></app-textarea></div>`,
     },
-  ], meta('textarea', source, pageSource));
+  ], { ...meta('textarea', source), pageSource, pageFileName: 'textarea-page.js' });
 }

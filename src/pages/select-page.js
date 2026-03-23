@@ -41,5 +41,5 @@ export function selectPage(ctx) {
       code: `<app-select label="Plan" placeholder="Enterprise" disabled></app-select>`,
       preview: html`<div class="w-64"><app-select label="Plan" placeholder="Enterprise" disabled></app-select></div>`,
     },
-  ], meta('select', source, pageSource));
+  ], { ...meta('select', source), pageSource, pageFileName: 'select-page.js' });
 }

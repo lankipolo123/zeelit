@@ -28,5 +28,5 @@ export function buttonPage(ctx) {
       description: 'Disable until conditions are met — like form validation.',
       code: `<app-button disabled>Waiting for input...</app-button>`,
     },
-  ], meta('button', source, pageSource));
+  ], { ...meta('button', source), pageSource, pageFileName: 'button-page.js' });
 }

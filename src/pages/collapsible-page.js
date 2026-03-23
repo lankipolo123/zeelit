@@ -25,5 +25,5 @@ export function collapsiblePage(ctx) {
 <app-collapsible label="Components">Button, Input, Card, Dialog, and more.</app-collapsible>
 <app-collapsible label="Theming">Colors, typography, dark mode.</app-collapsible>`,
     },
-  ], meta('collapsible', source, pageSource));
+  ], { ...meta('collapsible', source), pageSource, pageFileName: 'collapsible-page.js' });
 }

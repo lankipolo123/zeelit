@@ -26,5 +26,5 @@ export function breadcrumbPage(ctx) {
 ]}></app-breadcrumb>`,
       preview: html`<app-breadcrumb .items=${[{ label: 'Dashboard', href: '/dashboard' }, { label: 'Projects', href: '/projects' }, { label: 'ZeeLit', href: '/projects/zeelit' }, { label: 'Settings' }]}></app-breadcrumb>`,
     },
-  ], meta('breadcrumb', source, pageSource));
+  ], { ...meta('breadcrumb', source), pageSource, pageFileName: 'breadcrumb-page.js' });
 }

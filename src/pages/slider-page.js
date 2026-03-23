@@ -22,5 +22,5 @@ export function sliderPage(ctx) {
       code: `<app-slider label="Brightness" value="75" disabled></app-slider>`,
       preview: html`<div class="w-80"><app-slider label="Brightness" value="75" disabled></app-slider></div>`,
     },
-  ], meta('slider', source, pageSource));
+  ], { ...meta('slider', source), pageSource, pageFileName: 'slider-page.js' });
 }

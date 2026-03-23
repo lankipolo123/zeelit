@@ -23,5 +23,5 @@ export function alertPage(ctx) {
       description: 'Or scheduled downtime — same component, different text.',
       code: `<app-alert alertTitle="Scheduled maintenance">The system will be down on Sunday 2am–4am.</app-alert>`,
     },
-  ], meta('alert', source, pageSource));
+  ], { ...meta('alert', source), pageSource, pageFileName: 'alert-page.js' });
 }

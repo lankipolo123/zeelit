@@ -39,5 +39,5 @@ export function scrollAreaPage(ctx) {
         </app-scroll-area>
       `,
     },
-  ], meta('scroll-area', source, pageSource));
+  ], { ...meta('scroll-area', source), pageSource, pageFileName: 'scroll-area-page.js' });
 }

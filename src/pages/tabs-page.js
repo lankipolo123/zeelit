@@ -21,5 +21,5 @@ export function tabsPage(ctx) {
         ]}></app-tabs>
       `,
     },
-  ], meta('tabs', source, pageSource));
+  ], { ...meta('tabs', source), pageSource, pageFileName: 'tabs-page.js' });
 }

@@ -23,5 +23,5 @@ export function togglePage(ctx) {
       description: 'Lock it when the user can\'t change the setting.',
       code: `<app-toggle label="Two-Factor Auth" disabled checked></app-toggle>`,
     },
-  ], meta('toggle', source, pageSource));
+  ], { ...meta('toggle', source), pageSource, pageFileName: 'toggle-page.js' });
 }

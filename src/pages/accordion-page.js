@@ -33,5 +33,5 @@ export function accordionPage(ctx) {
         { title: 'Billing', content: 'Plans, invoices, and payment methods.' },
       ]}"></app-accordion></div>`,
     },
-  ], meta('accordion', source, pageSource));
+  ], { ...meta('accordion', source), pageSource, pageFileName: 'accordion-page.js' });
 }

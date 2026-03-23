@@ -24,5 +24,5 @@ export function progressPage(ctx) {
         </div>
       `,
     },
-  ], meta('progress', source, pageSource));
+  ], { ...meta('progress', source), pageSource, pageFileName: 'progress-page.js' });
 }

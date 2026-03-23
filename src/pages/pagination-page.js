@@ -19,5 +19,5 @@ export function paginationPage(ctx) {
       description: 'Just a few pages — no ellipses needed.',
       code: `<app-pagination total="3" current="2"></app-pagination>`,
     },
-  ], meta('pagination', source, pageSource));
+  ], { ...meta('pagination', source), pageSource, pageFileName: 'pagination-page.js' });
 }

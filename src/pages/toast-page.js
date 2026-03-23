@@ -29,5 +29,5 @@ export function toastPage(ctx) {
       code: `toast('Auto-saving in 5 seconds...', { duration: 5000 });`,
       preview: html`<app-button variant="secondary" @click="${() => toast('Auto-saving in 5 seconds...', { duration: 5000 })}">Auto-save</app-button>`,
     },
-  ], meta('toast', source, pageSource));
+  ], { ...meta('toast', source), pageSource, pageFileName: 'toast-page.js' });
 }

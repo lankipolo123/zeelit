@@ -29,5 +29,5 @@ export function avatarPage(ctx) {
 <app-avatar fallback="MD" size="default"></app-avatar>
 <app-avatar fallback="LG" size="lg"></app-avatar>`,
     },
-  ], meta('avatar', source, pageSource));
+  ], { ...meta('avatar', source), pageSource, pageFileName: 'avatar-page.js' });
 }

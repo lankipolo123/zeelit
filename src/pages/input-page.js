@@ -28,5 +28,5 @@ export function inputPage(ctx) {
       code: `<app-input label="Username" value="john_doe" disabled></app-input>`,
       preview: html`<div class="w-80"><app-input label="Username" value="john_doe" disabled></app-input></div>`,
     },
-  ], meta('input', source, pageSource));
+  ], { ...meta('input', source), pageSource, pageFileName: 'input-page.js' });
 }

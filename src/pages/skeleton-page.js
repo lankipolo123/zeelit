@@ -37,5 +37,5 @@ export function skeletonPage(ctx) {
         </div>
       `,
     },
-  ], meta('skeleton', source, pageSource));
+  ], { ...meta('skeleton', source), pageSource, pageFileName: 'skeleton-page.js' });
 }

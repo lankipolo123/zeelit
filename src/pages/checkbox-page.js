@@ -26,5 +26,5 @@ export function checkboxPage(ctx) {
       description: 'Lock when the option can\'t be changed.',
       code: `<app-checkbox label="Required consent" disabled checked></app-checkbox>`,
     },
-  ], meta('checkbox', source, pageSource));
+  ], { ...meta('checkbox', source), pageSource, pageFileName: 'checkbox-page.js' });
 }
