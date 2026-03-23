@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-badge.js?raw';
-import pageSource from './badge-page.js?raw';
 
 export function badgePage(ctx) {
   return ctx.componentPage('Badge', 'Displays a badge or a component that looks like a badge.', [
@@ -20,5 +19,5 @@ export function badgePage(ctx) {
         </div>
       `,
     },
-  ], meta('badge', source, pageSource));
+  ], meta('badge', source));
 }

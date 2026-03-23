@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-skeleton.js?raw';
-import pageSource from './skeleton-page.js?raw';
 
 export function skeletonPage(ctx) {
   return ctx.componentPage('Skeleton', 'Used to show a placeholder while content is loading.', [
@@ -37,5 +36,5 @@ export function skeletonPage(ctx) {
         </div>
       `,
     },
-  ], meta('skeleton', source, pageSource));
+  ], meta('skeleton', source));
 }

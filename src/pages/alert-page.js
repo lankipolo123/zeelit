@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-alert.js?raw';
-import pageSource from './alert-page.js?raw';
 
 export function alertPage(ctx) {
   return ctx.componentPage('Alert', 'Displays a callout for important information.', [
@@ -20,5 +19,5 @@ export function alertPage(ctx) {
       code: `<app-alert alertTitle="New update available">Version 2.0 is now available with new components.</app-alert>`,
       preview: html`<div class="w-full max-w-lg"><app-alert alertTitle="New update available">Version 2.0 is now available with new components.</app-alert></div>`,
     },
-  ], meta('alert', source, pageSource));
+  ], meta('alert', source));
 }

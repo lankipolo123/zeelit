@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-textarea.js?raw';
-import pageSource from './textarea-page.js?raw';
 
 export function textareaPage(ctx) {
   return ctx.componentPage('Textarea', 'Displays a form textarea field.', [
@@ -20,5 +19,5 @@ export function textareaPage(ctx) {
       code: `<app-textarea label="Bio" value="This textarea is disabled." disabled></app-textarea>`,
       preview: html`<div class="w-80"><app-textarea label="Bio" value="This textarea is disabled." disabled></app-textarea></div>`,
     },
-  ], meta('textarea', source, pageSource));
+  ], meta('textarea', source));
 }

@@ -2,7 +2,6 @@ import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-toast.js?raw';
 import { toast } from '../components/app-toast.js';
-import pageSource from './toast-page.js?raw';
 
 export function toastPage(ctx) {
   return ctx.componentPage('Toast', 'A succinct message that is displayed temporarily. Inspired by Sonner.', [
@@ -28,5 +27,5 @@ toast('Event has been created');`,
       code: `toast('This stays for 5 seconds', { duration: 5000 });`,
       preview: html`<app-button variant="secondary" @click="${() => toast('This stays for 5 seconds', { duration: 5000 })}">5s Toast</app-button>`,
     },
-  ], meta('toast', source, pageSource));
+  ], meta('toast', source));
 }

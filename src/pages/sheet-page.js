@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-sheet.js?raw';
-import pageSource from './sheet-page.js?raw';
 
 export function sheetPage(ctx) {
   return ctx.componentPage('Sheet', 'Extends the Dialog component to display content that complements the main content of the screen.', [
@@ -41,5 +40,5 @@ export function sheetPage(ctx) {
         </app-sheet>
       `,
     },
-  ], meta('sheet', source, pageSource));
+  ], meta('sheet', source));
 }

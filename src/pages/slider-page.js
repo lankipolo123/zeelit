@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-slider.js?raw';
-import pageSource from './slider-page.js?raw';
 
 export function sliderPage(ctx) {
   return ctx.componentPage('Slider', 'An input where the user selects a value from within a given range.', [
@@ -20,5 +19,5 @@ export function sliderPage(ctx) {
       code: `<app-slider label="Brightness" value="75" disabled></app-slider>`,
       preview: html`<div class="w-80"><app-slider label="Brightness" value="75" disabled></app-slider></div>`,
     },
-  ], meta('slider', source, pageSource));
+  ], meta('slider', source));
 }

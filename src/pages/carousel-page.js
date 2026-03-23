@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-carousel.js?raw';
-import pageSource from './carousel-page.js?raw';
 
 export function carouselPage(ctx) {
   const slides = [
@@ -24,5 +23,5 @@ export function carouselPage(ctx) {
       code: `<app-carousel .slides=\${slides} autoplay="3000"></app-carousel>`,
       preview: html`<app-carousel .slides=${slides} autoplay="3000"></app-carousel>`,
     },
-  ], meta('carousel', source, pageSource));
+  ], meta('carousel', source));
 }

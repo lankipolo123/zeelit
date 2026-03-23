@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-dropdown.js?raw';
-import pageSource from './dropdown-page.js?raw';
 
 export function dropdownPage(ctx) {
   return ctx.componentPage('Dropdown', 'A menu that opens on click, displaying a list of actions or options.', [
@@ -35,5 +34,5 @@ export function dropdownPage(ctx) {
         </app-dropdown>
       `,
     },
-  ], meta('dropdown', source, pageSource));
+  ], meta('dropdown', source));
 }

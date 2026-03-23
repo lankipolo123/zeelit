@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-pagination.js?raw';
-import pageSource from './pagination-page.js?raw';
 
 export function paginationPage(ctx) {
   return ctx.componentPage('Pagination', 'Navigation controls for paging through content.', [
@@ -21,5 +20,5 @@ export function paginationPage(ctx) {
       code: `<app-pagination total="3" current="2"></app-pagination>`,
       preview: html`<app-pagination total="3" current="2"></app-pagination>`,
     },
-  ], meta('pagination', source, pageSource));
+  ], meta('pagination', source));
 }

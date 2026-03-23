@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-checkbox.js?raw';
-import pageSource from './checkbox-page.js?raw';
 
 export function checkboxPage(ctx) {
   return ctx.componentPage('Checkbox', 'A control that allows the user to toggle between checked and not checked.', [
@@ -20,5 +19,5 @@ export function checkboxPage(ctx) {
       code: `<app-checkbox label="Read only option" disabled></app-checkbox>`,
       preview: html`<app-checkbox label="Read only option" disabled></app-checkbox>`,
     },
-  ], meta('checkbox', source, pageSource));
+  ], meta('checkbox', source));
 }

@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-hover-card.js?raw';
-import pageSource from './hover-card-page.js?raw';
 
 export function hoverCardPage(ctx) {
   return ctx.componentPage('Hover Card', 'A card that appears on hover, useful for showing preview info.', [
@@ -33,5 +32,5 @@ export function hoverCardPage(ctx) {
         </app-hover-card>
       `,
     },
-  ], meta('hover-card', source, pageSource));
+  ], meta('hover-card', source));
 }

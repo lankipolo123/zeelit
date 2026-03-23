@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-tooltip.js?raw';
-import pageSource from './tooltip-page.js?raw';
 
 export function tooltipPage(ctx) {
   return ctx.componentPage('Tooltip', 'A popup that displays information related to an element when the element receives hover focus.', [
@@ -37,5 +36,5 @@ export function tooltipPage(ctx) {
         </div>
       `,
     },
-  ], meta('tooltip', source, pageSource));
+  ], meta('tooltip', source));
 }

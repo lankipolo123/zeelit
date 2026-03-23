@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-accordion.js?raw';
-import pageSource from './accordion-page.js?raw';
 
 export function accordionPage(ctx) {
   const items = [
@@ -23,5 +22,5 @@ export function accordionPage(ctx) {
       code: `<app-accordion multiple .items="\${items}"></app-accordion>`,
       preview: html`<div class="w-full max-w-md"><app-accordion multiple .items="${items}"></app-accordion></div>`,
     },
-  ], meta('accordion', source, pageSource));
+  ], meta('accordion', source));
 }

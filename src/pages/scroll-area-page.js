@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-scroll-area.js?raw';
-import pageSource from './scroll-area-page.js?raw';
 
 export function scrollAreaPage(ctx) {
   const tags = ['Typography', 'Layout', 'Forms', 'Navigation', 'Data Display', 'Feedback', 'Overlay', 'Actions', 'Utilities', 'Animation', 'Charts', 'Icons', 'Colors', 'Spacing', 'Borders'];
@@ -38,5 +37,5 @@ export function scrollAreaPage(ctx) {
         </app-scroll-area>
       `,
     },
-  ], meta('scroll-area', source, pageSource));
+  ], meta('scroll-area', source));
 }

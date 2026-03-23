@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-avatar.js?raw';
-import pageSource from './avatar-page.js?raw';
 
 export function avatarPage(ctx) {
   return ctx.componentPage('Avatar', 'An image element with a fallback for representing the user.', [
@@ -40,5 +39,5 @@ export function avatarPage(ctx) {
         </div>
       `,
     },
-  ], meta('avatar', source, pageSource));
+  ], meta('avatar', source));
 }

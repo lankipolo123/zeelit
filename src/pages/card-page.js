@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-card.js?raw';
-import pageSource from './card-page.js?raw';
 
 export function cardPage(ctx) {
   return ctx.componentPage('Card', 'Displays a card with header, content, and footer.', [
@@ -37,5 +36,5 @@ export function cardPage(ctx) {
         </div>
       `,
     },
-  ], meta('card', source, pageSource));
+  ], meta('card', source));
 }

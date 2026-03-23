@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-popover.js?raw';
-import pageSource from './popover-page.js?raw';
 
 export function popoverPage(ctx) {
   return ctx.componentPage('Popover', 'Displays rich content in a portal, triggered by a button.', [
@@ -28,5 +27,5 @@ export function popoverPage(ctx) {
         </app-popover>
       `,
     },
-  ], meta('popover', source, pageSource));
+  ], meta('popover', source));
 }

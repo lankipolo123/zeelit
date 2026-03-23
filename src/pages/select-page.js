@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-select.js?raw';
-import pageSource from './select-page.js?raw';
 
 export function selectPage(ctx) {
   const frameworks = [
@@ -23,5 +22,5 @@ export function selectPage(ctx) {
       code: `<app-select label="Theme" placeholder="Pick a theme" disabled></app-select>`,
       preview: html`<div class="w-64"><app-select label="Theme" placeholder="Pick a theme" disabled></app-select></div>`,
     },
-  ], meta('select', source, pageSource));
+  ], meta('select', source));
 }

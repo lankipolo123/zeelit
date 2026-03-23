@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-input.js?raw';
-import pageSource from './input-page.js?raw';
 
 export function inputPage(ctx) {
   return ctx.componentPage('Input', 'Displays a form input field.', [
@@ -25,5 +24,5 @@ export function inputPage(ctx) {
       code: `<app-input label="Username" value="john_doe" disabled></app-input>`,
       preview: html`<div class="w-80"><app-input label="Username" value="john_doe" disabled></app-input></div>`,
     },
-  ], meta('input', source, pageSource));
+  ], meta('input', source));
 }

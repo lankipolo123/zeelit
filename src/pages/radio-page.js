@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-radio.js?raw';
-import pageSource from './radio-page.js?raw';
 
 export function radioPage(ctx) {
   const options = [
@@ -26,5 +25,5 @@ export function radioPage(ctx) {
       code: `<app-radio disabled value="default" .options="\${options}"></app-radio>`,
       preview: html`<app-radio disabled value="default" .options="${[{ label: 'Default', value: 'default' }, { label: 'Comfortable', value: 'comfortable' }]}"></app-radio>`,
     },
-  ], meta('radio', source, pageSource));
+  ], meta('radio', source));
 }

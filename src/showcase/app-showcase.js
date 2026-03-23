@@ -360,21 +360,33 @@ export class AppShowcase extends LitElement {
     `;
   }
 
-  componentPage(title, description, sections, { source, fileName, importPath, tagName, pageSource, pageFileName } = {}) {
+  componentPage(title, description, sections, { source, fileName, importPath, tagName } = {}) {
     const files = [];
     if (source) {
       files.push({ name: fileName, path: `components/${fileName}`, code: source });
     }
-    if (pageSource && pageFileName) {
-      files.push({ name: pageFileName, path: `pages/${pageFileName}`, code: pageSource });
-    }
-    // Auto-generate a clean examples file from the demo code snippets
-    if (sections.length && importPath) {
-      const examplesCode = `import '${importPath}';\n\n` + sections.map((s, i) => {
-        const header = s.title ? `/* ${s.title}${s.description ? ' — ' + s.description : ''} */` : '';
-        return (header ? header + '\n' : '') + s.code;
+    // Auto-generate a standalone index.html example
+    if (sections.length && tagName) {
+      const usage = sections.map(s => {
+        const comment = s.title ? `  <!-- ${s.title} -->` : '';
+        return (comment ? comment + '\n' : '') + '  ' + s.code.split('\n').join('\n  ');
       }).join('\n\n');
-      files.push({ name: 'examples.html', path: `examples/${tagName || 'component'}-examples.html`, code: examplesCode });
+      const indexHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} — ZeeLit</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./components/${tagName}.js"><\/script>
+</head>
+<body>
+
+${usage}
+
+</body>
+</html>`;
+      files.push({ name: 'index.html', path: 'index.html', code: indexHtml });
     }
 
     return html`

@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-button.js?raw';
-import pageSource from './button-page.js?raw';
 
 export function buttonPage(ctx) {
   return ctx.componentPage('Button', 'Displays a button or a component that looks like a button.', [
@@ -48,5 +47,5 @@ export function buttonPage(ctx) {
       code: `<app-button disabled>Can't click me</app-button>`,
       preview: html`<app-button disabled>Can't click me</app-button>`,
     },
-  ], meta('button', source, pageSource));
+  ], meta('button', source));
 }

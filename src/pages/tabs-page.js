@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-tabs.js?raw';
-import pageSource from './tabs-page.js?raw';
 
 export function tabsPage(ctx) {
   return ctx.componentPage('Tabs', 'A set of layered sections of content, shown one at a time.', [
@@ -18,5 +17,5 @@ export function tabsPage(ctx) {
         ]}></app-tabs>
       `,
     },
-  ], meta('tabs', source, pageSource));
+  ], meta('tabs', source));
 }

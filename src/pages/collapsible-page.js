@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-collapsible.js?raw';
-import pageSource from './collapsible-page.js?raw';
 
 export function collapsiblePage(ctx) {
   return ctx.componentPage('Collapsible', 'A panel that can be expanded or collapsed to show or hide content.', [
@@ -32,5 +31,5 @@ export function collapsiblePage(ctx) {
         </div>
       `,
     },
-  ], meta('collapsible', source, pageSource));
+  ], meta('collapsible', source));
 }

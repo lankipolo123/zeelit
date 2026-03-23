@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-context-menu.js?raw';
-import pageSource from './context-menu-page.js?raw';
 
 export function contextMenuPage(ctx) {
   return ctx.componentPage('Context Menu', 'A right-click menu that appears at the cursor position.', [
@@ -35,5 +34,5 @@ export function contextMenuPage(ctx) {
         </app-context-menu>
       `,
     },
-  ], meta('context-menu', source, pageSource));
+  ], meta('context-menu', source));
 }

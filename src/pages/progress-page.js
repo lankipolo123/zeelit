@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { meta } from '../showcase/component-data.js';
 import source from '../components/app-progress.js?raw';
-import pageSource from './progress-page.js?raw';
 
 export function progressPage(ctx) {
   return ctx.componentPage('Progress', 'Displays a horizontal progress bar indicating completion status.', [
@@ -37,5 +36,5 @@ export function progressPage(ctx) {
         </div>
       `,
     },
-  ], meta('progress', source, pageSource));
+  ], meta('progress', source));
 }
