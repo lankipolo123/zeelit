@@ -57,6 +57,7 @@ export class AppShowcase extends LitElement {
   static properties = {
     activePage: { type: String },
     sidebarOpen: { type: Boolean },
+    sidebarCollapsed: { type: Boolean },
     _codeVisible: { state: true },
     _copied: { state: true },
     _dark: { state: true },
@@ -66,6 +67,7 @@ export class AppShowcase extends LitElement {
     super();
     this.activePage = this._getPageFromHash() || 'home';
     this.sidebarOpen = false;
+    this.sidebarCollapsed = false;
     this._codeVisible = {};
     this._copied = {};
     this._dark = localStorage.getItem('zeelit-theme') !== 'light';
@@ -288,17 +290,33 @@ export class AppShowcase extends LitElement {
     return html`
       <div class="flex h-screen" style="background: var(--bg); color: var(--fg)">
         <!-- 1: Sidebar — full height left -->
-        <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
-          <!-- Sidebar branding -->
-          <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
-            <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-              <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+        ${this.sidebarCollapsed ? html`
+          <aside class="w-14 shrink-0 hidden md:flex md:flex-col items-center cursor-pointer select-none" style="border-right: 1px solid var(--border); background: var(--bg)" @click="${() => this.sidebarCollapsed = false}">
+            <!-- Collapse toggle top -->
+            <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
+              <svg class="w-5 h-5" style="color: var(--fg-muted)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </div>
-            <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
-          </div>
-          <!-- Component grid -->
-          ${this._sidebarNav()}
-        </aside>
+            <!-- Vertical text centered -->
+            <div class="flex-1 flex items-center justify-center">
+              <span class="font-bold text-sm tracking-[0.25em] uppercase" style="writing-mode: vertical-rl; text-orientation: mixed; color: var(--fg-muted); letter-spacing: 0.25em;">Library Component</span>
+            </div>
+          </aside>
+        ` : html`
+          <aside class="w-[22%] min-w-[220px] max-w-[300px] shrink-0 overflow-y-auto hidden md:flex md:flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
+            <!-- Sidebar branding -->
+            <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
+              <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+                <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+              </div>
+              <span class="font-semibold tracking-tight flex-1" style="color: var(--fg)">ZeeLit</span>
+              <button @click="${() => this.sidebarCollapsed = true}" class="p-1.5 rounded-md cursor-pointer transition-colors" style="color: var(--fg-muted)" title="Collapse sidebar">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+            </div>
+            <!-- Component grid -->
+            ${this._sidebarNav()}
+          </aside>
+        `}
 
         <!-- Mobile sidebar overlay -->
         ${this.sidebarOpen ? html`
