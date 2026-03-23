@@ -12,10 +12,8 @@ export function cardPage(ctx) {
       title: 'With Form',
       code: `<app-card cardTitle="Create project" description="Deploy your new project in one-click.">
   <app-input label="Project name" placeholder="my-awesome-app"></app-input>
-  <div class="mt-4 flex gap-2">
-    <app-button variant="default">Create</app-button>
-    <app-button variant="outline">Cancel</app-button>
-  </div>
+  <app-button variant="default">Create</app-button>
+  <app-button variant="outline">Cancel</app-button>
 </app-card>`,
       preview: html`
         <div class="w-96">

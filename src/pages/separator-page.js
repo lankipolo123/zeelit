@@ -9,7 +9,7 @@ const FILE = 'app-separator.js';
 export function separatorPage(ctx) {
   return ctx.componentPage('Separator', 'Visually or semantically separates content.', [
     {
-      title: 'Default',
+      title: 'Horizontal',
       code: `<app-separator></app-separator>`,
       preview: html`
         <div class="w-full max-w-sm space-y-4">
@@ -18,13 +18,20 @@ export function separatorPage(ctx) {
             <p class="text-sm">An open-source component library.</p>
           </div>
           <app-separator></app-separator>
-          <div class="flex h-5 items-center gap-4 text-sm">
-            <span>Docs</span>
-            <app-separator orientation="vertical"></app-separator>
-            <span>Source</span>
-            <app-separator orientation="vertical"></app-separator>
-            <span>Blog</span>
-          </div>
+          <p class="text-sm">Content below the separator.</p>
+        </div>
+      `,
+    },
+    {
+      title: 'Vertical',
+      code: `<app-separator orientation="vertical"></app-separator>`,
+      preview: html`
+        <div class="flex h-5 items-center gap-4 text-sm">
+          <span>Docs</span>
+          <app-separator orientation="vertical"></app-separator>
+          <span>Source</span>
+          <app-separator orientation="vertical"></app-separator>
+          <span>Blog</span>
         </div>
       `,
     },

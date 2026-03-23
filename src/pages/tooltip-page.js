@@ -11,12 +11,12 @@ export function tooltipPage(ctx) {
     {
       title: 'Default',
       code: `<app-tooltip text="This is a tooltip">
-  <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Hover me</button>
+  <app-button>Hover me</app-button>
 </app-tooltip>`,
       preview: html`
         <div class="flex justify-center">
           <app-tooltip text="This is a tooltip">
-            <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Hover me</button>
+            <app-button variant="outline">Hover me</app-button>
           </app-tooltip>
         </div>
       `,
@@ -24,24 +24,26 @@ export function tooltipPage(ctx) {
     {
       title: 'Positions',
       code: `<app-tooltip text="Bottom tooltip" position="bottom">
-  <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Bottom</button>
+  <app-button>Bottom</app-button>
 </app-tooltip>
+
 <app-tooltip text="Left tooltip" position="left">
-  <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Left</button>
+  <app-button>Left</app-button>
 </app-tooltip>
+
 <app-tooltip text="Right tooltip" position="right">
-  <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Right</button>
+  <app-button>Right</app-button>
 </app-tooltip>`,
       preview: html`
         <div class="flex gap-4 justify-center py-8">
           <app-tooltip text="Bottom tooltip" position="bottom">
-            <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Bottom</button>
+            <app-button variant="outline">Bottom</app-button>
           </app-tooltip>
           <app-tooltip text="Left tooltip" position="left">
-            <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Left</button>
+            <app-button variant="outline">Left</app-button>
           </app-tooltip>
           <app-tooltip text="Right tooltip" position="right">
-            <button class="px-4 py-2 rounded-md border border-zinc-700 bg-zinc-900 text-zinc-100 text-sm">Right</button>
+            <app-button variant="outline">Right</app-button>
           </app-tooltip>
         </div>
       `,

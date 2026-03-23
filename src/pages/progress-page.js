@@ -34,27 +34,15 @@ export function progressPage(ctx) {
     },
     {
       title: 'Sizes',
-      description: 'Progress bars can be sized using utility classes on a wrapper.',
-      code: `<div class="w-48">
-  <app-progress value="40"></app-progress>
-</div>
-<div class="w-72">
-  <app-progress value="60"></app-progress>
-</div>
-<div class="w-full">
-  <app-progress value="80"></app-progress>
-</div>`,
+      description: 'Control width by placing the component in any container.',
+      code: `<app-progress value="40"></app-progress>
+<app-progress value="60"></app-progress>
+<app-progress value="80"></app-progress>`,
       preview: html`
         <div class="space-y-3">
-          <div class="w-48">
-            <app-progress value="40"></app-progress>
-          </div>
-          <div class="w-72">
-            <app-progress value="60"></app-progress>
-          </div>
-          <div class="w-full max-w-md">
-            <app-progress value="80"></app-progress>
-          </div>
+          <div class="w-48"><app-progress value="40"></app-progress></div>
+          <div class="w-72"><app-progress value="60"></app-progress></div>
+          <div class="w-full max-w-md"><app-progress value="80"></app-progress></div>
         </div>
       `,
     },

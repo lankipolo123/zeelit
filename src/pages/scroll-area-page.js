@@ -14,9 +14,11 @@ export function scrollAreaPage(ctx) {
       title: 'Vertical Scroll',
       description: 'A fixed-height container with vertical scrolling.',
       code: `<app-scroll-area height="200px">
-  <div class="space-y-2">
-    ${tags.map(t => `<div class="px-3 py-2 text-sm rounded" style="border: 1px solid var(--border); color: var(--fg)">${t}</div>`).join('\n    ')}
-  </div>
+  <p>Typography</p>
+  <p>Layout</p>
+  <p>Forms</p>
+  <p>Navigation</p>
+  <!-- ... more items -->
 </app-scroll-area>`,
       preview: html`
         <app-scroll-area height="200px">
@@ -29,7 +31,10 @@ export function scrollAreaPage(ctx) {
     {
       title: 'Horizontal Scroll',
       code: `<app-scroll-area height="80px" orientation="horizontal">
-  ${tags.slice(0, 8).map(t => `<div class="inline-flex items-center px-4 py-2 text-sm rounded-full shrink-0" style="border: 1px solid var(--border); color: var(--fg)">${t}</div>`).join('\n  ')}
+  <span>Typography</span>
+  <span>Layout</span>
+  <span>Forms</span>
+  <!-- ... more items -->
 </app-scroll-area>`,
       preview: html`
         <app-scroll-area height="80px" orientation="horizontal">

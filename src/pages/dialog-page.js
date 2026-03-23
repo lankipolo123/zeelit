@@ -15,10 +15,8 @@ export function dialogPage(ctx) {
 <app-dialog id="dialog"
   dialogTitle="Are you sure?"
   description="This action cannot be undone.">
-  <div class="flex justify-end gap-3 mt-4">
-    <app-button variant="outline" @click=\${() => dialog.close()}>Cancel</app-button>
-    <app-button variant="destructive">Continue</app-button>
-  </div>
+  <app-button variant="outline" @click=\${() => dialog.close()}>Cancel</app-button>
+  <app-button variant="destructive">Continue</app-button>
 </app-dialog>`,
       preview: html`
         <div>

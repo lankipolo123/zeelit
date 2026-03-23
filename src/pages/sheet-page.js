@@ -11,13 +11,11 @@ export function sheetPage(ctx) {
     {
       title: 'Right Side',
       description: 'A sheet that slides in from the right.',
-      code: `<app-button variant="outline" @click="\${() => document.querySelector('#sheet-right').show()}">Open Sheet</app-button>
+      code: `<app-button variant="outline" @click="\${() => sheet.show()}">Open Sheet</app-button>
 
-<app-sheet id="sheet-right" side="right" sheetTitle="Edit Profile" description="Make changes to your profile here.">
-  <div class="grid gap-4 py-4">
-    <app-input label="Name" value="John Doe"></app-input>
-    <app-input label="Username" value="@johndoe"></app-input>
-  </div>
+<app-sheet id="sheet" side="right" sheetTitle="Edit Profile" description="Make changes to your profile here.">
+  <app-input label="Name" value="John Doe"></app-input>
+  <app-input label="Username" value="@johndoe"></app-input>
   <app-button variant="default">Save changes</app-button>
 </app-sheet>`,
       preview: html`
@@ -37,10 +35,10 @@ export function sheetPage(ctx) {
     {
       title: 'Left Side',
       description: 'A sheet that slides in from the left.',
-      code: `<app-button variant="outline" @click="\${() => document.querySelector('#sheet-left').show()}">Open Left Sheet</app-button>
+      code: `<app-button variant="outline" @click="\${() => sheet.show()}">Open Left Sheet</app-button>
 
-<app-sheet id="sheet-left" side="left" sheetTitle="Navigation" description="Browse the menu.">
-  <p class="text-sm" style="color: var(--fg-muted)">Menu items would go here.</p>
+<app-sheet id="sheet" side="left" sheetTitle="Navigation" description="Browse the menu.">
+  <p>Menu items would go here.</p>
 </app-sheet>`,
       preview: html`
         <app-button variant="outline" @click="${(e) => {

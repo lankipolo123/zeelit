@@ -23,9 +23,7 @@ export function contextMenuPage(ctx) {
       title: 'Basic',
       description: 'Right-click the area below to open the context menu.',
       code: `<app-context-menu .items=\${['Cut', 'Copy', 'Paste', '-', 'Select All']}>
-  <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">
-    Right-click here
-  </div>
+  <p>Right-click here</p>
 </app-context-menu>`,
       preview: html`
         <app-context-menu .items=${basicItems}>
@@ -47,9 +45,7 @@ export function contextMenuPage(ctx) {
   '-',
   { label: 'Delete', shortcut: '⌫' },
 ]}>
-  <div style="padding: 3rem; text-align: center; border: 2px dashed var(--border); border-radius: 0.5rem; color: var(--fg-muted);">
-    Right-click for shortcuts
-  </div>
+  <p>Right-click for shortcuts</p>
 </app-context-menu>`,
       preview: html`
         <app-context-menu .items=${richItems}>

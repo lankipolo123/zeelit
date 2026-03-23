@@ -11,16 +11,10 @@ export function popoverPage(ctx) {
     {
       title: 'Default',
       code: `<app-popover>
-  <div class="grid gap-4">
-    <div class="space-y-2">
-      <h4 class="font-medium leading-none">Dimensions</h4>
-      <p class="text-sm" style="color: var(--fg-muted)">Set the dimensions for the layer.</p>
-    </div>
-    <div class="grid gap-2">
-      <app-input label="Width" value="100%"></app-input>
-      <app-input label="Height" value="25px"></app-input>
-    </div>
-  </div>
+  <h4>Dimensions</h4>
+  <p>Set the dimensions for the layer.</p>
+  <app-input label="Width" value="100%"></app-input>
+  <app-input label="Height" value="25px"></app-input>
 </app-popover>`,
       preview: html`
         <app-popover>
