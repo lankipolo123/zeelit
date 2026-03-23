@@ -85,6 +85,8 @@ export class AppShowcase extends LitElement {
     _codeVisible: { state: true },
     _copied: { state: true },
     _dark: { state: true },
+    _sidebarPage: { state: true },
+    _viewAllOpen: { state: true },
   };
 
   constructor() {
@@ -95,6 +97,9 @@ export class AppShowcase extends LitElement {
     this._codeVisible = {};
     this._copied = {};
     this._dark = localStorage.getItem('zeelit-theme') !== 'light';
+    this._sidebarPage = 0;
+    this._viewAllOpen = false;
+    this._SIDEBAR_PER_PAGE = 18;
     this._applyTheme();
     window.addEventListener('hashchange', () => {
       this.activePage = this._getPageFromHash() || 'home';
@@ -419,12 +424,98 @@ export class AppShowcase extends LitElement {
       `;
     };
 
+    const perPage = this._SIDEBAR_PER_PAGE;
+    const totalPages = Math.ceil(COMPONENTS.length / perPage);
+    const start = this._sidebarPage * perPage;
+    const visibleComponents = COMPONENTS.slice(start, start + perPage);
+
+    const pageBtn = (label, page, disabled = false) => html`
+      <button
+        @click="${() => { if (!disabled) this._sidebarPage = page; }}"
+        class="h-7 min-w-[28px] px-1.5 rounded text-xs font-medium cursor-pointer transition-colors inline-flex items-center justify-center"
+        style="color: ${disabled ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${disabled ? '0.4' : '1'}; background: transparent; border: 1px solid ${disabled ? 'transparent' : 'var(--border)'}; ${disabled ? 'cursor: not-allowed;' : ''}"
+        ?disabled="${disabled}"
+        @mouseenter=${(e) => { if (!disabled) e.currentTarget.style.background = 'var(--bg-muted)'; }}
+        @mouseleave=${(e) => { if (!disabled) e.currentTarget.style.background = 'transparent'; }}
+      >${label}</button>
+    `;
+
     return html`
-      <nav class="p-4 grid grid-cols-3 gap-2.5">
-        ${link('home', 'Introduction')}
-        ${link('installation', 'Installation')}
-        ${COMPONENTS.map(comp => link(comp.id, comp.label))}
+      <nav class="p-4 flex flex-col gap-3">
+        <div class="grid grid-cols-3 gap-2.5">
+          ${link('home', 'Introduction')}
+          ${link('installation', 'Installation')}
+          ${visibleComponents.map(comp => link(comp.id, comp.label))}
+        </div>
+
+        <!-- Pagination + View All -->
+        <div class="flex items-center justify-between pt-1" style="border-top: 1px solid var(--border);">
+          ${totalPages > 1 ? html`
+            <div class="flex items-center gap-1">
+              ${pageBtn(html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>`, this._sidebarPage - 1, this._sidebarPage === 0)}
+              <span class="text-xs px-1.5" style="color: var(--fg-subtle)">${this._sidebarPage + 1}/${totalPages}</span>
+              ${pageBtn(html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`, this._sidebarPage + 1, this._sidebarPage >= totalPages - 1)}
+            </div>
+          ` : html`<div></div>`}
+          <button
+            @click="${() => { this._viewAllOpen = true; }}"
+            class="text-xs font-medium px-2.5 py-1.5 rounded-md cursor-pointer transition-colors"
+            style="color: var(--primary); background: transparent; border: 1px solid var(--border);"
+            @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
+            @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
+          >View All</button>
+        </div>
       </nav>
+    `;
+  }
+
+  /* ─── View All Dialog ─── */
+
+  _renderViewAllDialog() {
+    if (!this._viewAllOpen) return '';
+
+    const link = (id, label) => {
+      const active = this.activePage === id;
+      return html`
+        <a @click="${() => { this.navigate(id); this._viewAllOpen = false; }}"
+          class="px-3 py-2.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
+          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}; background: ${active ? 'var(--sidebar-active-bg, rgba(0,0,0,0.06))' : 'transparent'}; border: 1px solid ${active ? 'var(--primary)' : 'var(--border)'};"
+          @mouseenter=${(e) => { if (!active) e.currentTarget.style.background = 'var(--bg-muted)'; }}
+          @mouseleave=${(e) => { if (!active) e.currentTarget.style.background = active ? 'var(--sidebar-active-bg, rgba(0,0,0,0.06))' : 'transparent'; }}
+        >${label}</a>
+      `;
+    };
+
+    return html`
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => { this._viewAllOpen = false; }}"></div>
+        <div class="relative rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden" style="background: var(--bg-card); border: 1px solid var(--border);">
+          <!-- Header -->
+          <div class="flex items-center justify-between px-6 py-4 shrink-0" style="border-bottom: 1px solid var(--border);">
+            <div>
+              <h2 class="text-lg font-semibold" style="color: var(--fg-heading)">All Components</h2>
+              <p class="text-xs mt-0.5" style="color: var(--fg-muted)">${COMPONENTS.length} components available</p>
+            </div>
+            <button @click="${() => { this._viewAllOpen = false; }}" class="p-1.5 rounded-md cursor-pointer transition-colors" style="color: var(--fg-subtle);"
+              @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
+              @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <!-- Body -->
+          <div class="flex-1 overflow-y-auto p-6">
+            ${CATEGORIES.map(cat => html`
+              <div class="mb-5">
+                <h3 class="text-xs font-semibold uppercase tracking-wider mb-2.5 px-1" style="color: var(--fg-subtle)">${cat}</h3>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                  ${COMPONENTS.filter(c => c.category === cat).map(c => link(c.id, c.label))}
+                </div>
+              </div>
+            `)}
+          </div>
+        </div>
+      </div>
     `;
   }
 
@@ -436,16 +527,16 @@ export class AppShowcase extends LitElement {
       <div class="flex h-screen" style="background: var(--bg); color: var(--fg)">
         <!-- 1: Sidebar — full height left -->
         ${this.sidebarCollapsed ? html`
-          <div class="relative w-14 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
+          <div class="relative w-16 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
             <!-- Branding collapsed -->
             <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
-              <div class="h-8 w-8 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
+              <div class="h-9 w-9 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
                 <span class="font-bold text-sm" style="color: var(--logo-fg)">Z</span>
               </div>
             </div>
             <!-- Vertical text centered -->
             <div class="flex-1 flex items-center justify-center cursor-pointer" @click="${() => this.sidebarCollapsed = false}">
-              <span class="font-bold text-xs tracking-[0.2em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Library Component</span>
+              <span class="font-bold text-xs tracking-[0.25em] uppercase" style="writing-mode: vertical-lr; text-orientation: mixed; color: var(--fg-muted);">Component Library</span>
             </div>
             <!-- Circle expand button on the border line -->
             <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -14px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
@@ -453,7 +544,7 @@ export class AppShowcase extends LitElement {
             </button>
           </div>
         ` : html`
-          <div class="relative shrink-0 hidden md:block" style="width: clamp(220px, 22%, 300px)">
+          <div class="relative shrink-0 hidden md:block" style="width: clamp(260px, 25%, 340px)">
             <aside class="h-full overflow-y-auto flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
               <!-- Sidebar branding -->
               <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
@@ -466,8 +557,8 @@ export class AppShowcase extends LitElement {
               ${this._sidebarNav()}
             </aside>
             <!-- Circle collapse button — outside overflow container -->
-            <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -13px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -14px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
           </div>
         `}
@@ -476,7 +567,7 @@ export class AppShowcase extends LitElement {
         ${this.sidebarOpen ? html`
           <div class="fixed inset-0 z-50 md:hidden">
             <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => this.sidebarOpen = false}"></div>
-            <aside class="fixed inset-y-0 left-0 w-72 overflow-y-auto flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
+            <aside class="fixed inset-y-0 left-0 w-80 overflow-y-auto flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
               <div class="flex items-center justify-between p-4" style="border-bottom: 1px solid var(--border)">
                 <div class="flex items-center gap-2">
                   <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
@@ -506,6 +597,9 @@ export class AppShowcase extends LitElement {
           </main>
         </div>
       </div>
+
+      <!-- View All Components Dialog -->
+      ${this._renderViewAllDialog()}
     `;
   }
 
