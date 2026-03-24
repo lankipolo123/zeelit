@@ -52,6 +52,8 @@ import './layouts/app-sidebar-layout.js';
 import './layouts/app-center-card-layout.js';
 import './layouts/app-split-layout.js';
 import './layouts/app-dual-card-layout.js';
+import './layouts/app-hero-layout.js';
+import './components/app-nav.js';
 
 // Showcase app
 import './showcase/app-showcase.js';

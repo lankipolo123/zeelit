@@ -3,6 +3,8 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 import centerCardSource from '../layouts/app-center-card-layout.js?raw';
 import splitSource from '../layouts/app-split-layout.js?raw';
 import dualCardSource from '../layouts/app-dual-card-layout.js?raw';
+import heroSource from '../layouts/app-hero-layout.js?raw';
+import navSource from '../components/app-nav.js?raw';
 
 /* ─── Source Code ─── */
 
@@ -252,6 +254,50 @@ customElements.define('my-page', MyPage);`;
               { name: 'app-dual-card-layout.js', path: 'layouts/app-dual-card-layout.js', code: dualCardSource },
             ],
             title: 'Dual Card Layout',
+          },
+        )}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Hero Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Hero Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            Nav bar on top with a jumbotron section below.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-hero',
+          html`
+            <app-hero-layout style="height: 400px;">
+              <app-nav slot="nav" brand="MyApp"
+                .items=${JSON.stringify([
+                  { label: 'Home' },
+                  { label: 'About' },
+                  { label: 'Contact' },
+                ])}
+                active="Home">
+              </app-nav>
+            </app-hero-layout>
+          `,
+          `<app-hero-layout style="height: 100vh;">
+  <app-nav slot="nav" brand="MyApp"
+    items='[{ "label": "Home" }, { "label": "About" }, { "label": "Contact" }]'
+    active="Home">
+  </app-nav>
+</app-hero-layout>`,
+          {
+            importPath: '@/layouts/app-hero-layout.js',
+            files: [
+              { name: 'app-hero-layout.js', path: 'layouts/app-hero-layout.js', code: heroSource },
+              { name: 'app-nav.js', path: 'components/app-nav.js', code: navSource },
+            ],
+            title: 'Hero Layout',
           },
         )}
       </div>
