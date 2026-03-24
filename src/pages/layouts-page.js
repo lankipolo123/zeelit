@@ -97,12 +97,7 @@ customElements.define('my-page', MyPage);`;
         ${ctx.renderDemo(
           'layout-sidebar',
           html`
-            <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
-              <app-page-content slot="content" heading="Home" description="Welcome to your app.">
-                <p>Your page body content goes here.</p>
-              </app-page-content>
-            </app-sidebar-layout>
+            <app-sidebar-layout style="height: 400px;"></app-sidebar-layout>
           `,
           sidebarLayoutCode,
           {

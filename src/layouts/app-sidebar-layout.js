@@ -13,13 +13,15 @@ export class AppSidebarLayout extends LitElement {
       display: flex;
       height: 100%;
       width: 100%;
-      background: var(--bg);
     }
     .sidebar {
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       height: 100%;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background: var(--bg-card);
     }
     .sidebar ::slotted(*) {
       flex: 1;
@@ -31,6 +33,9 @@ export class AppSidebarLayout extends LitElement {
       flex-direction: column;
       min-width: 0;
       height: 100%;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background: var(--bg-card);
     }
     .content ::slotted(*) {
       flex: 1;
@@ -47,10 +52,10 @@ export class AppSidebarLayout extends LitElement {
     return html`
       <div class="sidebar-layout">
         <div class="sidebar" style="width: ${this.sidebarWidth}">
-          <slot name="sidebar"></slot>
+          <slot name="sidebar">Sidebar Content</slot>
         </div>
         <div class="content">
-          <slot name="content"></slot>
+          <slot name="content">Page Content</slot>
         </div>
       </div>
     `;
