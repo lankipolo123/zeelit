@@ -27,7 +27,7 @@ export class AppSidebarLayout extends LitElement {
         "
       >
         <!-- Sidebar -->
-        <aside
+        <div
           style="
             width: ${this.sidebarWidth};
             flex-shrink: 0;
@@ -39,7 +39,7 @@ export class AppSidebarLayout extends LitElement {
           "
         >
           <slot name="sidebar"></slot>
-        </aside>
+        </div>
 
         <!-- Content -->
         <div
