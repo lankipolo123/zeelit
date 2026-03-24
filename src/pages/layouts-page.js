@@ -15,67 +15,8 @@ const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
 /* ─── Page ─── */
 
 export function layoutsPage(ctx) {
-  const bt = '`';
-  const pageExample = `import { LitElement, html, css } from 'lit';
-import '@/layouts/app-sidebar-layout.js';
-import '@/components/app-sidebar-nav.js';
-
-class DashboardPage extends LitElement {
-  static styles = css${bt}
-    :host {
-      display: block;
-      height: 100vh;
-    }
-  ${bt};
-
-  render() {
-    return html${bt}
-      <app-sidebar-layout>
-        <app-sidebar-nav
-          slot="sidebar"
-          header="Acme Inc"
-          active="dashboard"
-          .items=\\\${[
-            { heading: 'Main' },
-            { id: 'dashboard', label: 'Dashboard' },
-            { id: 'analytics', label: 'Analytics', badge: 'New' },
-            { id: 'projects', label: 'Projects' },
-            { separator: true },
-            { heading: 'Settings' },
-            { id: 'general', label: 'General' },
-            { id: 'billing', label: 'Billing' },
-          ]}
-        ></app-sidebar-nav>
-        <div slot="content" style="padding: 2rem;">
-          <h1>Dashboard</h1>
-          <p>Your page content goes here.</p>
-        </div>
-      </app-sidebar-layout>
-    ${bt};
-  }
-}
-customElements.define('dashboard-page', DashboardPage);`;
-
-  const indexHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sidebar Layout — ZeeLit</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
-</head>
-<body>
-
-  ${sidebarLayoutCode}
-
-</body>
-</html>`;
-
   const files = [
     { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: layoutSource },
-    { name: 'index.html', path: 'index.html', code: indexHtml },
-    { name: 'dashboard-page.js', path: 'pages/dashboard-page.js', code: pageExample },
   ];
 
   return html`
