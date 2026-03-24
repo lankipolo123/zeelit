@@ -320,13 +320,16 @@ export class AppShowcase extends LitElement {
     const cdnCode = tags.length
       ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // Load your component files:\n${tags.map(t => `  // import './${t}.js';`).join('\n')}\n</script>\n\n${code}`
       : importPath
-        ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n</script>\n\n${code}`
+        ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // import '${importPath}';\n</script>\n\n${code}`
         : code;
+    const scriptPath = importPath ? importPath.replace('@/', './') : null;
     const htmlCode = tags.length
       ? `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${demoTitle}</title>\n  <link rel="stylesheet" href="./styles.css">\n${tags.map(t => `  <script type="module" src="./components/${t}.js"><\/script>`).join('\n')}\n</head>\n<body>\n\n  ${code}\n\n</body>\n</html>`
       : tagName
         ? `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${demoTitle}</title>\n  <link rel="stylesheet" href="./styles.css">\n  <script type="module" src="./components/${tagName}.js"><\/script>\n</head>\n<body>\n\n  ${code}\n\n</body>\n</html>`
-        : code;
+        : scriptPath
+          ? `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${demoTitle}</title>\n  <link rel="stylesheet" href="./styles.css">\n  <script type="module" src="${scriptPath}"><\/script>\n</head>\n<body>\n\n  ${code}\n\n</body>\n</html>`
+          : code;
     const activeCode = view === 'html' ? htmlCode : view === 'cdn' ? cdnCode : importCode;
 
     const tabBtn = (id, label) => html`
