@@ -46,5 +46,8 @@ import './components/app-calendar.js';
 import './components/app-sidebar-nav.js';
 import './components/app-form.js';
 
+// Layouts
+import './layouts/app-sidebar-layout.js';
+
 // Showcase app
 import './showcase/app-showcase.js';
