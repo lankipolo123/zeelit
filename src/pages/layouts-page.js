@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import layoutSource from '../layouts/app-sidebar-layout.js?raw';
+import centerCardSource from '../layouts/app-center-card-layout.js?raw';
 
 /* ─── Source Code ─── */
 
@@ -104,6 +105,35 @@ customElements.define('my-page', MyPage);`;
             importPath: '@/layouts/app-sidebar-layout.js',
             files,
             title: 'Sidebar Layout',
+          },
+        )}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Center Card Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Center Card Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            Two panels with a centered card. Great for login or sign-up pages.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-center-card',
+          html`
+            <app-center-card-layout style="height: 400px;"></app-center-card-layout>
+          `,
+          `<app-center-card-layout style="height: 100vh;"></app-center-card-layout>`,
+          {
+            importPath: '@/layouts/app-center-card-layout.js',
+            files: [
+              { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+            ],
+            title: 'Center Card Layout',
           },
         )}
       </div>
