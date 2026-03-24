@@ -39,6 +39,7 @@
   --toggle-thumb: #a1a1aa;
   --tab-bg: #18181b;
   --tab-active-bg: #09090b;
+  --scrollbar-thumb: #f59e0b;
 }
 
 :root.light {
@@ -79,6 +80,7 @@
   --toggle-thumb: #ffffff;
   --tab-bg: #f4f4f5;
   --tab-active-bg: #ffffff;
+  --scrollbar-thumb: #1a1a2e;
 }
 
 body {
@@ -86,7 +88,7 @@ body {
   color: var(--fg);
   transition: background-color 0.2s, color 0.2s;
   scrollbar-width: thin;
-  scrollbar-color: var(--fg-subtle) var(--bg);
+  scrollbar-color: var(--scrollbar-thumb) var(--bg);
 }
 
 *::-webkit-scrollbar {
@@ -97,11 +99,11 @@ body {
   background: var(--bg);
 }
 *::-webkit-scrollbar-thumb {
-  background: var(--fg-subtle);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: var(--fg-muted);
+  background: var(--scrollbar-thumb);
 }
 
 /* ─── Code block styling ─── */
