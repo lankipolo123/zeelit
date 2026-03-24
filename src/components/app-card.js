@@ -6,12 +6,14 @@ export class AppCard extends LitElement {
   static properties = {
     cardTitle: { type: String },
     description: { type: String },
+    spacing: { type: String },
   };
 
   constructor() {
     super();
     this.cardTitle = '';
     this.description = '';
+    this.spacing = '';
     this._userNodes = null;
   }
 
@@ -44,7 +46,7 @@ export class AppCard extends LitElement {
             ${this.description ? html`<p class="text-sm" style="color: var(--fg-muted)">${this.description}</p>` : ''}
           </div>
         ` : ''}
-        <div class="${this.cardTitle || this.description ? 'p-6 pt-0' : 'p-6'}" data-card-content></div>
+        <div class="${this.cardTitle || this.description ? 'p-6 pt-0' : 'p-6'}${this.spacing ? ' space-y-' + this.spacing : ''}" data-card-content></div>
       </div>
     `;
   }
