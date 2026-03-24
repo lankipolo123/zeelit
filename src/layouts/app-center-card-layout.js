@@ -10,15 +10,25 @@ export class AppCenterCardLayout extends LitElement {
     }
     .left {
       flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100%;
       border: 1px solid var(--border);
       background: var(--bg-card);
+      color: var(--fg-muted);
+      font-size: 0.875rem;
     }
     .right {
       flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100%;
       border: 1px solid var(--border);
       background: var(--bg-card);
+      color: var(--fg-muted);
+      font-size: 0.875rem;
     }
     .card {
       position: absolute;
@@ -34,7 +44,6 @@ export class AppCenterCardLayout extends LitElement {
       border: 1px solid var(--border);
       border-radius: 0.75rem;
       background: var(--bg-card);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
       color: var(--fg);
       text-align: center;
     }
@@ -42,8 +51,8 @@ export class AppCenterCardLayout extends LitElement {
 
   render() {
     return html`
-      <div class="left"></div>
-      <div class="right"></div>
+      <div class="left">Left Section</div>
+      <div class="right">Right Section</div>
       <div class="card">
         <slot>Card Content</slot>
       </div>
