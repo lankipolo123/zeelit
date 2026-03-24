@@ -278,36 +278,33 @@ export class AppShowcase extends LitElement {
 
   /* ─── Preview + Code block ─── */
 
-  renderDemo(key, preview, code, { importPath, tagName, layout, files } = {}) {
+  renderDemo(key, preview, code, { importPath, tagName, layout, files, imports, title } = {}) {
     // Auto-generate preview from code if not provided
     if (!preview) {
       const wrapper = layout ? `<div class="${layout}">` : '<div>';
       preview = html`${unsafeHTML(wrapper + code + '</div>')}`;
     }
     const view = this._getView(key);
-    const importCode = importPath
-      ? `import '${importPath}';\n\n${code}`
-      : code;
-    const cdnCode = tagName
-      ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // Your component file (${tagName}.js) goes here\n  // or load it separately:\n  // import './${tagName}.js';\n</script>\n\n${code}`
-      : code;
-    const htmlCode = tagName
-      ? `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${tagName} Example</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./components/${tagName}.js"><\/script>
-</head>
-<body>
 
-  ${code}
+    // Build tag list from single tagName or imports array
+    const tags = imports || (tagName ? [tagName] : []);
+    const demoTitle = title || (tagName ? `${tagName} Example` : 'Example');
 
-</body>
-</html>`
-      : code;
+    const importCode = tags.length
+      ? tags.map(t => `import '@/components/${t}.js';`).join('\n') + '\n\n' + code
+      : importPath
+        ? `import '${importPath}';\n\n${code}`
+        : code;
+    const cdnCode = tags.length
+      ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n\n  // Load your component files:\n${tags.map(t => `  // import './${t}.js';`).join('\n')}\n</script>\n\n${code}`
+      : importPath
+        ? `<!-- Lit via CDN (jsDelivr) -->\n<script type="module">\n  import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';\n</script>\n\n${code}`
+        : code;
+    const htmlCode = tags.length
+      ? `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${demoTitle}</title>\n  <link rel="stylesheet" href="./styles.css">\n${tags.map(t => `  <script type="module" src="./components/${t}.js"><\/script>`).join('\n')}\n</head>\n<body>\n\n  ${code}\n\n</body>\n</html>`
+      : tagName
+        ? `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${demoTitle}</title>\n  <link rel="stylesheet" href="./styles.css">\n  <script type="module" src="./components/${tagName}.js"><\/script>\n</head>\n<body>\n\n  ${code}\n\n</body>\n</html>`
+        : code;
     const activeCode = view === 'html' ? htmlCode : view === 'cdn' ? cdnCode : importCode;
 
     const tabBtn = (id, label) => html`

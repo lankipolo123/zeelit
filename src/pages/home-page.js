@@ -428,7 +428,7 @@ export function homePage(ctx) {
                 <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">${layout.title}</h3>
                 <p class="text-sm mt-1" style="color: var(--fg-muted)">${layout.components}</p>
               </div>
-              ${ctx.renderDemo('home-example-' + i, layout.preview(), layout.code, { files })}
+              ${ctx.renderDemo('home-example-' + i, layout.preview(), layout.code, { files, imports: layout.imports, title: layout.title })}
             </div>
             ${i < EXAMPLES.length - 1 ? html`<div class="h-px" style="background: var(--border)"></div>` : ''}
           `;
