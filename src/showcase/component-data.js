@@ -30,6 +30,11 @@ export const COMPONENTS = [
   { id: 'scroll-area', label: 'Scroll Area', category: 'Layout' },
   { id: 'context-menu', label: 'Context Menu', category: 'Overlay' },
   { id: 'carousel', label: 'Carousel', category: 'Data Display' },
+  { id: 'switch-group', label: 'Switch Group', category: 'Forms' },
+  { id: 'rating', label: 'Rating', category: 'Forms' },
+  { id: 'kbd', label: 'Kbd', category: 'Data Display' },
+  { id: 'stat', label: 'Stat', category: 'Data Display' },
+  { id: 'tag-input', label: 'Tag Input', category: 'Forms' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];

@@ -39,6 +39,11 @@ import { scrollAreaPage } from '../pages/scroll-area-page.js';
 import { contextMenuPage } from '../pages/context-menu-page.js';
 import { carouselPage } from '../pages/carousel-page.js';
 import { layoutsPage } from '../pages/layouts-page.js';
+import { switchGroupPage } from '../pages/switch-group-page.js';
+import { ratingPage } from '../pages/rating-page.js';
+import { kbdPage } from '../pages/kbd-page.js';
+import { statPage } from '../pages/stat-page.js';
+import { tagInputPage } from '../pages/tag-input-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -75,6 +80,11 @@ const PAGE_MAP = {
   'context-menu': contextMenuPage,
   carousel: carouselPage,
   layouts: layoutsPage,
+  'switch-group': switchGroupPage,
+  rating: ratingPage,
+  kbd: kbdPage,
+  stat: statPage,
+  'tag-input': tagInputPage,
 };
 
 export class AppShowcase extends LitElement {
