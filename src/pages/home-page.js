@@ -428,12 +428,7 @@ export function homePage(ctx) {
                 <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">${layout.title}</h3>
                 <p class="text-sm mt-1" style="color: var(--fg-muted)">${layout.components}</p>
               </div>
-              ${ctx.renderDemo('home-layout-' + i, layout.preview(), layout.code)}
-              <div class="space-y-2">
-                <h4 class="text-sm font-semibold" style="color: var(--fg-heading)">Source</h4>
-                <p class="text-xs" style="color: var(--fg-muted)">Copy the page file or the plain HTML version.</p>
-                ${ctx.renderFileExplorer('home-layout-src-' + slug, files)}
-              </div>
+              ${ctx.renderDemo('home-layout-' + i, layout.preview(), layout.code, { files })}
             </div>
             ${i < LAYOUTS.length - 1 ? html`<div class="h-px" style="background: var(--border)"></div>` : ''}
           `;

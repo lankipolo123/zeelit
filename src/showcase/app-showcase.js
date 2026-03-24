@@ -174,7 +174,7 @@ export class AppShowcase extends LitElement {
   _isFolderOpen(key) { return this._codeVisible[key] !== 'closed'; }
   _toggleFolder(key) { this._setView(key, this._isFolderOpen(key) ? 'closed' : 'open'); }
 
-  renderFileExplorer(key, files) {
+  renderFileExplorer(key, files, { inline } = {}) {
     const activeFileKey = `file-explorer-${key}`;
     const activeFile = this._codeVisible[activeFileKey] || files[0]?.name;
     const currentFile = files.find(f => f.name === activeFile) || files[0];
@@ -204,7 +204,7 @@ export class AppShowcase extends LitElement {
     }
 
     return html`
-      <div class="rounded-lg overflow-hidden flex" style="border: 1px solid var(--border); height: 420px;">
+      <div class="${inline ? '' : 'rounded-lg '}overflow-hidden flex" style="${inline ? '' : 'border: 1px solid var(--border); '}height: 420px;">
         <!-- File tree sidebar -->
         <div class="w-52 shrink-0 flex flex-col overflow-y-auto" style="border-right: 1px solid var(--border); background: var(--bg-card)">
           <div class="px-3 py-2.5 text-xs font-semibold uppercase tracking-wider" style="color: var(--fg-subtle); border-bottom: 1px solid var(--border)">Explorer</div>
@@ -278,7 +278,7 @@ export class AppShowcase extends LitElement {
 
   /* ─── Preview + Code block ─── */
 
-  renderDemo(key, preview, code, { importPath, tagName, layout } = {}) {
+  renderDemo(key, preview, code, { importPath, tagName, layout, files } = {}) {
     // Auto-generate preview from code if not provided
     if (!preview) {
       const wrapper = layout ? `<div class="${layout}">` : '<div>';
@@ -326,12 +326,15 @@ export class AppShowcase extends LitElement {
             ${tabBtn('code', 'Code')}
             ${tabBtn('html', 'HTML')}
             ${tabBtn('cdn', 'CDN')}
+            ${files ? tabBtn('source', 'Source') : ''}
           </div>
-          ${view !== 'preview' ? this._copyButton(activeCode, `demo-${key}-${view}`) : ''}
+          ${view !== 'preview' && view !== 'source' ? this._copyButton(activeCode, `demo-${key}-${view}`) : ''}
         </div>
         ${view === 'preview'
           ? html`<div class="p-6 min-h-[180px]" style="background: var(--bg-preview)">${preview}</div>`
-          : html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(activeCode))}</div>`
+          : view === 'source' && files
+            ? this.renderFileExplorer(`${key}-source`, files, { inline: true })
+            : html`<div class="code-block max-h-[500px] overflow-auto rounded-none border-0">${unsafeHTML(highlightCode(activeCode))}</div>`
         }
       </div>
     `;
