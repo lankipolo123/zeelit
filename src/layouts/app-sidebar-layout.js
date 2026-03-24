@@ -7,6 +7,9 @@ export class AppSidebarLayout extends LitElement {
 
   static styles = css`
     :host {
+      display: contents;
+    }
+    .sidebar-layout {
       display: flex;
       height: 100%;
       width: 100%;
@@ -35,12 +38,13 @@ export class AppSidebarLayout extends LitElement {
   }
 
   updated() {
-    const first = this.firstElementChild;
-    if (first) first.style.width = this.sidebarWidth;
+    const slot = this.shadowRoot.querySelector('slot');
+    const children = slot ? slot.assignedElements() : [];
+    if (children[0]) children[0].style.width = this.sidebarWidth;
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`<div class="sidebar-layout"><slot></slot></div>`;
   }
 }
 
