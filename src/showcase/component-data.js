@@ -40,6 +40,8 @@ export const COMPONENTS = [
   { id: 'command', label: 'Command', category: 'Overlay' },
   { id: 'chip', label: 'Chip', category: 'Data Display' },
   { id: 'calendar', label: 'Calendar', category: 'Forms' },
+  { id: 'sidebar-nav', label: 'Sidebar Nav', category: 'Navigation' },
+  { id: 'form', label: 'Form', category: 'Forms' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];

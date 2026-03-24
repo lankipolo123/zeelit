@@ -49,6 +49,8 @@ import { timelinePage } from '../pages/timeline-page.js';
 import { commandPage } from '../pages/command-page.js';
 import { chipPage } from '../pages/chip-page.js';
 import { calendarPage } from '../pages/calendar-page.js';
+import { sidebarNavPage } from '../pages/sidebar-nav-page.js';
+import { formPage } from '../pages/form-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -95,6 +97,8 @@ const PAGE_MAP = {
   command: commandPage,
   chip: chipPage,
   calendar: calendarPage,
+  'sidebar-nav': sidebarNavPage,
+  form: formPage,
 };
 
 export class AppShowcase extends LitElement {
