@@ -40,7 +40,9 @@ export class AppCenterCardLayout extends LitElement {
       top: 50%;
       transform: translateY(-50%);
       width: 14rem;
+      max-height: 14rem;
       aspect-ratio: 1;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: center;
