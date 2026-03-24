@@ -550,7 +550,7 @@ ${usage}
 
     return html`
       <div class="flex-1 flex flex-col">
-        <nav class="p-4 grid grid-cols-3 gap-2.5 content-start flex-1">
+        <nav class="p-4 grid grid-cols-3 gap-2.5 content-start flex-1 overflow-hidden">
           ${this._sidebarPage === 0 ? html`
             ${link('home', 'Introduction')}
             ${link('installation', 'Installation')}
