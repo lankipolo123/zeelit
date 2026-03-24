@@ -4,12 +4,12 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <div slot="sidebar" style="padding: 1.5rem;">
+  <nav slot="sidebar" style="padding: 1.5rem;">
     Sidebar Content
-  </div>
-  <div slot="content" style="padding: 1.5rem;">
+  </nav>
+  <main slot="content" style="padding: 1.5rem;">
     Page Content
-  </div>
+  </main>
 </app-sidebar-layout>`;
 
 /* ─── Page ─── */
@@ -107,18 +107,14 @@ customElements.define('dashboard-page', DashboardPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <div slot="sidebar"
-                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <span style="color: var(--fg-muted); font-size: 0.875rem;">
-                  Sidebar Content
-                </span>
-              </div>
-              <div slot="content"
-                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <span style="color: var(--fg-muted); font-size: 0.875rem;">
-                  Page Content
-                </span>
-              </div>
+              <nav slot="sidebar"
+                   style="flex: 1; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
+                Sidebar Content
+              </nav>
+              <main slot="content"
+                    style="flex: 1; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
+                Page Content
+              </main>
             </app-sidebar-layout>
           `,
           sidebarLayoutCode,
