@@ -44,6 +44,11 @@ import { ratingPage } from '../pages/rating-page.js';
 import { kbdPage } from '../pages/kbd-page.js';
 import { statPage } from '../pages/stat-page.js';
 import { tagInputPage } from '../pages/tag-input-page.js';
+import { stepperPage } from '../pages/stepper-page.js';
+import { timelinePage } from '../pages/timeline-page.js';
+import { commandPage } from '../pages/command-page.js';
+import { chipPage } from '../pages/chip-page.js';
+import { calendarPage } from '../pages/calendar-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -85,6 +90,11 @@ const PAGE_MAP = {
   kbd: kbdPage,
   stat: statPage,
   'tag-input': tagInputPage,
+  stepper: stepperPage,
+  timeline: timelinePage,
+  command: commandPage,
+  chip: chipPage,
+  calendar: calendarPage,
 };
 
 export class AppShowcase extends LitElement {

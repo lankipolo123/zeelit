@@ -30,6 +30,16 @@ import './components/app-collapsible.js';
 import './components/app-scroll-area.js';
 import './components/app-context-menu.js';
 import './components/app-carousel.js';
+import './components/app-switch-group.js';
+import './components/app-rating.js';
+import './components/app-kbd.js';
+import './components/app-stat.js';
+import './components/app-tag-input.js';
+import './components/app-stepper.js';
+import './components/app-timeline.js';
+import './components/app-command.js';
+import './components/app-chip.js';
+import './components/app-calendar.js';
 
 // Showcase app
 import './showcase/app-showcase.js';

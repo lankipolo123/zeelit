@@ -35,6 +35,11 @@ export const COMPONENTS = [
   { id: 'kbd', label: 'Kbd', category: 'Data Display' },
   { id: 'stat', label: 'Stat', category: 'Data Display' },
   { id: 'tag-input', label: 'Tag Input', category: 'Forms' },
+  { id: 'stepper', label: 'Stepper', category: 'Navigation' },
+  { id: 'timeline', label: 'Timeline', category: 'Data Display' },
+  { id: 'command', label: 'Command', category: 'Overlay' },
+  { id: 'chip', label: 'Chip', category: 'Data Display' },
+  { id: 'calendar', label: 'Calendar', category: 'Forms' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];
