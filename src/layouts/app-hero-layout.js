@@ -10,6 +10,14 @@ export class AppHeroLayout extends LitElement {
     }
     .nav {
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--fg-muted);
+      font-size: 0.875rem;
     }
     .nav ::slotted(*) {
       width: 100%;

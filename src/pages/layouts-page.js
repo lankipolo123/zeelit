@@ -274,16 +274,7 @@ customElements.define('my-page', MyPage);`;
         ${ctx.renderDemo(
           'layout-hero',
           html`
-            <app-hero-layout style="height: 400px;">
-              <app-nav slot="nav" brand="MyApp"
-                .items=${JSON.stringify([
-                  { label: 'Home' },
-                  { label: 'About' },
-                  { label: 'Contact' },
-                ])}
-                active="Home">
-              </app-nav>
-            </app-hero-layout>
+            <app-hero-layout style="height: 400px;"></app-hero-layout>
           `,
           `<app-hero-layout style="height: 100vh;">
   <app-nav slot="nav" brand="MyApp"
