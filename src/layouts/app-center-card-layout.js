@@ -1,6 +1,10 @@
 import { LitElement, html, css } from 'lit';
 
 export class AppCenterCardLayout extends LitElement {
+  static properties = {
+    cardPosition: { type: String, attribute: 'card-position' },
+  };
+
   static styles = css`
     :host {
       display: flex;
@@ -33,8 +37,7 @@ export class AppCenterCardLayout extends LitElement {
     .card {
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateY(-50%);
       width: 14rem;
       aspect-ratio: 1;
       display: flex;
@@ -47,13 +50,28 @@ export class AppCenterCardLayout extends LitElement {
       color: var(--fg);
       text-align: center;
     }
+    .card.center {
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .card.left {
+      left: 2rem;
+    }
+    .card.right {
+      right: 2rem;
+    }
   `;
+
+  constructor() {
+    super();
+    this.cardPosition = 'center';
+  }
 
   render() {
     return html`
       <div class="left">Left Section</div>
       <div class="right">Right Section</div>
-      <div class="card">
+      <div class="card ${this.cardPosition}">
         <slot>Card Content</slot>
       </div>
     `;

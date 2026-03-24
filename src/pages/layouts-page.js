@@ -137,6 +137,64 @@ customElements.define('my-page', MyPage);`;
           },
         )}
       </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Left Card Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Left Card Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            Card positioned on the left side.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-left-card',
+          html`
+            <app-center-card-layout card-position="left" style="height: 400px;"></app-center-card-layout>
+          `,
+          `<app-center-card-layout card-position="left" style="height: 100vh;"></app-center-card-layout>`,
+          {
+            importPath: '@/layouts/app-center-card-layout.js',
+            files: [
+              { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+            ],
+            title: 'Left Card Layout',
+          },
+        )}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Right Card Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Right Card Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            Card positioned on the right side.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-right-card',
+          html`
+            <app-center-card-layout card-position="right" style="height: 400px;"></app-center-card-layout>
+          `,
+          `<app-center-card-layout card-position="right" style="height: 100vh;"></app-center-card-layout>`,
+          {
+            importPath: '@/layouts/app-center-card-layout.js',
+            files: [
+              { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+            ],
+            title: 'Right Card Layout',
+          },
+        )}
+      </div>
     </div>
   `;
 }
