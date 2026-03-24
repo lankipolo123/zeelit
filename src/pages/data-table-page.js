@@ -36,6 +36,35 @@ export function dataTablePage(ctx) {
     "customElements.define('data-table-page', DataTablePage);",
   ].join('\n');
 
+  const indexHtml = [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '  <title>Data Table — ZeeLit</title>',
+    '  <link rel="stylesheet" href="./styles.css">',
+    '  <script type="module" src="./components/app-data-table.js"><\/script>',
+    '  <script type="module" src="./config/data-table.config.js"><\/script>',
+    '</head>',
+    '<body>',
+    '',
+    '  <!-- Payments Table -->',
+    '  <app-data-table id="payments"></app-data-table>',
+    '',
+    '  <!-- Users Table -->',
+    '  <app-data-table id="users"></app-data-table>',
+    '',
+    '  <script type="module">',
+    "    import { paymentsTableConfig, usersTableConfig } from './config/data-table.config.js';",
+    "    document.getElementById('payments').config = paymentsTableConfig;",
+    "    document.getElementById('users').config = usersTableConfig;",
+    '  <\/script>',
+    '',
+    '</body>',
+    '</html>',
+  ].join('\n');
+
   const files = [
     {
       name: 'app-data-table.js',
@@ -46,6 +75,11 @@ export function dataTablePage(ctx) {
       name: 'data-table-page.js',
       path: 'pages/data-table-page.js',
       code: pageExample,
+    },
+    {
+      name: 'index.html',
+      path: 'index.html',
+      code: indexHtml,
     },
     {
       name: 'data-table.config.js',
