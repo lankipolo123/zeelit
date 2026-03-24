@@ -19,7 +19,6 @@ export class AppSidebarLayout extends LitElement {
       justify-content: center;
       height: 100%;
       border: 1px solid var(--border);
-      border-radius: 0.75rem;
       background: var(--bg-card);
       color: var(--fg-muted);
       font-size: 0.875rem;
@@ -38,7 +37,6 @@ export class AppSidebarLayout extends LitElement {
       min-width: 0;
       height: 100%;
       border: 1px solid var(--border);
-      border-radius: 0.75rem;
       background: var(--bg-card);
       color: var(--fg-muted);
       font-size: 0.875rem;
