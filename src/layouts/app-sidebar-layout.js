@@ -1,10 +1,6 @@
 import { LitElement, html } from 'lit';
 
 export class AppSidebarLayout extends LitElement {
-  createRenderRoot() {
-    return this;
-  }
-
   static properties = {
     sidebarWidth: { type: String },
   };
@@ -17,14 +13,21 @@ export class AppSidebarLayout extends LitElement {
   render() {
     return html`
       <div
-        class="flex h-full w-full"
-        style="background: var(--bg);"
+        style="
+          display: flex;
+          height: 100%;
+          width: 100%;
+          background: var(--bg);
+        "
       >
         <!-- Sidebar -->
         <aside
-          class="shrink-0 flex flex-col h-full"
           style="
             width: ${this.sidebarWidth};
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
             border-right: 1px solid var(--border);
             background: var(--bg-card);
           "
@@ -33,7 +36,15 @@ export class AppSidebarLayout extends LitElement {
         </aside>
 
         <!-- Content -->
-        <div class="flex-1 flex flex-col min-w-0 h-full">
+        <div
+          style="
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            height: 100%;
+          "
+        >
           <slot name="content"></slot>
         </div>
       </div>
