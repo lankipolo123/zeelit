@@ -17,8 +17,8 @@ export function sidebarNavPage(ctx) {
       title: 'With Page Content',
       description: 'Click a sidebar item to see the corresponding page content.',
       code: `<div style="display:flex; height:520px; border:1px solid var(--border); border-radius:0.75rem; overflow:hidden;">
-  <app-sidebar-nav header="Acme Inc" active="dashboard" items='[{"heading":"Main"},{"id":"dashboard","label":"Dashboard","icon":"📊"},{"id":"analytics","label":"Analytics","icon":"📈","badge":"New"},{"id":"projects","label":"Projects","icon":"📁"},{"separator":true},{"heading":"Settings"},{"id":"general","label":"General","icon":"⚙️"},{"id":"billing","label":"Billing","icon":"💳"},{"id":"team","label":"Team","icon":"👥"}]'></app-sidebar-nav>
-  <div style="flex:1; padding:2rem; background:var(--bg);">
+  <app-sidebar-nav header="Acme Inc" active="dashboard" items='[{"heading":"Main"},{"id":"dashboard","label":"Dashboard"},{"id":"analytics","label":"Analytics","badge":"New"},{"id":"projects","label":"Projects"},{"separator":true},{"heading":"Settings"},{"id":"general","label":"General"},{"id":"billing","label":"Billing"},{"id":"team","label":"Team"}]'></app-sidebar-nav>
+  <div style="flex:1; padding:2rem; background:var(--bg); border-left:1px solid var(--border);">
     <h2 style="margin:0 0 0.5rem; font-size:1.25rem; font-weight:600; color:var(--fg);">Dashboard</h2>
     <p style="color:var(--fg-muted); line-height:1.6;">Overview of your project metrics, recent activity, and key performance indicators.</p>
   </div>
@@ -27,14 +27,14 @@ export function sidebarNavPage(ctx) {
         <div style="display: flex; height: 520px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;" id="sidebar-demo">
           <app-sidebar-nav header="Acme Inc" active="dashboard" .items=${[
             { heading: 'Main' },
-            { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-            { id: 'analytics', label: 'Analytics', icon: '📈', badge: 'New' },
-            { id: 'projects', label: 'Projects', icon: '📁' },
+            { id: 'dashboard', label: 'Dashboard' },
+            { id: 'analytics', label: 'Analytics', badge: 'New' },
+            { id: 'projects', label: 'Projects' },
             { separator: true },
             { heading: 'Settings' },
-            { id: 'general', label: 'General', icon: '⚙️' },
-            { id: 'billing', label: 'Billing', icon: '💳' },
-            { id: 'team', label: 'Team', icon: '👥' },
+            { id: 'general', label: 'General' },
+            { id: 'billing', label: 'Billing' },
+            { id: 'team', label: 'Team' },
           ]} @app-change=${(e) => {
             const content = pageContent[e.detail.value];
             if (!content) return;
@@ -54,14 +54,14 @@ export function sidebarNavPage(ctx) {
     {
       title: 'Collapsed',
       description: 'Collapsed sidebar showing only icons. Click the toggle button to expand.',
-      code: `<app-sidebar-nav header="App" collapsed active="inbox" items='[{"id":"inbox","label":"Inbox","icon":"📬"},{"id":"sent","label":"Sent","icon":"📤"},{"id":"drafts","label":"Drafts","icon":"📝"},{"id":"trash","label":"Trash","icon":"🗑️"}]'></app-sidebar-nav>`,
+      code: `<app-sidebar-nav header="App" collapsed active="inbox" items='[{"id":"inbox","label":"Inbox"},{"id":"sent","label":"Sent"},{"id":"drafts","label":"Drafts"},{"id":"trash","label":"Trash"}]'></app-sidebar-nav>`,
       preview: html`
         <div style="height: 420px;">
           <app-sidebar-nav header="App" collapsed active="inbox" .items=${[
-            { id: 'inbox', label: 'Inbox', icon: '📬' },
-            { id: 'sent', label: 'Sent', icon: '📤' },
-            { id: 'drafts', label: 'Drafts', icon: '📝' },
-            { id: 'trash', label: 'Trash', icon: '🗑️' },
+            { id: 'inbox', label: 'Inbox' },
+            { id: 'sent', label: 'Sent' },
+            { id: 'drafts', label: 'Drafts' },
+            { id: 'trash', label: 'Trash' },
           ]}></app-sidebar-nav>
         </div>
       `,
@@ -69,14 +69,14 @@ export function sidebarNavPage(ctx) {
     {
       title: 'Inset Variant',
       description: 'Rounded, inset background style — great for embedded panels.',
-      code: `<app-sidebar-nav variant="inset" header="Docs" active="intro" items='[{"id":"intro","label":"Introduction","icon":"📖"},{"id":"getting-started","label":"Getting Started","icon":"🚀"},{"id":"components","label":"Components","icon":"🧩"},{"id":"api","label":"API Reference","icon":"📡"}]'></app-sidebar-nav>`,
+      code: `<app-sidebar-nav variant="inset" header="Docs" active="intro" items='[{"id":"intro","label":"Introduction"},{"id":"getting-started","label":"Getting Started"},{"id":"components","label":"Components"},{"id":"api","label":"API Reference"}]'></app-sidebar-nav>`,
       preview: html`
         <div style="height: 420px; padding: 8px;">
           <app-sidebar-nav variant="inset" header="Docs" active="intro" .items=${[
-            { id: 'intro', label: 'Introduction', icon: '📖' },
-            { id: 'getting-started', label: 'Getting Started', icon: '🚀' },
-            { id: 'components', label: 'Components', icon: '🧩' },
-            { id: 'api', label: 'API Reference', icon: '📡' },
+            { id: 'intro', label: 'Introduction' },
+            { id: 'getting-started', label: 'Getting Started' },
+            { id: 'components', label: 'Components' },
+            { id: 'api', label: 'API Reference' },
           ]}></app-sidebar-nav>
         </div>
       `,
