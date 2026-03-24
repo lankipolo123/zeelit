@@ -4,12 +4,12 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <aside slot="sidebar" style="padding: 1.5rem;">
+  <div slot="sidebar" style="padding: 1.5rem;">
     Sidebar Content
-  </aside>
-  <main slot="content" style="padding: 1.5rem;">
+  </div>
+  <div slot="content" style="padding: 1.5rem;">
     Page Content
-  </main>
+  </div>
 </app-sidebar-layout>`;
 
 /* ─── Page ─── */
@@ -30,12 +30,12 @@ class MyPage extends LitElement {
   render() {
     return html${bt}
       <app-sidebar-layout>
-        <aside slot="sidebar" style="padding: 1.5rem;">
+        <div slot="sidebar" style="padding: 1.5rem;">
           Sidebar Content
-        </aside>
-        <main slot="content" style="padding: 1.5rem;">
+        </div>
+        <div slot="content" style="padding: 1.5rem;">
           Page Content
-        </main>
+        </div>
       </app-sidebar-layout>
     ${bt};
   }
@@ -54,12 +54,12 @@ customElements.define('my-page', MyPage);`;
 <body>
 
   <app-sidebar-layout style="height: 100vh;">
-    <aside slot="sidebar" style="padding: 1.5rem;">
+    <div slot="sidebar" style="padding: 1.5rem;">
       Sidebar Content
-    </aside>
-    <main slot="content" style="padding: 1.5rem;">
+    </div>
+    <div slot="content" style="padding: 1.5rem;">
       Page Content
-    </main>
+    </div>
   </app-sidebar-layout>
 
 </body>
@@ -100,14 +100,14 @@ customElements.define('my-page', MyPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <aside slot="sidebar"
+              <div slot="sidebar"
                    style="flex: 1; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
                 Sidebar Content
-              </aside>
-              <main slot="content"
+              </div>
+              <div slot="content"
                     style="flex: 1; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
                 Page Content
-              </main>
+              </div>
             </app-sidebar-layout>
           `,
           sidebarLayoutCode,
