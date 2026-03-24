@@ -4,13 +4,12 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <app-sidebar-nav slot="sidebar" header="My App" active="home"
-    items='[{"id":"home","label":"Home"},{"id":"settings","label":"Settings"}]'>
-  </app-sidebar-nav>
-  <section slot="content" style="padding: 2rem;">
-    <h1>Home</h1>
-    <p>Your page content goes here.</p>
-  </section>
+  <div slot="sidebar" style="padding: 1.5rem;">
+    Sidebar Content
+  </div>
+  <div slot="content" style="padding: 1.5rem;">
+    Page Content
+  </div>
 </app-sidebar-layout>`;
 
 /* ─── Page ─── */
@@ -108,15 +107,18 @@ customElements.define('dashboard-page', DashboardPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <app-sidebar-nav slot="sidebar" header="My App" active="home"
-                .items=${[
-                  { id: 'home', label: 'Home' },
-                  { id: 'settings', label: 'Settings' },
-                ]}></app-sidebar-nav>
-              <section slot="content" style="padding: 2rem;">
-                <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 600; color: var(--fg);">Home</h2>
-                <p style="color: var(--fg-muted); line-height: 1.6;">Your page content goes here.</p>
-              </section>
+              <div slot="sidebar"
+                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                <span style="color: var(--fg-muted); font-size: 0.875rem;">
+                  Sidebar Content
+                </span>
+              </div>
+              <div slot="content"
+                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                <span style="color: var(--fg-muted); font-size: 0.875rem;">
+                  Page Content
+                </span>
+              </div>
             </app-sidebar-layout>
           `,
           sidebarLayoutCode,
