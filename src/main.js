@@ -45,6 +45,7 @@ import './components/app-chip.js';
 import './components/app-calendar.js';
 import './components/app-sidebar-nav.js';
 import './components/app-form.js';
+import './components/app-page-content.js';
 
 // Layouts
 import './layouts/app-sidebar-layout.js';

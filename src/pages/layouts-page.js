@@ -7,9 +7,9 @@ const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
   <app-sidebar-nav header="My App" active="home"
     items='[{"id":"home","label":"Home"},{"id":"settings","label":"Settings"}]'>
   </app-sidebar-nav>
-  <section style="padding: 1.5rem;">
-    Page Content
-  </section>
+  <app-page-content heading="Home" description="Welcome to your app.">
+    <p>Your page body content goes here.</p>
+  </app-page-content>
 </app-sidebar-layout>`;
 
 /* ─── Page ─── */
@@ -18,6 +18,8 @@ export function layoutsPage(ctx) {
   const bt = '`';
   const pageExample = `import { LitElement, html, css } from 'lit';
 import '@/layouts/app-sidebar-layout.js';
+import '@/components/app-sidebar-nav.js';
+import '@/components/app-page-content.js';
 
 class MyPage extends LitElement {
   static styles = css${bt}
@@ -36,9 +38,9 @@ class MyPage extends LitElement {
             { id: 'settings', label: 'Settings' },
           ]}
         ></app-sidebar-nav>
-        <section style="padding: 1.5rem;">
-          Page Content
-        </section>
+        <app-page-content heading="Home" description="Welcome to your app.">
+          <p>Your page body content goes here.</p>
+        </app-page-content>
       </app-sidebar-layout>
     ${bt};
   }
@@ -53,6 +55,8 @@ customElements.define('my-page', MyPage);`;
   <title>Sidebar Layout — ZeeLit</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
+  <script type="module" src="./components/app-sidebar-nav.js"><\/script>
+  <script type="module" src="./components/app-page-content.js"><\/script>
 </head>
 <body>
 
@@ -60,9 +64,9 @@ customElements.define('my-page', MyPage);`;
     <app-sidebar-nav header="My App" active="home"
       items='[{"id":"home","label":"Home"},{"id":"settings","label":"Settings"}]'>
     </app-sidebar-nav>
-    <section style="padding: 1.5rem;">
-      Page Content
-    </section>
+    <app-page-content heading="Home" description="Welcome to your app.">
+      <p>Your page body content goes here.</p>
+    </app-page-content>
   </app-sidebar-layout>
 
 </body>
@@ -108,9 +112,9 @@ customElements.define('my-page', MyPage);`;
                   { id: 'home', label: 'Home' },
                   { id: 'settings', label: 'Settings' },
                 ]}></app-sidebar-nav>
-              <section style="padding: 2rem; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
-                Page Content
-              </section>
+              <app-page-content heading="Home" description="Welcome to your app.">
+                <p>Your page body content goes here.</p>
+              </app-page-content>
             </app-sidebar-layout>
           `,
           sidebarLayoutCode,
