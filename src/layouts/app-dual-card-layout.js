@@ -10,22 +10,26 @@ export class AppDualCardLayout extends LitElement {
     .container {
       flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
       height: 100%;
       border: 1px solid var(--border);
-      background: var(--bg);
+      background: var(--bg-card);
     }
-    .card {
-      width: 14rem;
-      height: 10rem;
+    .left {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      background: var(--bg-card);
+      height: 100%;
+      border-right: 1px solid var(--border);
+      color: var(--fg-muted);
+      font-size: 0.875rem;
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       color: var(--fg-muted);
       font-size: 0.875rem;
     }
@@ -34,11 +38,11 @@ export class AppDualCardLayout extends LitElement {
   render() {
     return html`
       <div class="container">
-        <div class="card">
-          <slot name="left">Left Card</slot>
+        <div class="left">
+          <slot name="left">Left Section</slot>
         </div>
-        <div class="card">
-          <slot name="right">Right Card</slot>
+        <div class="right">
+          <slot name="right">Right Section</slot>
         </div>
       </div>
     `;
