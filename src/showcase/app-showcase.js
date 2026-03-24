@@ -403,27 +403,54 @@ ${usage}
     }
     // Auto-generate a LitElement page example
     if (sections.length && tagName && importPath) {
-      const pascal = tagName.replace(/^app-/, '').replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase()) + 'Page';
-      const body = sections.map(s => {
-        const code = s.code.split('\n').map(l => '          ' + l).join('\n');
-        return code;
+      const base = tagName.replace(/^app-/, '');
+      const pascal = base.replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase()) + 'Page';
+      const bt = '`';
+      const sectionBlocks = sections.map(s => {
+        const lines = s.code.split('\n').map(l => '        ' + l);
+        return [
+          '      <section>',
+          '        <h2>' + (s.title || title) + '</h2>',
+          ...lines,
+          '      </section>',
+        ].join('\n');
       }).join('\n\n');
-      const pageJs = `import { LitElement, html } from 'lit';
-import '${importPath}';
-
-class ${pascal} extends LitElement {
-  createRenderRoot() { return this; }
-
-  render() {
-    return html\`
-      <div>
-${body}
-      </div>
-    \`;
-  }
-}
-customElements.define('${tagName.replace('app-', '')}-page', ${pascal});`;
-      files.push({ name: `${tagName.replace('app-', '')}-page.js`, path: `pages/${tagName.replace('app-', '')}-page.js`, code: pageJs });
+      const pageJs = [
+        "import { LitElement, html, css } from 'lit';",
+        "import '" + importPath + "';",
+        "",
+        "class " + pascal + " extends LitElement {",
+        "  static styles = css" + bt,
+        "    :host {",
+        "      display: block;",
+        "      padding: 1.5rem;",
+        "    }",
+        "    section {",
+        "      margin-bottom: 2rem;",
+        "    }",
+        "    h1 {",
+        "      font-size: 1.5rem;",
+        "      font-weight: 700;",
+        "      margin: 0 0 1.5rem;",
+        "    }",
+        "    h2 {",
+        "      font-size: 1rem;",
+        "      font-weight: 600;",
+        "      margin: 0 0 0.75rem;",
+        "    }",
+        "  " + bt + ";",
+        "",
+        "  render() {",
+        "    return html" + bt,
+        "      <h1>" + title + "</h1>",
+        "",
+        sectionBlocks,
+        "    " + bt + ";",
+        "  }",
+        "}",
+        "customElements.define('" + base + "-page', " + pascal + ");",
+      ].join('\n');
+      files.push({ name: base + '-page.js', path: 'pages/' + base + '-page.js', code: pageJs });
     }
 
     return html`

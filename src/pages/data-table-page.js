@@ -8,11 +8,44 @@ const IMPORT = '@/components/app-data-table.js';
 const FILE = 'app-data-table.js';
 
 export function dataTablePage(ctx) {
+  const pageExample = [
+    "import { LitElement, html, css } from 'lit';",
+    "import '" + IMPORT + "';",
+    "import { paymentsTableConfig } from '@/config/data-table.config.js';",
+    "",
+    "class DataTablePage extends LitElement {",
+    "  static styles = css`",
+    "    :host {",
+    "      display: block;",
+    "      padding: 1.5rem;",
+    "    }",
+    "    h1 {",
+    "      font-size: 1.5rem;",
+    "      font-weight: 700;",
+    "      margin: 0 0 1.5rem;",
+    "    }",
+    "  `;",
+    "",
+    "  render() {",
+    "    return html`",
+    "      <h1>Payments</h1>",
+    "      <app-data-table .config=${paymentsTableConfig}></app-data-table>",
+    "    `;",
+    "  }",
+    "}",
+    "customElements.define('data-table-page', DataTablePage);",
+  ].join('\n');
+
   const files = [
     {
       name: 'app-data-table.js',
       path: 'components/app-data-table.js',
       code: componentSource,
+    },
+    {
+      name: 'data-table-page.js',
+      path: 'pages/data-table-page.js',
+      code: pageExample,
     },
     {
       name: 'data-table.config.js',
