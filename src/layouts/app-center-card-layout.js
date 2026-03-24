@@ -25,8 +25,8 @@ export class AppCenterCardLayout extends LitElement {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20rem;
-      height: 20rem;
+      width: 14rem;
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
