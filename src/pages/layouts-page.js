@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 import centerCardSource from '../layouts/app-center-card-layout.js?raw';
+import splitSource from '../layouts/app-split-layout.js?raw';
 
 /* ─── Source Code ─── */
 
@@ -192,6 +193,35 @@ customElements.define('my-page', MyPage);`;
               { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
             ],
             title: 'Right Card Layout',
+          },
+        )}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Split Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Split Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            One container with two equal sections inside.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-split',
+          html`
+            <app-split-layout style="height: 400px;"></app-split-layout>
+          `,
+          `<app-split-layout style="height: 100vh;"></app-split-layout>`,
+          {
+            importPath: '@/layouts/app-split-layout.js',
+            files: [
+              { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js', code: splitSource },
+            ],
+            title: 'Split Layout',
           },
         )}
       </div>

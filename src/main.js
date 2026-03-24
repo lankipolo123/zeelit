@@ -50,6 +50,7 @@ import './components/app-page-content.js';
 // Layouts
 import './layouts/app-sidebar-layout.js';
 import './layouts/app-center-card-layout.js';
+import './layouts/app-split-layout.js';
 
 // Showcase app
 import './showcase/app-showcase.js';
