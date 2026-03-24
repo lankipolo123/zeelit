@@ -6,8 +6,8 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
   <app-sidebar-nav slot="sidebar" header="My App"
     .items='\${JSON.stringify([
-      { label: "Home", icon: "🏠" },
-      { label: "Settings", icon: "⚙️" },
+      { label: "Home" },
+      { label: "Settings" },
     ])}'>
   </app-sidebar-nav>
   <app-page-content slot="content" heading="Home" description="Welcome to your app.">
@@ -37,8 +37,8 @@ class MyPage extends LitElement {
       <app-sidebar-layout>
         <app-sidebar-nav slot="sidebar" header="My App"
           .items=\${JSON.stringify([
-            { label: "Home", icon: "🏠" },
-            { label: "Settings", icon: "⚙️" },
+            { label: "Home" },
+            { label: "Settings" },
           ])}>
         </app-sidebar-nav>
         <app-page-content slot="content" heading="Home" description="Welcome to your app.">
@@ -65,7 +65,7 @@ customElements.define('my-page', MyPage);`;
 
   <app-sidebar-layout style="height: 100vh;">
     <app-sidebar-nav slot="sidebar" header="My App"
-      items='[{ "label": "Home", "icon": "🏠" }, { "label": "Settings", "icon": "⚙️" }]'>
+      items='[{ "label": "Home" }, { "label": "Settings" }]'>
     </app-sidebar-nav>
     <app-page-content slot="content" heading="Home" description="Welcome to your app.">
       <p>Your page body content goes here.</p>
@@ -112,8 +112,8 @@ customElements.define('my-page', MyPage);`;
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
               <app-sidebar-nav slot="sidebar" header="My App"
                 .items=${JSON.stringify([
-                  { label: 'Home', icon: '🏠' },
-                  { label: 'Settings', icon: '⚙️' },
+                  { label: 'Home' },
+                  { label: 'Settings' },
                 ])}>
               </app-sidebar-nav>
               <app-page-content slot="content" heading="Home" description="Welcome to your app.">
