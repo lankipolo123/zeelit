@@ -9,7 +9,7 @@ export function sidebarNavPage(ctx) {
       description: 'A sidebar with grouped sections and badges.',
       code: `<app-sidebar-nav header="Acme Inc" active="dashboard" items='[{"heading":"Main"},{"id":"dashboard","label":"Dashboard","icon":"📊"},{"id":"analytics","label":"Analytics","icon":"📈","badge":"New"},{"id":"projects","label":"Projects","icon":"📁"},{"separator":true},{"heading":"Settings"},{"id":"general","label":"General","icon":"⚙️"},{"id":"billing","label":"Billing","icon":"💳"},{"id":"team","label":"Team","icon":"👥"}]'></app-sidebar-nav>`,
       preview: html`
-        <div style="height: 380px;">
+        <div style="height: 520px;">
           <app-sidebar-nav header="Acme Inc" active="dashboard" .items=${[
             { heading: 'Main' },
             { id: 'dashboard', label: 'Dashboard', icon: '📊' },
@@ -29,7 +29,7 @@ export function sidebarNavPage(ctx) {
       description: 'Collapsed sidebar showing only icons. Click the toggle button to expand.',
       code: `<app-sidebar-nav header="App" collapsed active="inbox" items='[{"id":"inbox","label":"Inbox","icon":"📬"},{"id":"sent","label":"Sent","icon":"📤"},{"id":"drafts","label":"Drafts","icon":"📝"},{"id":"trash","label":"Trash","icon":"🗑️"}]'></app-sidebar-nav>`,
       preview: html`
-        <div style="height: 320px;">
+        <div style="height: 420px;">
           <app-sidebar-nav header="App" collapsed active="inbox" .items=${[
             { id: 'inbox', label: 'Inbox', icon: '📬' },
             { id: 'sent', label: 'Sent', icon: '📤' },
