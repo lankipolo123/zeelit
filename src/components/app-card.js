@@ -44,7 +44,7 @@ export class AppCard extends LitElement {
             ${this.description ? html`<p class="text-sm" style="color: var(--fg-muted)">${this.description}</p>` : ''}
           </div>
         ` : ''}
-        <div class="p-6 pt-0" data-card-content></div>
+        <div class="${this.cardTitle || this.description ? 'p-6 pt-0' : 'p-6'}" data-card-content></div>
       </div>
     `;
   }

@@ -1,4 +1,34 @@
 import { html } from 'lit';
+import { COMPONENTS, CATEGORIES } from '../showcase/component-data.js';
+
+/* ─── Component raw sources for file explorer ─── */
+import srcCard from '../components/app-card.js?raw';
+import srcInput from '../components/app-input.js?raw';
+import srcCheckbox from '../components/app-checkbox.js?raw';
+import srcButton from '../components/app-button.js?raw';
+import srcTabs from '../components/app-tabs.js?raw';
+import srcToggle from '../components/app-toggle.js?raw';
+import srcSelect from '../components/app-select.js?raw';
+import srcSeparator from '../components/app-separator.js?raw';
+import srcAvatar from '../components/app-avatar.js?raw';
+import srcBadge from '../components/app-badge.js?raw';
+import srcProgress from '../components/app-progress.js?raw';
+import srcAlert from '../components/app-alert.js?raw';
+
+const COMPONENT_SOURCE = {
+  'app-card': srcCard,
+  'app-input': srcInput,
+  'app-checkbox': srcCheckbox,
+  'app-button': srcButton,
+  'app-tabs': srcTabs,
+  'app-toggle': srcToggle,
+  'app-select': srcSelect,
+  'app-separator': srcSeparator,
+  'app-avatar': srcAvatar,
+  'app-badge': srcBadge,
+  'app-progress': srcProgress,
+  'app-alert': srcAlert,
+};
 
 /* ─── Layout data ─── */
 
@@ -7,12 +37,8 @@ const LAYOUTS = [
     title: 'Login',
     components: 'Card + Input + Checkbox + Button',
     imports: ['app-card', 'app-input', 'app-checkbox', 'app-button'],
-    code: `<app-card style="width: 100%; max-width: 380px;">
+    code: `<app-card cardTitle="Sign in" description="Enter your credentials to continue" style="width: 100%; max-width: 380px;">
   <div class="space-y-5">
-    <div class="text-center space-y-1">
-      <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">Sign in</h3>
-      <p class="text-sm" style="color: var(--fg-muted)">Enter your credentials to continue</p>
-    </div>
     <div class="space-y-3">
       <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
       <app-input label="Password" placeholder="••••••••" type="password"></app-input>
@@ -27,12 +53,8 @@ const LAYOUTS = [
 </app-card>`,
     preview: () => html`
       <div class="flex items-center justify-center min-h-[420px]">
-        <app-card style="width: 100%; max-width: 380px;">
+        <app-card cardTitle="Sign in" description="Enter your credentials to continue" style="width: 100%; max-width: 380px;">
           <div class="space-y-5">
-            <div class="text-center space-y-1">
-              <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">Sign in</h3>
-              <p class="text-sm" style="color: var(--fg-muted)">Enter your credentials to continue</p>
-            </div>
             <div class="space-y-3">
               <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
               <app-input label="Password" placeholder="••••••••" type="password"></app-input>
@@ -53,13 +75,8 @@ const LAYOUTS = [
     components: 'Card + Tabs + Toggle + Select + Input + Separator + Button',
     imports: ['app-card', 'app-tabs', 'app-toggle', 'app-select', 'app-input', 'app-separator', 'app-button'],
     code: `<div style="max-width: 560px; margin: 0 auto;">
-  <app-card>
+  <app-card cardTitle="Account Settings" description="Manage your preferences">
     <div class="space-y-5">
-      <div>
-        <h3 class="text-lg font-semibold" style="color: var(--fg-heading)">Account Settings</h3>
-        <p class="text-sm" style="color: var(--fg-muted)">Manage your preferences</p>
-      </div>
-      <app-separator></app-separator>
       <app-tabs .tabs=\${[
         { id: 'general', label: 'General' },
         { id: 'notifications', label: 'Notifications' },
@@ -94,13 +111,8 @@ const LAYOUTS = [
 </div>`,
     preview: () => html`
       <div style="max-width: 560px; margin: 0 auto;">
-        <app-card>
+        <app-card cardTitle="Account Settings" description="Manage your preferences">
           <div class="space-y-5">
-            <div>
-              <h3 class="text-lg font-semibold" style="color: var(--fg-heading)">Account Settings</h3>
-              <p class="text-sm" style="color: var(--fg-muted)">Manage your preferences</p>
-            </div>
-            <app-separator></app-separator>
             <app-tabs .tabs=${[
               { id: 'general', label: 'General' },
               { id: 'notifications', label: 'Notifications' },
@@ -377,12 +389,8 @@ const LAYOUTS = [
     title: 'Newsletter',
     components: 'Card + Input + Button + Alert',
     imports: ['app-card', 'app-input', 'app-button', 'app-alert'],
-    code: `<app-card style="width: 100%; max-width: 480px;">
-  <div class="space-y-4 text-center">
-    <div>
-      <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">Stay up to date</h3>
-      <p class="text-sm mt-1" style="color: var(--fg-muted)">Subscribe to our newsletter for the latest updates and releases.</p>
-    </div>
+    code: `<app-card cardTitle="Stay up to date" description="Subscribe to our newsletter for the latest updates and releases." style="width: 100%; max-width: 480px;">
+  <div class="space-y-4">
     <div class="flex gap-3">
       <app-input placeholder="you@example.com" type="email" style="flex: 1;"></app-input>
       <app-button>Subscribe</app-button>
@@ -392,12 +400,8 @@ const LAYOUTS = [
 </app-card>`,
     preview: () => html`
       <div class="flex items-center justify-center min-h-[280px]">
-        <app-card style="width: 100%; max-width: 480px;">
-          <div class="space-y-4 text-center">
-            <div>
-              <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">Stay up to date</h3>
-              <p class="text-sm mt-1" style="color: var(--fg-muted)">Subscribe to our newsletter for the latest updates and releases.</p>
-            </div>
+        <app-card cardTitle="Stay up to date" description="Subscribe to our newsletter for the latest updates and releases." style="width: 100%; max-width: 480px;">
+          <div class="space-y-4">
             <div class="flex gap-3">
               <app-input placeholder="you@example.com" type="email" style="flex: 1;"></app-input>
               <app-button>Subscribe</app-button>
@@ -412,12 +416,8 @@ const LAYOUTS = [
     title: 'File Upload',
     components: 'Card + Progress + Badge + Button + Separator',
     imports: ['app-card', 'app-progress', 'app-badge', 'app-button', 'app-separator'],
-    code: `<app-card style="width: 100%; max-width: 440px;">
+    code: `<app-card cardTitle="Upload Files" description="Drag and drop or click to browse" style="width: 100%; max-width: 440px;">
   <div class="space-y-4">
-    <div>
-      <h3 class="font-semibold" style="color: var(--fg-heading)">Upload Files</h3>
-      <p class="text-sm" style="color: var(--fg-muted)">Drag and drop or click to browse</p>
-    </div>
     <div class="rounded-lg py-8 flex flex-col items-center justify-center gap-2" style="border: 2px dashed var(--border);">
       <p class="text-sm" style="color: var(--fg-muted)">Click to upload or drag here</p>
       <p class="text-xs" style="color: var(--fg-subtle)">PNG, JPG, PDF up to 10MB</p>
@@ -450,12 +450,8 @@ const LAYOUTS = [
 </app-card>`,
     preview: () => html`
       <div class="flex items-center justify-center min-h-[380px]">
-        <app-card style="width: 100%; max-width: 440px;">
+        <app-card cardTitle="Upload Files" description="Drag and drop or click to browse" style="width: 100%; max-width: 440px;">
           <div class="space-y-4">
-            <div>
-              <h3 class="font-semibold" style="color: var(--fg-heading)">Upload Files</h3>
-              <p class="text-sm" style="color: var(--fg-muted)">Drag and drop or click to browse</p>
-            </div>
             <div class="rounded-lg py-8 flex flex-col items-center justify-center gap-2" style="border: 2px dashed var(--border);">
               <p class="text-sm" style="color: var(--fg-muted)">Click to upload or drag here</p>
               <p class="text-xs" style="color: var(--fg-subtle)">PNG, JPG, PDF up to 10MB</p>
@@ -558,6 +554,31 @@ export function homePage(ctx) {
 
       <div class="h-px" style="background: var(--border)"></div>
 
+      <!-- Components -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight" style="color: var(--fg-heading)">Components</h2>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">${COMPONENTS.length} components across ${CATEGORIES.length} categories. Click any to view docs.</p>
+        </div>
+        ${CATEGORIES.map(cat => html`
+          <div class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase tracking-wider" style="color: var(--fg-subtle)">${cat}</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              ${COMPONENTS.filter(c => c.category === cat).map(c => html`
+                <a @click="${() => ctx.navigate(c.id)}"
+                  class="px-3 py-2.5 rounded-md text-sm cursor-pointer transition-colors text-center truncate"
+                  style="border: 1px solid var(--border); color: var(--fg-muted); background: var(--bg-card)"
+                  @mouseenter=${(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--fg)'; }}
+                  @mouseleave=${(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}
+                >${c.label}</a>
+              `)}
+            </div>
+          </div>
+        `)}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
       <!-- Examples — all 7 layouts with code tabs + source explorer -->
       <div class="space-y-10">
         <div>
@@ -567,9 +588,13 @@ export function homePage(ctx) {
 
         ${LAYOUTS.map((layout, i) => {
           const slug = layout.title.toLowerCase().replace(/\s+/g, '-');
+          const componentFiles = [...new Set(layout.imports)]
+            .filter(c => COMPONENT_SOURCE[c])
+            .map(c => ({ name: c + '.js', path: 'components/' + c + '.js', code: COMPONENT_SOURCE[c] }));
           const files = [
             { name: slug + '-page.js', path: 'pages/' + slug + '-page.js', code: buildPageExample(layout) },
             { name: 'index.html', path: 'index.html', code: buildHtmlExample(layout) },
+            ...componentFiles,
           ];
           return html`
             <div class="space-y-4">
