@@ -4,12 +4,7 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <app-sidebar-nav slot="sidebar" header="My App"
-    .items='\${JSON.stringify([
-      { label: "Home" },
-      { label: "Settings" },
-    ])}'>
-  </app-sidebar-nav>
+  <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
   <app-page-content slot="content" heading="Home" description="Welcome to your app.">
     <p>Your page body content goes here.</p>
   </app-page-content>
@@ -35,12 +30,7 @@ class MyPage extends LitElement {
   render() {
     return html${bt}
       <app-sidebar-layout>
-        <app-sidebar-nav slot="sidebar" header="My App"
-          .items=\${JSON.stringify([
-            { label: "Home" },
-            { label: "Settings" },
-          ])}>
-        </app-sidebar-nav>
+        <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
         <app-page-content slot="content" heading="Home" description="Welcome to your app.">
           <p>Your page body content goes here.</p>
         </app-page-content>
@@ -64,9 +54,7 @@ customElements.define('my-page', MyPage);`;
 <body>
 
   <app-sidebar-layout style="height: 100vh;">
-    <app-sidebar-nav slot="sidebar" header="My App"
-      items='[{ "label": "Home" }, { "label": "Settings" }]'>
-    </app-sidebar-nav>
+    <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
     <app-page-content slot="content" heading="Home" description="Welcome to your app.">
       <p>Your page body content goes here.</p>
     </app-page-content>
@@ -110,12 +98,7 @@ customElements.define('my-page', MyPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <app-sidebar-nav slot="sidebar" header="My App"
-                .items=${JSON.stringify([
-                  { label: 'Home' },
-                  { label: 'Settings' },
-                ])}>
-              </app-sidebar-nav>
+              <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
               <app-page-content slot="content" heading="Home" description="Welcome to your app.">
                 <p>Your page body content goes here.</p>
               </app-page-content>
