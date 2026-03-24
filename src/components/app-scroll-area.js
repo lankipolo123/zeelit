@@ -6,12 +6,14 @@ export class AppScrollArea extends LitElement {
   static properties = {
     height: { type: String },
     orientation: { type: String },
+    thumbColor: { type: String, attribute: 'thumb-color' },
   };
 
   constructor() {
     super();
     this.height = '200px';
     this.orientation = 'vertical';
+    this.thumbColor = '';
     this._userNodes = null;
   }
 
@@ -44,7 +46,7 @@ export class AppScrollArea extends LitElement {
     return html`
       <div
         class="rounded-md scroll-area"
-        style="height: ${this.height}; ${overflowStyle} border: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: var(--fg-subtle) transparent;"
+        style="height: ${this.height}; ${overflowStyle} border: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: ${this.thumbColor || 'var(--fg-subtle)'} transparent;"
       >
         <div data-scroll-content class="${isHorizontal ? 'inline-flex gap-4 p-4' : 'p-4'}"></div>
       </div>
