@@ -467,16 +467,9 @@ ${usage}
           <div class="space-y-3">
             ${s.title ? html`<h2 class="text-xl font-semibold" style="color: var(--fg-heading)">${s.title}</h2>` : ''}
             ${s.description ? html`<p class="text-sm" style="color: var(--fg-muted)">${s.description}</p>` : ''}
-            ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName, layout: s.layout })}
+            ${this.renderDemo(`${title}-${i}`, s.preview, s.code, { importPath, tagName, layout: s.layout, files: files.length ? files : undefined })}
           </div>
         `)}
-        ${files.length ? html`
-          <div class="space-y-3">
-            <h2 class="text-xl font-semibold" style="color: var(--fg-heading)">Source</h2>
-            <p class="text-sm" style="color: var(--fg-muted)">Browse the component source and how it's used.</p>
-            ${this.renderFileExplorer(title, files)}
-          </div>
-        ` : ''}
       </div>
     `;
   }
