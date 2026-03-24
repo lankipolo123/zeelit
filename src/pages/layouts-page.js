@@ -15,8 +15,60 @@ const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
 /* ─── Page ─── */
 
 export function layoutsPage(ctx) {
+  const bt = '`';
+  const pageExample = `import { LitElement, html, css } from 'lit';
+import '@/layouts/app-sidebar-layout.js';
+
+class MyPage extends LitElement {
+  static styles = css${bt}
+    :host {
+      display: block;
+      height: 100vh;
+    }
+  ${bt};
+
+  render() {
+    return html${bt}
+      <app-sidebar-layout>
+        <nav slot="sidebar" style="padding: 1.5rem;">
+          Sidebar Content
+        </nav>
+        <main slot="content" style="padding: 1.5rem;">
+          Page Content
+        </main>
+      </app-sidebar-layout>
+    ${bt};
+  }
+}
+customElements.define('my-page', MyPage);`;
+
+  const indexHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Layout — ZeeLit</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
+</head>
+<body>
+
+  <app-sidebar-layout style="height: 100vh;">
+    <nav slot="sidebar" style="padding: 1.5rem;">
+      Sidebar Content
+    </nav>
+    <main slot="content" style="padding: 1.5rem;">
+      Page Content
+    </main>
+  </app-sidebar-layout>
+
+</body>
+</html>`;
+
   const files = [
     { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: layoutSource },
+    { name: 'index.html', path: 'index.html', code: indexHtml },
+    { name: 'my-page.js', path: 'pages/my-page.js', code: pageExample },
   ];
 
   return html`
