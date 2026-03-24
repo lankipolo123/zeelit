@@ -51,20 +51,18 @@ export function layoutsPage(ctx) {
         ${ctx.renderDemo(
           'layout-sidebar',
           html`
-            <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <div slot="sidebar"
-                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
+            <div style="display: flex; height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
+              <div style="width: 16rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); background: var(--bg-card);">
                 <span style="color: var(--fg-muted); font-size: 0.875rem;">
                   Sidebar Content
                 </span>
               </div>
-              <div slot="content"
-                   style="flex: 1; display: flex; align-items: center; justify-content: center;">
+              <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: var(--bg);">
                 <span style="color: var(--fg-muted); font-size: 0.875rem;">
                   Page Content
                 </span>
               </div>
-            </app-sidebar-layout>
+            </div>
           `,
           sidebarLayoutCode,
           { files, title: 'Sidebar Layout' },
