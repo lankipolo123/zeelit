@@ -30,9 +30,9 @@ const COMPONENT_SOURCE = {
   'app-alert': srcAlert,
 };
 
-/* ─── Layout data ─── */
+/* ─── Example data ─── */
 
-const LAYOUTS = [
+const EXAMPLES = [
   {
     title: 'Login',
     components: 'Card + Input + Checkbox + Button',
@@ -405,14 +405,14 @@ export function homePage(ctx) {
 
       <div class="h-px" style="background: var(--border)"></div>
 
-      <!-- Examples — all 7 layouts with code tabs + source explorer -->
+      <!-- Examples -->
       <div class="space-y-10">
         <div>
           <h2 class="text-2xl font-semibold tracking-tight" style="color: var(--fg-heading)">Examples</h2>
-          <p class="text-sm mt-1" style="color: var(--fg-muted)">Pre-built layouts you can copy and adapt for your projects.</p>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">Pre-built component compositions you can copy and adapt for your projects.</p>
         </div>
 
-        ${LAYOUTS.map((layout, i) => {
+        ${EXAMPLES.map((layout, i) => {
           const slug = layout.title.toLowerCase().replace(/\s+/g, '-');
           const componentFiles = [...new Set(layout.imports)]
             .filter(c => COMPONENT_SOURCE[c])
@@ -428,9 +428,9 @@ export function homePage(ctx) {
                 <h3 class="text-xl font-semibold" style="color: var(--fg-heading)">${layout.title}</h3>
                 <p class="text-sm mt-1" style="color: var(--fg-muted)">${layout.components}</p>
               </div>
-              ${ctx.renderDemo('home-layout-' + i, layout.preview(), layout.code, { files })}
+              ${ctx.renderDemo('home-example-' + i, layout.preview(), layout.code, { files })}
             </div>
-            ${i < LAYOUTS.length - 1 ? html`<div class="h-px" style="background: var(--border)"></div>` : ''}
+            ${i < EXAMPLES.length - 1 ? html`<div class="h-px" style="background: var(--border)"></div>` : ''}
           `;
         })}
       </div>
