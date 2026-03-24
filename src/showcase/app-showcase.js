@@ -521,7 +521,7 @@ ${usage}
   /* ─── Sidebar ─── */
 
   _sidebarNav() {
-    const perPage = 36;
+    const perPage = 18;
     const totalPages = Math.ceil(COMPONENTS.length / perPage);
     const start = this._sidebarPage * perPage;
     const visibleComponents = COMPONENTS.slice(start, start + perPage);
