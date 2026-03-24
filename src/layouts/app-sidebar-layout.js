@@ -20,8 +20,10 @@ export class AppSidebarLayout extends LitElement {
       display: flex;
       flex-direction: column;
       height: 100%;
-      border-right: 1px solid var(--border);
-      background: var(--bg-card);
+    }
+    .sidebar ::slotted(*) {
+      flex: 1;
+      min-height: 0;
     }
     .content {
       flex: 1;
@@ -29,6 +31,10 @@ export class AppSidebarLayout extends LitElement {
       flex-direction: column;
       min-width: 0;
       height: 100%;
+    }
+    .content ::slotted(*) {
+      flex: 1;
+      min-height: 0;
     }
   `;
 
