@@ -24,7 +24,7 @@ export function sidebarNavPage(ctx) {
   </div>
 </div>`,
       preview: html`
-        <div style="display: flex; height: 520px; border-radius: 0.75rem; overflow: hidden;" id="sidebar-demo">
+        <div style="display: flex; height: 520px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;" id="sidebar-demo">
           <app-sidebar-nav header="Acme Inc" active="dashboard" .items=${[
             { heading: 'Main' },
             { id: 'dashboard', label: 'Dashboard', icon: '📊' },
@@ -44,7 +44,7 @@ export function sidebarNavPage(ctx) {
             if (titleEl) titleEl.textContent = content.title;
             if (bodyEl) bodyEl.textContent = content.body;
           }}></app-sidebar-nav>
-          <div style="flex: 1; padding: 2rem; background: var(--bg);">
+          <div style="flex: 1; padding: 2rem; background: var(--bg); border-left: 1px solid var(--border);">
             <h2 data-page-title style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 600; color: var(--fg);">Dashboard</h2>
             <p data-page-body style="color: var(--fg-muted); line-height: 1.6;">Overview of your project metrics, recent activity, and key performance indicators.</p>
           </div>
