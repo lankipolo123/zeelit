@@ -25,7 +25,7 @@ export class AppBreadcrumb extends LitElement {
       <nav aria-label="Breadcrumb">
         <ol class="flex items-center gap-1.5 text-sm">
           ${(this.items || []).map((item, i) => html`
-            ${i > 0 ? html`<li class="flex items-center"><svg class="h-3.5 w-3.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>` : ''}
+            ${i > 0 ? html`<li class="flex items-center"><app-icon name="chevron-right" class="h-3.5 w-3.5" style="color: var(--fg-subtle)"></app-icon></li>` : ''}
             <li>
               ${i === this.items.length - 1
                 ? html`<span class="font-medium" style="color: var(--fg)">${item.label}</span>`

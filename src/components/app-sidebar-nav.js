@@ -1,13 +1,5 @@
 import { LitElement, html } from 'lit';
 
-const collapseIcon = html`
-  <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7M19 19l-7-7 7-7"/>
-`;
-
-const expandIcon = html`
-  <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
-`;
-
 export class AppSidebarNav extends LitElement {
   createRenderRoot() {
     return this;
@@ -163,9 +155,10 @@ export class AppSidebarNav extends LitElement {
             @mouseleave=${(e) => { e.currentTarget.style.background = 'transparent'; }}
             @click=${this._toggleCollapse}
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              ${this.collapsed ? expandIcon : collapseIcon}
-            </svg>
+            <app-icon
+              name="${this.collapsed ? 'chevrons-right' : 'chevrons-left'}"
+              class="w-4 h-4"
+            ></app-icon>
           </button>
           ${!this.collapsed && this.header ? html`
             <span class="text-sm font-semibold truncate" style="color: var(--fg)">

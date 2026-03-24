@@ -76,8 +76,8 @@ export class AppPagination extends LitElement {
   render() {
     if (this.total <= 1) return html``;
 
-    const chevronLeft = html`<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>`;
-    const chevronRight = html`<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
+    const chevronLeft = html`<app-icon name="chevron-left" class="w-4 h-4"></app-icon>`;
+    const chevronRight = html`<app-icon name="chevron-right" class="w-4 h-4"></app-icon>`;
 
     const prevContent = this.mode === 2 ? 'Previous' : chevronLeft;
     const nextContent = this.mode === 2 ? 'Next' : chevronRight;
@@ -114,10 +114,7 @@ export class AppPagination extends LitElement {
               @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
               @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
             >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-              </svg>
+              <app-icon name="search" class="w-4 h-4"></app-icon>
             </button>
           </div>
         ` : ''}

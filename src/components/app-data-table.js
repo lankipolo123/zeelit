@@ -88,11 +88,11 @@ export class AppDataTable extends LitElement {
 
   _renderSortIcon(key) {
     if (this._sortKey !== key) {
-      return html`<svg class="w-3 h-3 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>`;
+      return html`<app-icon name="arrow-up-down" class="w-3 h-3 opacity-30"></app-icon>`;
     }
     return this._sortDir === 'asc'
-      ? html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>`
-      : html`<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>`;
+      ? html`<app-icon name="chevron-up" class="w-3 h-3"></app-icon>`
+      : html`<app-icon name="chevron-down" class="w-3 h-3"></app-icon>`;
   }
 
   render() {
@@ -104,7 +104,7 @@ export class AppDataTable extends LitElement {
         ${this._searchable ? html`
           <div class="flex items-center justify-between px-4 py-3" style="border-bottom: 1px solid var(--border)">
             <div class="relative w-64">
-              <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <app-icon name="search" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4" style="color: var(--fg-subtle)"></app-icon>
               <input
                 type="text"
                 placeholder="Search..."
@@ -126,7 +126,7 @@ export class AppDataTable extends LitElement {
                 ${this._selectable ? html`
                   <th class="w-10 px-4 py-3 text-left">
                     <div class="flex items-center justify-center h-4 w-4 shrink-0 rounded cursor-pointer" style="border: 1px solid ${allSelected ? 'var(--primary)' : 'var(--input)'}; background: ${allSelected ? 'var(--primary)' : 'transparent'}" @click="${this._toggleAll}">
-                      ${allSelected ? html`<svg class="h-3 w-3" style="color: var(--primary-fg)" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>` : ''}
+                      ${allSelected ? html`<app-icon name="check" class="h-3 w-3" style="color: var(--primary-fg)" stroke-width="3"></app-icon>` : ''}
                     </div>
                   </th>
                 ` : ''}
@@ -158,7 +158,7 @@ export class AppDataTable extends LitElement {
                         ${this._selectable ? html`
                           <td class="w-10 px-4 py-3">
                             <div class="flex items-center justify-center h-4 w-4 shrink-0 rounded cursor-pointer" style="border: 1px solid ${isSelected ? 'var(--primary)' : 'var(--input)'}; background: ${isSelected ? 'var(--primary)' : 'transparent'}" @click="${() => this._toggleSelect(globalIdx)}">
-                              ${isSelected ? html`<svg class="h-3 w-3" style="color: var(--primary-fg)" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>` : ''}
+                              ${isSelected ? html`<app-icon name="check" class="h-3 w-3" style="color: var(--primary-fg)" stroke-width="3"></app-icon>` : ''}
                             </div>
                           </td>
                         ` : ''}

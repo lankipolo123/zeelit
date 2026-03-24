@@ -61,10 +61,7 @@ export class AppCarousel extends LitElement {
         @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
         @mouseleave=${(e) => e.currentTarget.style.background = 'var(--bg-card)'}
       >
-        ${dir === 'left'
-          ? html`<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>`
-          : html`<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`
-        }
+        <app-icon name="${dir === 'left' ? 'chevron-left' : 'chevron-right'}" class="w-4 h-4"></app-icon>
       </button>
     `;
 

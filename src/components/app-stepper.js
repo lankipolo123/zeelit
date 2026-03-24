@@ -1,11 +1,5 @@
 import { LitElement, html } from 'lit';
 
-const checkIcon = html`
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-  </svg>
-`;
-
 export class AppStepper extends LitElement {
   createRenderRoot() {
     return this;
@@ -73,7 +67,9 @@ export class AppStepper extends LitElement {
                   class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
                   style="${this._getCircleStyle(status)}"
                 >
-                  ${status === 'completed' ? checkIcon : i + 1}
+                  ${status === 'completed'
+                    ? html`<app-icon name="check" class="w-4 h-4" stroke-width="3"></app-icon>`
+                    : i + 1}
                 </div>
                 ${!isLast ? html`
                   <div
@@ -117,7 +113,9 @@ export class AppStepper extends LitElement {
                   class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
                   style="${this._getCircleStyle(status)}"
                 >
-                  ${status === 'completed' ? checkIcon : i + 1}
+                  ${status === 'completed'
+                    ? html`<app-icon name="check" class="w-4 h-4" stroke-width="3"></app-icon>`
+                    : i + 1}
                 </div>
                 <span
                   class="text-xs font-medium"

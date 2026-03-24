@@ -67,7 +67,7 @@ export class AppSelect extends LitElement {
             style="border: 1px solid var(--input); background: var(--input-bg); color: ${this.value ? 'var(--fg)' : 'var(--fg-muted)'}; --tw-ring-color: var(--ring); --tw-ring-offset-color: var(--ring-offset);"
           >
             <span>${this._selectedLabel}</span>
-            <svg class="h-4 w-4 shrink-0" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            <app-icon name="chevron-down" class="h-4 w-4" style="color: var(--fg-subtle)"></app-icon>
           </button>
           ${this._open ? html`
             <div class="absolute left-0 right-0 mt-1 z-50 rounded-md p-1 shadow-md max-h-60 overflow-auto" style="border: 1px solid var(--border); background: var(--bg-card);">

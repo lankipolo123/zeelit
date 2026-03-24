@@ -467,17 +467,17 @@ function featureCard(title, desc, icon) {
 /* ─── Icons ─── */
 
 function svgGlobe() {
-  return html`<svg class="w-4.5 h-4.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`;
+  return html`<app-icon name="globe" class="w-4.5 h-4.5" style="color: var(--fg-subtle)" stroke-width="1.5"></app-icon>`;
 }
 
 function svgCopy() {
-  return html`<svg class="w-4.5 h-4.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+  return html`<app-icon name="copy" class="w-4.5 h-4.5" style="color: var(--fg-subtle)" stroke-width="1.5"></app-icon>`;
 }
 
 function svgPalette() {
-  return html`<svg class="w-4.5 h-4.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.04-.23-.29-.38-.63-.38-1.02 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.52-4.48-9.96-10-9.94z"/><circle cx="7.5" cy="11.5" r="1.5"/><circle cx="10.5" cy="7.5" r="1.5"/><circle cx="16.5" cy="7.5" r="1.5"/><circle cx="19.5" cy="11.5" r="1.5"/></svg>`;
+  return html`<app-icon name="palette" class="w-4.5 h-4.5" style="color: var(--fg-subtle)" stroke-width="1.5"></app-icon>`;
 }
 
 function svgAccessible() {
-  return html`<svg class="w-4.5 h-4.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="currentColor"/><path d="M12 11v5M9 22l3-6 3 6M8 13h8"/></svg>`;
+  return html`<app-icon name="accessibility" class="w-4.5 h-4.5" style="color: var(--fg-subtle)" stroke-width="1.5"></app-icon>`;
 }

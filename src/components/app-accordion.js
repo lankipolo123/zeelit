@@ -40,9 +40,7 @@ export class AppAccordion extends LitElement {
                 style="color: var(--fg); background: transparent"
               >
                 <span>${item.title}</span>
-                <svg class="w-4 h-4 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
+                <app-icon name="chevron-down" class="w-4 h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}" style="color: var(--fg-subtle)"></app-icon>
               </button>
               ${open ? html`
                 <div class="px-4 pb-3 text-sm" style="color: var(--fg-muted)">

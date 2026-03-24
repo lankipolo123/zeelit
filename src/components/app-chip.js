@@ -16,18 +16,6 @@ const SIZE_CLASSES = {
   lg: 'text-sm px-4 py-2 gap-2',
 };
 
-const closeIcon = html`
-  <svg
-    class="w-3 h-3"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    viewBox="0 0 24 24"
-  >
-    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-  </svg>
-`;
-
 export class AppChip extends LitElement {
   createRenderRoot() {
     return this;
@@ -93,7 +81,7 @@ export class AppChip extends LitElement {
             style="background: transparent; border: none; color: inherit;"
             @click=${(e) => this._dismiss(e)}
           >
-            ${closeIcon}
+            <app-icon name="x" class="w-3 h-3" stroke-width="2.5"></app-icon>
           </button>
         ` : ''}
       </span>

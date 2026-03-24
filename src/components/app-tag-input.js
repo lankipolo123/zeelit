@@ -78,7 +78,7 @@ export class AppTagInput extends LitElement {
                   style="color: var(--secondary-fg);"
                   aria-label="Remove ${tag}"
                 >
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  <app-icon name="x" class="w-3 h-3"></app-icon>
                 </button>
               ` : ''}
             </span>

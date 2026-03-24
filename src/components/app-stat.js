@@ -28,10 +28,10 @@ export class AppStat extends LitElement {
 
   get _trendIcon() {
     if (this.trend === 'up') {
-      return html`<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17l4.586-4.586a2 2 0 012.828 0L19 17M17 7h2a2 2 0 012 2v2"/></svg>`;
+      return html`<app-icon name="trending-up" class="w-3.5 h-3.5"></app-icon>`;
     }
     if (this.trend === 'down') {
-      return html`<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 7l-4.586 4.586a2 2 0 01-2.828 0L5 7M7 17H5a2 2 0 01-2-2v-2"/></svg>`;
+      return html`<app-icon name="trending-down" class="w-3.5 h-3.5"></app-icon>`;
     }
     return '';
   }

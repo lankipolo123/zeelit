@@ -31,9 +31,7 @@ export class AppCheckbox extends LitElement {
         <div class="flex items-center justify-center h-5 w-5 shrink-0 rounded transition-colors focus:outline-none"
           style="background: ${this.checked ? 'var(--primary)' : 'transparent'}; border: 1px solid ${this.checked ? 'var(--primary)' : 'var(--input)'};">
           ${this.checked ? html`
-            <svg class="h-3.5 w-3.5" style="color: var(--primary-fg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+            <app-icon name="check" class="h-3.5 w-3.5" style="color: var(--primary-fg)" stroke-width="3"></app-icon>
           ` : ''}
         </div>
         ${this.label ? html`<span class="text-sm" style="color: var(--fg)">${this.label}</span>` : ''}

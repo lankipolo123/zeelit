@@ -44,7 +44,7 @@ export class AppCollapsible extends LitElement {
   }
 
   render() {
-    const chevron = html`<svg class="w-4 h-4 transition-transform ${this.open ? 'rotate-180' : ''}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>`;
+    const chevron = html`<app-icon name="chevron-down" class="w-4 h-4 transition-transform ${this.open ? 'rotate-180' : ''}"></app-icon>`;
 
     return html`
       <div class="rounded-lg" style="border: 1px solid var(--border)">

@@ -1,17 +1,5 @@
 import { LitElement, html } from 'lit';
 
-const chevronLeft = html`
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-  </svg>
-`;
-
-const chevronRight = html`
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-  </svg>
-`;
-
 const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 export class AppCalendar extends LitElement {
@@ -138,7 +126,7 @@ export class AppCalendar extends LitElement {
     }
   }
 
-  _renderNavButton(icon, handler) {
+  _renderNavButton(iconName, handler) {
     return html`
       <button
         class="w-8 h-8 rounded-md inline-flex items-center justify-center cursor-pointer transition-colors"
@@ -147,7 +135,7 @@ export class AppCalendar extends LitElement {
         @mouseleave=${(e) => { e.currentTarget.style.background = 'transparent'; }}
         @click=${handler}
       >
-        ${icon}
+        <app-icon name="${iconName}" class="w-4 h-4"></app-icon>
       </button>
     `;
   }
@@ -160,11 +148,11 @@ export class AppCalendar extends LitElement {
       >
         <!-- Month navigation -->
         <div class="flex items-center justify-between mb-3">
-          ${this._renderNavButton(chevronLeft, () => this._prevMonth())}
+          ${this._renderNavButton('chevron-left', () => this._prevMonth())}
           <span class="text-sm font-semibold" style="color: var(--fg)">
             ${this._monthName} ${this._year}
           </span>
-          ${this._renderNavButton(chevronRight, () => this._nextMonth())}
+          ${this._renderNavButton('chevron-right', () => this._nextMonth())}
         </div>
 
         <!-- Weekday headers -->

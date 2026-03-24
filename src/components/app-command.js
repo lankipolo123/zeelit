@@ -1,19 +1,5 @@
 import { LitElement, html } from 'lit';
 
-const searchIcon = html`
-  <svg
-    class="w-4 h-4 shrink-0"
-    style="color: var(--fg-muted)"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    viewBox="0 0 24 24"
-  >
-    <circle cx="11" cy="11" r="8"/>
-    <path d="m21 21-4.35-4.35"/>
-  </svg>
-`;
-
 export class AppCommand extends LitElement {
   createRenderRoot() {
     return this;
@@ -168,7 +154,7 @@ export class AppCommand extends LitElement {
             class="flex items-center gap-2 px-4"
             style="border-bottom: 1px solid var(--border)"
           >
-            ${searchIcon}
+            <app-icon name="search" class="w-4 h-4" style="color: var(--fg-muted)"></app-icon>
             <input
               class="flex-1 h-12 text-sm bg-transparent outline-none"
               style="color: var(--fg); border: none;"

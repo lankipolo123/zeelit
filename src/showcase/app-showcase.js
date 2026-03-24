@@ -183,10 +183,10 @@ export class AppShowcase extends LitElement {
     return html`
       <button @click="${() => this._copyCode(code, copyKey)}" class="text-xs transition-colors cursor-pointer flex items-center gap-1.5" style="color: ${copied ? 'var(--fg)' : 'var(--fg-subtle)'}">
         ${copied ? html`
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <app-icon name="check" class="w-3.5 h-3.5"></app-icon>
           Copied!
         ` : html`
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path stroke-width="2" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <app-icon name="copy" class="w-3.5 h-3.5"></app-icon>
           Copy
         `}
       </button>
@@ -203,14 +203,12 @@ export class AppShowcase extends LitElement {
     const activeFile = this._codeVisible[activeFileKey] || files[0]?.name;
     const currentFile = files.find(f => f.name === activeFile) || files[0];
 
-    const chevron = (open) => html`<svg class="w-3 h-3 shrink-0 transition-transform ${open ? 'rotate-90' : ''}" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
-    const folderIcon = (open) => open
-      ? html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v1H2V6zm0 3h20v9a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/></svg>`
-      : html`<svg class="w-4 h-4 shrink-0" style="color: #f59e0b" fill="currentColor" viewBox="0 0 24 24"><path d="M2 6a2 2 0 012-2h5l2 2h9a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>`;
+    const chevron = (open) => html`<app-icon name="chevron-right" class="w-3 h-3 transition-transform ${open ? 'rotate-90' : ''}" style="color: var(--fg-subtle)"></app-icon>`;
+    const folderIcon = (open) => html`<app-icon name="${open ? 'folder-open' : 'folder'}" class="w-4 h-4" style="color: #f59e0b"></app-icon>`;
     const fileIcon = (name) => {
       const ext = name.split('.').pop();
       const color = ext === 'js' ? '#facc15' : ext === 'json' ? '#34d399' : ext === 'css' ? '#60a5fa' : 'var(--fg-subtle)';
-      return html`<svg class="w-4 h-4 shrink-0" style="color: ${color}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>`;
+      return html`<app-icon name="file-text" class="w-4 h-4" style="color: ${color}" stroke-width="1.5"></app-icon>`;
     };
 
     // Group files by folder
@@ -373,7 +371,7 @@ export class AppShowcase extends LitElement {
         <div class="rounded-lg overflow-hidden" style="border: 1px solid var(--border)">
           <div class="flex items-center justify-between px-4 py-2" style="border-bottom: 1px solid var(--border); background: var(--bg-card)">
             <div class="flex items-center gap-2">
-              <svg class="w-3.5 h-3.5" style="color: var(--fg-subtle)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <app-icon name="file-text" class="w-3.5 h-3.5" style="color: var(--fg-subtle)"></app-icon>
               <span class="text-xs font-mono" style="color: var(--fg-muted)">${fileName}</span>
             </div>
             <div class="flex items-center gap-3">
@@ -510,7 +508,7 @@ ${usage}
       <header class="sticky top-0 z-40 w-full backdrop-blur-md h-14 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
         <div class="flex h-full items-center px-4 md:px-6">
           <button @click="${() => this.sidebarOpen = true}" class="mr-3 cursor-pointer md:hidden" style="color: var(--fg-muted)">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <app-icon name="menu" class="w-5 h-5"></app-icon>
           </button>
 
           <nav class="flex items-center gap-1 flex-1">
@@ -522,9 +520,9 @@ ${usage}
 
           <button @click="${() => this._toggleTheme()}" class="p-2 rounded-md cursor-pointer transition-colors" title="${this._dark ? 'Switch to light mode' : 'Switch to dark mode'}">
             ${this._dark ? html`
-              <svg class="w-5 h-5" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              <app-icon name="sun" class="w-5 h-5" style="color: #f59e0b"></app-icon>
             ` : html`
-              <svg class="w-5 h-5" fill="#1a1a2e" stroke="#1a1a2e" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+              <app-icon name="moon" class="w-5 h-5" style="color: #1a1a2e"></app-icon>
             `}
           </button>
         </div>
@@ -569,7 +567,7 @@ ${usage}
               style="color: ${this._sidebarPage === 0 ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${this._sidebarPage === 0 ? '0.4' : '1'}; ${this._sidebarPage === 0 ? 'cursor: default;' : ''}"
               @mouseenter=${(e) => { if (this._sidebarPage > 0) e.currentTarget.style.background = 'var(--bg-muted)'; }}
               @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-            ><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+            ><app-icon name="chevron-left" class="w-3.5 h-3.5" stroke-width="2.5"></app-icon></button>
             <span class="text-xs px-1" style="color: var(--fg-subtle)">${this._sidebarPage + 1}/${totalPages}</span>
             <button
               @click="${() => { if (this._sidebarPage < totalPages - 1) this._sidebarPage++; }}"
@@ -577,7 +575,7 @@ ${usage}
               style="color: ${this._sidebarPage >= totalPages - 1 ? 'var(--fg-subtle)' : 'var(--fg-muted)'}; opacity: ${this._sidebarPage >= totalPages - 1 ? '0.4' : '1'}; ${this._sidebarPage >= totalPages - 1 ? 'cursor: default;' : ''}"
               @mouseenter=${(e) => { if (this._sidebarPage < totalPages - 1) e.currentTarget.style.background = 'var(--bg-muted)'; }}
               @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
-            ><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            ><app-icon name="chevron-right" class="w-3.5 h-3.5" stroke-width="2.5"></app-icon></button>
           </div>
           <button
             @click="${() => { this._viewAllOpen = true; }}"
@@ -623,7 +621,7 @@ ${usage}
               @mouseenter=${(e) => e.currentTarget.style.background = 'var(--bg-muted)'}
               @mouseleave=${(e) => e.currentTarget.style.background = 'transparent'}
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              <app-icon name="x" class="w-5 h-5"></app-icon>
             </button>
           </div>
           <!-- Body -->
@@ -663,7 +661,7 @@ ${usage}
             </div>
             <!-- Circle expand button on the border line -->
             <button @click="${() => this.sidebarCollapsed = false}" class="absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -18px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Expand sidebar">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              <app-icon name="chevron-right" class="w-4 h-4" stroke-width="2.5"></app-icon>
             </button>
           </div>
         ` : html`
@@ -681,7 +679,7 @@ ${usage}
             </aside>
             <!-- Circle collapse button — outside overflow container -->
             <button @click="${() => this.sidebarCollapsed = true}" class="absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm" style="right: -18px; background: var(--bg); border: 1px solid var(--border); color: var(--fg-muted)" title="Collapse sidebar">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              <app-icon name="chevron-left" class="w-4 h-4" stroke-width="2.5"></app-icon>
             </button>
           </div>
         `}
@@ -699,7 +697,7 @@ ${usage}
                   <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
                 </div>
                 <button @click="${() => this.sidebarOpen = false}" class="p-1 rounded cursor-pointer" style="color: var(--fg-subtle)">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  <app-icon name="x" class="w-4 h-4"></app-icon>
                 </button>
               </div>
               ${this._sidebarNav()}

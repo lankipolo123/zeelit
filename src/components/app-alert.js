@@ -37,9 +37,9 @@ export class AppAlert extends LitElement {
 
   get _icon() {
     if (this.variant === 'destructive') {
-      return html`<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+      return html`<app-icon name="circle-alert" class="h-4 w-4"></app-icon>`;
     }
-    return html`<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+    return html`<app-icon name="info" class="h-4 w-4"></app-icon>`;
   }
 
   render() {

@@ -1,3 +1,6 @@
+// Icon system (must load before components)
+import './lib/icons.js';
+
 // Components
 import './components/app-button.js';
 import './components/app-input.js';

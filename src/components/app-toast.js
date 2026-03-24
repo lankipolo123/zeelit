@@ -53,11 +53,11 @@ class AppToast extends LitElement {
           ${g.toasts.map(t => html`
             <div class="pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg text-sm" style="${this._getColors(t.variant)} animation: ${t.pos.anim} 0.2s ease-out;">
               ${t.variant === 'success' ? html`
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <app-icon name="check" class="w-4 h-4"></app-icon>
               ` : ''}
               <span>${t.message}</span>
               <button @click="${() => this.dismiss(t.id)}" class="ml-2 cursor-pointer shrink-0 opacity-70 hover:opacity-100" style="color: inherit;">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <app-icon name="x" class="w-3.5 h-3.5"></app-icon>
               </button>
             </div>
           `)}

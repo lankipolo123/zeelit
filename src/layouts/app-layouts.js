@@ -37,7 +37,7 @@ export class AppLayout extends LitElement {
           class="absolute top-4 cursor-pointer transition-all bg-zinc-800 border border-zinc-700 rounded-full p-1.5 shadow hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200"
           style="left: calc(var(--sidebar-width) - 12px);"
         >
-          <svg class="w-3.5 h-3.5 transition-transform ${this.sidebarCollapsed ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          <app-icon name="chevron-left" class="w-3.5 h-3.5 transition-transform ${this.sidebarCollapsed ? 'rotate-180' : ''}"></app-icon>
         </button>
       </div>
     `;
