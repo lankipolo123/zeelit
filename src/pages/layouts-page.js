@@ -2,6 +2,7 @@ import { html } from 'lit';
 import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 import centerCardSource from '../layouts/app-center-card-layout.js?raw';
 import splitSource from '../layouts/app-split-layout.js?raw';
+import dualCardSource from '../layouts/app-dual-card-layout.js?raw';
 
 /* ─── Source Code ─── */
 
@@ -222,6 +223,35 @@ customElements.define('my-page', MyPage);`;
               { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js', code: splitSource },
             ],
             title: 'Split Layout',
+          },
+        )}
+      </div>
+
+      <div class="h-px" style="background: var(--border)"></div>
+
+      <!-- Dual Card Layout -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-semibold"
+              style="color: var(--fg-heading)">
+            Dual Card Layout
+          </h3>
+          <p class="text-sm mt-1" style="color: var(--fg-muted)">
+            One container with two cards inside.
+          </p>
+        </div>
+        ${ctx.renderDemo(
+          'layout-dual-card',
+          html`
+            <app-dual-card-layout style="height: 400px;"></app-dual-card-layout>
+          `,
+          `<app-dual-card-layout style="height: 100vh;"></app-dual-card-layout>`,
+          {
+            importPath: '@/layouts/app-dual-card-layout.js',
+            files: [
+              { name: 'app-dual-card-layout.js', path: 'layouts/app-dual-card-layout.js', code: dualCardSource },
+            ],
+            title: 'Dual Card Layout',
           },
         )}
       </div>
