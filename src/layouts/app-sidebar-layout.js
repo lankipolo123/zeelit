@@ -1,6 +1,12 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 
 export class AppSidebarLayout extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      height: 100%;
+    }
+  `;
   static properties = {
     sidebarWidth: { type: String },
   };

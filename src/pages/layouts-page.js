@@ -124,7 +124,6 @@ customElements.define('dashboard-page', DashboardPage);`;
           sidebarLayoutCode,
           {
             importPath: '@/layouts/app-sidebar-layout.js',
-            tagName: 'app-sidebar-layout',
             files,
             title: 'Sidebar Layout',
           },
