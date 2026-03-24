@@ -85,6 +85,23 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   transition: background-color 0.2s, color 0.2s;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg-subtle) var(--bg);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--fg-subtle);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
 }
 
 /* ─── Code block styling ─── */
