@@ -11,6 +11,7 @@ export class AppCenterCardLayout extends LitElement {
       height: 100%;
       width: 100%;
       position: relative;
+      overflow: hidden;
     }
     .left {
       flex: 1;
