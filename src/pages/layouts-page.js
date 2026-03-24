@@ -4,11 +4,11 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <app-sidebar-nav header="My App" active="home"
-    items='[{"id":"home","label":"Home"},{"id":"settings","label":"Settings"}]'>
-  </app-sidebar-nav>
-  <app-page-content heading="Home" description="Welcome to your app.">
-    <p>Your page body content goes here.</p>
+  <app-page-content heading="Sidebar">
+    <p>Sidebar content goes here.</p>
+  </app-page-content>
+  <app-page-content heading="Page">
+    <p>Page content goes here.</p>
   </app-page-content>
 </app-sidebar-layout>`;
 
@@ -18,7 +18,6 @@ export function layoutsPage(ctx) {
   const bt = '`';
   const pageExample = `import { LitElement, html, css } from 'lit';
 import '@/layouts/app-sidebar-layout.js';
-import '@/components/app-sidebar-nav.js';
 import '@/components/app-page-content.js';
 
 class MyPage extends LitElement {
@@ -32,14 +31,11 @@ class MyPage extends LitElement {
   render() {
     return html${bt}
       <app-sidebar-layout>
-        <app-sidebar-nav header="My App" active="home"
-          .items=\\\${[
-            { id: 'home', label: 'Home' },
-            { id: 'settings', label: 'Settings' },
-          ]}
-        ></app-sidebar-nav>
-        <app-page-content heading="Home" description="Welcome to your app.">
-          <p>Your page body content goes here.</p>
+        <app-page-content heading="Sidebar">
+          <p>Sidebar content goes here.</p>
+        </app-page-content>
+        <app-page-content heading="Page">
+          <p>Page content goes here.</p>
         </app-page-content>
       </app-sidebar-layout>
     ${bt};
@@ -55,17 +51,16 @@ customElements.define('my-page', MyPage);`;
   <title>Sidebar Layout — ZeeLit</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
-  <script type="module" src="./components/app-sidebar-nav.js"><\/script>
   <script type="module" src="./components/app-page-content.js"><\/script>
 </head>
 <body>
 
   <app-sidebar-layout style="height: 100vh;">
-    <app-sidebar-nav header="My App" active="home"
-      items='[{"id":"home","label":"Home"},{"id":"settings","label":"Settings"}]'>
-    </app-sidebar-nav>
-    <app-page-content heading="Home" description="Welcome to your app.">
-      <p>Your page body content goes here.</p>
+    <app-page-content heading="Sidebar">
+      <p>Sidebar content goes here.</p>
+    </app-page-content>
+    <app-page-content heading="Page">
+      <p>Page content goes here.</p>
     </app-page-content>
   </app-sidebar-layout>
 
@@ -107,13 +102,11 @@ customElements.define('my-page', MyPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <app-sidebar-nav header="My App" active="home"
-                .items=${[
-                  { id: 'home', label: 'Home' },
-                  { id: 'settings', label: 'Settings' },
-                ]}></app-sidebar-nav>
-              <app-page-content heading="Home" description="Welcome to your app.">
-                <p>Your page body content goes here.</p>
+              <app-page-content heading="Sidebar">
+                <p>Sidebar content goes here.</p>
+              </app-page-content>
+              <app-page-content heading="Page">
+                <p>Page content goes here.</p>
               </app-page-content>
             </app-sidebar-layout>
           `,
