@@ -4,9 +4,12 @@ import layoutSource from '../layouts/app-sidebar-layout.js?raw';
 /* ─── Source Code ─── */
 
 const sidebarLayoutCode = `<app-sidebar-layout style="height: 100vh;">
-  <span slot="sidebar" style="padding: 1.5rem;">
-    Sidebar Content
-  </span>
+  <app-sidebar-nav slot="sidebar" header="My App"
+    .items='\${JSON.stringify([
+      { label: "Home", icon: "🏠" },
+      { label: "Settings", icon: "⚙️" },
+    ])}'>
+  </app-sidebar-nav>
   <app-page-content slot="content" heading="Home" description="Welcome to your app.">
     <p>Your page body content goes here.</p>
   </app-page-content>
@@ -18,6 +21,7 @@ export function layoutsPage(ctx) {
   const bt = '`';
   const pageExample = `import { LitElement, html, css } from 'lit';
 import '@/layouts/app-sidebar-layout.js';
+import '@/components/app-sidebar-nav.js';
 import '@/components/app-page-content.js';
 
 class MyPage extends LitElement {
@@ -31,9 +35,12 @@ class MyPage extends LitElement {
   render() {
     return html${bt}
       <app-sidebar-layout>
-        <span slot="sidebar" style="padding: 1.5rem;">
-          Sidebar Content
-        </span>
+        <app-sidebar-nav slot="sidebar" header="My App"
+          .items=\${JSON.stringify([
+            { label: "Home", icon: "🏠" },
+            { label: "Settings", icon: "⚙️" },
+          ])}>
+        </app-sidebar-nav>
         <app-page-content slot="content" heading="Home" description="Welcome to your app.">
           <p>Your page body content goes here.</p>
         </app-page-content>
@@ -51,14 +58,15 @@ customElements.define('my-page', MyPage);`;
   <title>Sidebar Layout — ZeeLit</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
+  <script type="module" src="./components/app-sidebar-nav.js"><\/script>
   <script type="module" src="./components/app-page-content.js"><\/script>
 </head>
 <body>
 
   <app-sidebar-layout style="height: 100vh;">
-    <span slot="sidebar" style="padding: 1.5rem;">
-      Sidebar Content
-    </span>
+    <app-sidebar-nav slot="sidebar" header="My App"
+      items='[{ "label": "Home", "icon": "🏠" }, { "label": "Settings", "icon": "⚙️" }]'>
+    </app-sidebar-nav>
     <app-page-content slot="content" heading="Home" description="Welcome to your app.">
       <p>Your page body content goes here.</p>
     </app-page-content>
@@ -102,9 +110,12 @@ customElements.define('my-page', MyPage);`;
           'layout-sidebar',
           html`
             <app-sidebar-layout style="height: 400px; border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;">
-              <span slot="sidebar" style="padding: 1.5rem; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-size: 0.875rem;">
-                Sidebar Content
-              </span>
+              <app-sidebar-nav slot="sidebar" header="My App"
+                .items=${JSON.stringify([
+                  { label: 'Home', icon: '🏠' },
+                  { label: 'Settings', icon: '⚙️' },
+                ])}>
+              </app-sidebar-nav>
               <app-page-content slot="content" heading="Home" description="Welcome to your app.">
                 <p>Your page body content goes here.</p>
               </app-page-content>
