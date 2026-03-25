@@ -88,29 +88,16 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Center Card Layout ── */
+  /* default slot — no wrapper needed, content goes straight into the card */
 
   const centerCardHtmlBody = `  <app-center-card-layout style="height: 100vh;">
-    <div>
-      <h2>Welcome Back</h2>
-      <p>Sign in to your account</p>
-      <form>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button type="submit">Sign In</button>
-      </form>
-    </div>
+    <h2>Welcome Back</h2>
+    <p>Sign in to your account</p>
   </app-center-card-layout>`;
 
   const centerCardPageBody = `      <app-center-card-layout>
-        <div>
-          <h2>Welcome Back</h2>
-          <p>Sign in to your account</p>
-          <form>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button type="submit">Sign In</button>
-          </form>
-        </div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your account</p>
       </app-center-card-layout>`;
 
   const centerCardFiles = [
@@ -124,29 +111,18 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Left Card Layout ── */
+  /* same component, card-position="left" moves the card */
 
-  const leftCardHtmlBody = `  <app-center-card-layout card-position="left" style="height: 100vh;">
-    <div>
-      <h2>Get Started</h2>
-      <p>Create your free account</p>
-      <form>
-        <input type="text" placeholder="Full Name" />
-        <input type="email" placeholder="Email" />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+  const leftCardHtmlBody = `  <!-- card-position moves the card: "left", "center" (default), "right" -->
+  <app-center-card-layout card-position="left" style="height: 100vh;">
+    <h2>Get Started</h2>
+    <p>Create your free account</p>
   </app-center-card-layout>`;
 
-  const leftCardPageBody = `      <app-center-card-layout card-position="left">
-        <div>
-          <h2>Get Started</h2>
-          <p>Create your free account</p>
-          <form>
-            <input type="text" placeholder="Full Name" />
-            <input type="email" placeholder="Email" />
-            <button type="submit">Sign Up</button>
-          </form>
-        </div>
+  const leftCardPageBody = `      <!-- card-position: "left" | "center" (default) | "right" -->
+      <app-center-card-layout card-position="left">
+        <h2>Get Started</h2>
+        <p>Create your free account</p>
       </app-center-card-layout>`;
 
   const leftCardFiles = [
@@ -162,27 +138,13 @@ export function layoutsPage(ctx) {
   /* ── Right Card Layout ── */
 
   const rightCardHtmlBody = `  <app-center-card-layout card-position="right" style="height: 100vh;">
-    <div>
-      <h2>Contact Us</h2>
-      <p>We'd love to hear from you</p>
-      <form>
-        <input type="text" placeholder="Your Name" />
-        <textarea placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-      </form>
-    </div>
+    <h2>Contact Us</h2>
+    <p>We'd love to hear from you</p>
   </app-center-card-layout>`;
 
   const rightCardPageBody = `      <app-center-card-layout card-position="right">
-        <div>
-          <h2>Contact Us</h2>
-          <p>We'd love to hear from you</p>
-          <form>
-            <input type="text" placeholder="Your Name" />
-            <textarea placeholder="Message"></textarea>
-            <button type="submit">Send</button>
-          </form>
-        </div>
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you</p>
       </app-center-card-layout>`;
 
   const rightCardFiles = [
@@ -196,27 +158,28 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Split Layout ── */
+  /* named slots: "left" and "right" — you need an element to assign slot="" to */
 
   const splitHtmlBody = `  <app-split-layout style="height: 100vh;">
-    <div slot="left">
+    <section slot="left">
       <h2>Left Panel</h2>
       <p>Navigation, filters, or any sidebar content.</p>
-    </div>
-    <div slot="right">
+    </section>
+    <section slot="right">
       <h2>Right Panel</h2>
       <p>Main content, details, or a preview pane.</p>
-    </div>
+    </section>
   </app-split-layout>`;
 
   const splitPageBody = `      <app-split-layout>
-        <div slot="left">
+        <section slot="left">
           <h2>Left Panel</h2>
           <p>Navigation, filters, or any sidebar content.</p>
-        </div>
-        <div slot="right">
+        </section>
+        <section slot="right">
           <h2>Right Panel</h2>
           <p>Main content, details, or a preview pane.</p>
-        </div>
+        </section>
       </app-split-layout>`;
 
   const splitFiles = [
@@ -230,31 +193,28 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Dual Card Layout ── */
+  /* named slots: "left" and "right" */
 
   const dualCardHtmlBody = `  <app-dual-card-layout style="height: 100vh;">
-    <div slot="left">
+    <section slot="left">
       <h3>Plan A</h3>
       <p>Basic features for individuals.</p>
-      <button>Choose Plan</button>
-    </div>
-    <div slot="right">
+    </section>
+    <section slot="right">
       <h3>Plan B</h3>
       <p>Advanced features for teams.</p>
-      <button>Choose Plan</button>
-    </div>
+    </section>
   </app-dual-card-layout>`;
 
   const dualCardPageBody = `      <app-dual-card-layout>
-        <div slot="left">
+        <section slot="left">
           <h3>Plan A</h3>
           <p>Basic features for individuals.</p>
-          <button>Choose Plan</button>
-        </div>
-        <div slot="right">
+        </section>
+        <section slot="right">
           <h3>Plan B</h3>
           <p>Advanced features for teams.</p>
-          <button>Choose Plan</button>
-        </div>
+        </section>
       </app-dual-card-layout>`;
 
   const dualCardFiles = [
@@ -268,41 +228,47 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Hero Layout ── */
+  /* named slots: "nav" and "hero" */
+  /* uses app-nav component for the nav slot */
 
   const heroHtmlBody = `  <app-hero-layout style="height: 100vh;">
-    <nav slot="nav">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-    </nav>
-    <div slot="hero">
+    <!-- app-nav goes into the "nav" slot -->
+    <app-nav slot="nav" brand="MyApp"
+      items='[{ "label": "Home" }, { "label": "About" }, { "label": "Contact" }]'
+      active="Home">
+    </app-nav>
+    <section slot="hero">
       <h1>Build Something Amazing</h1>
       <p>A modern toolkit for web developers.</p>
       <button>Get Started</button>
-    </div>
+    </section>
   </app-hero-layout>`;
 
   const heroPageBody = `      <app-hero-layout>
-        <nav slot="nav">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-        </nav>
-        <div slot="hero">
+        <!-- app-nav goes into the "nav" slot -->
+        <app-nav slot="nav" brand="MyApp"
+          items='\${JSON.stringify([
+            { label: "Home" },
+            { label: "About" },
+            { label: "Contact" },
+          ])}'
+          active="Home">
+        </app-nav>
+        <section slot="hero">
           <h1>Build Something Amazing</h1>
           <p>A modern toolkit for web developers.</p>
           <button>Get Started</button>
-        </div>
+        </section>
       </app-hero-layout>`;
 
   const heroFiles = [
     { name: 'app-hero-layout.js', path: 'layouts/app-hero-layout.js', code: heroSource },
     { name: 'app-nav.js', path: 'components/app-nav.js', code: navSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Hero Layout',
-      ['./layouts/app-hero-layout.js'],
+      ['./layouts/app-hero-layout.js', './components/app-nav.js'],
       heroHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-hero-layout.js'],
+      ['@/layouts/app-hero-layout.js', '@/components/app-nav.js'],
       heroPageBody) },
   ];
 
