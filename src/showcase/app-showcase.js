@@ -512,7 +512,7 @@ ${usage}
     `;
 
     return html`
-      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-14 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
+      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-16 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
         <div class="flex h-full items-center px-4 md:px-6">
           <button @click="${() => this.sidebarOpen = true}" class="mr-3 cursor-pointer md:hidden" style="color: var(--fg-muted)">
             <app-icon name="menu" class="w-5 h-5"></app-icon>
@@ -553,7 +553,7 @@ ${usage}
   /* ─── Sidebar ─── */
 
   _sidebarNav() {
-    const perPage = 30;
+    const perPage = 8;
     const totalPages = Math.ceil(COMPONENTS.length / perPage);
     const start = this._sidebarPage * perPage;
     const visibleComponents = COMPONENTS.slice(start, start + perPage);
@@ -670,7 +670,7 @@ ${usage}
         ${this.sidebarCollapsed ? html`
           <div class="relative w-16 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
             <!-- Branding collapsed -->
-            <div class="flex items-center justify-center h-14 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
+            <div class="flex items-center justify-center h-16 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
               <div class="h-9 w-9 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
                 <span class="font-bold text-sm" style="color: var(--logo-fg)">Z</span>
               </div>
@@ -688,7 +688,7 @@ ${usage}
           <div class="relative shrink-0 hidden md:block" style="width: clamp(300px, 28%, 420px)">
             <aside class="h-full overflow-hidden flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
               <!-- Sidebar branding -->
-              <div class="flex items-center gap-2 px-4 h-14 shrink-0" style="border-bottom: 1px solid var(--border)">
+              <div class="flex items-center gap-2 px-4 h-16 shrink-0" style="border-bottom: 1px solid var(--border)">
                 <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
                   <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
                 </div>
