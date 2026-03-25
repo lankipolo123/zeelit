@@ -5,6 +5,9 @@ import splitSource from '../layouts/app-split-layout.js?raw';
 import dualCardSource from '../layouts/app-dual-card-layout.js?raw';
 import heroSource from '../layouts/app-hero-layout.js?raw';
 import navSource from '../components/app-nav.js?raw';
+import heroContentSource from '../components/app-hero-content.js?raw';
+import cardContentSource from '../components/app-card-content.js?raw';
+import panelContentSource from '../components/app-panel-content.js?raw';
 
 /* ─── Source Code ─── */
 
@@ -88,164 +91,132 @@ export function layoutsPage(ctx) {
   ];
 
   /* ── Center Card Layout ── */
-  /* default slot — no wrapper needed, content goes straight into the card */
 
   const centerCardHtmlBody = `  <app-center-card-layout style="height: 100vh;">
-    <h2>Welcome Back</h2>
-    <p>Sign in to your account</p>
+    <app-card-content heading="Welcome Back" description="Sign in to your account"></app-card-content>
   </app-center-card-layout>`;
 
   const centerCardPageBody = `      <app-center-card-layout>
-        <h2>Welcome Back</h2>
-        <p>Sign in to your account</p>
+        <app-card-content heading="Welcome Back" description="Sign in to your account"></app-card-content>
       </app-center-card-layout>`;
 
   const centerCardFiles = [
     { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+    { name: 'app-card-content.js', path: 'components/app-card-content.js', code: cardContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Center Card Layout',
-      ['./layouts/app-center-card-layout.js'],
+      ['./layouts/app-center-card-layout.js', './components/app-card-content.js'],
       centerCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-center-card-layout.js'],
+      ['@/layouts/app-center-card-layout.js', '@/components/app-card-content.js'],
       centerCardPageBody) },
   ];
 
   /* ── Left Card Layout ── */
-  /* same component, card-position="left" moves the card */
 
-  const leftCardHtmlBody = `  <!-- card-position moves the card: "left", "center" (default), "right" -->
+  const leftCardHtmlBody = `  <!-- card-position: "left" | "center" (default) | "right" -->
   <app-center-card-layout card-position="left" style="height: 100vh;">
-    <h2>Get Started</h2>
-    <p>Create your free account</p>
+    <app-card-content heading="Get Started" description="Create your free account"></app-card-content>
   </app-center-card-layout>`;
 
   const leftCardPageBody = `      <!-- card-position: "left" | "center" (default) | "right" -->
       <app-center-card-layout card-position="left">
-        <h2>Get Started</h2>
-        <p>Create your free account</p>
+        <app-card-content heading="Get Started" description="Create your free account"></app-card-content>
       </app-center-card-layout>`;
 
   const leftCardFiles = [
     { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+    { name: 'app-card-content.js', path: 'components/app-card-content.js', code: cardContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Left Card Layout',
-      ['./layouts/app-center-card-layout.js'],
+      ['./layouts/app-center-card-layout.js', './components/app-card-content.js'],
       leftCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-center-card-layout.js'],
+      ['@/layouts/app-center-card-layout.js', '@/components/app-card-content.js'],
       leftCardPageBody) },
   ];
 
   /* ── Right Card Layout ── */
 
   const rightCardHtmlBody = `  <app-center-card-layout card-position="right" style="height: 100vh;">
-    <h2>Contact Us</h2>
-    <p>We'd love to hear from you</p>
+    <app-card-content heading="Contact Us" description="We'd love to hear from you"></app-card-content>
   </app-center-card-layout>`;
 
   const rightCardPageBody = `      <app-center-card-layout card-position="right">
-        <h2>Contact Us</h2>
-        <p>We'd love to hear from you</p>
+        <app-card-content heading="Contact Us" description="We'd love to hear from you"></app-card-content>
       </app-center-card-layout>`;
 
   const rightCardFiles = [
     { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+    { name: 'app-card-content.js', path: 'components/app-card-content.js', code: cardContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Right Card Layout',
-      ['./layouts/app-center-card-layout.js'],
+      ['./layouts/app-center-card-layout.js', './components/app-card-content.js'],
       rightCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-center-card-layout.js'],
+      ['@/layouts/app-center-card-layout.js', '@/components/app-card-content.js'],
       rightCardPageBody) },
   ];
 
   /* ── Split Layout ── */
-  /* named slots: "left" and "right" — you need an element to assign slot="" to */
 
   const splitHtmlBody = `  <app-split-layout style="height: 100vh;">
-    <section slot="left">
-      <h2>Left Panel</h2>
-      <p>Navigation, filters, or any sidebar content.</p>
-    </section>
-    <section slot="right">
-      <h2>Right Panel</h2>
-      <p>Main content, details, or a preview pane.</p>
-    </section>
+    <app-panel-content slot="left" heading="Left Panel" description="Navigation, filters, or any sidebar content."></app-panel-content>
+    <app-panel-content slot="right" heading="Right Panel" description="Main content, details, or a preview pane."></app-panel-content>
   </app-split-layout>`;
 
   const splitPageBody = `      <app-split-layout>
-        <section slot="left">
-          <h2>Left Panel</h2>
-          <p>Navigation, filters, or any sidebar content.</p>
-        </section>
-        <section slot="right">
-          <h2>Right Panel</h2>
-          <p>Main content, details, or a preview pane.</p>
-        </section>
+        <app-panel-content slot="left" heading="Left Panel" description="Navigation, filters, or any sidebar content."></app-panel-content>
+        <app-panel-content slot="right" heading="Right Panel" description="Main content, details, or a preview pane."></app-panel-content>
       </app-split-layout>`;
 
   const splitFiles = [
     { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js', code: splitSource },
+    { name: 'app-panel-content.js', path: 'components/app-panel-content.js', code: panelContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Split Layout',
-      ['./layouts/app-split-layout.js'],
+      ['./layouts/app-split-layout.js', './components/app-panel-content.js'],
       splitHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-split-layout.js'],
+      ['@/layouts/app-split-layout.js', '@/components/app-panel-content.js'],
       splitPageBody) },
   ];
 
   /* ── Dual Card Layout ── */
-  /* named slots: "left" and "right" */
 
   const dualCardHtmlBody = `  <app-dual-card-layout style="height: 100vh;">
-    <section slot="left">
-      <h3>Plan A</h3>
-      <p>Basic features for individuals.</p>
-    </section>
-    <section slot="right">
-      <h3>Plan B</h3>
-      <p>Advanced features for teams.</p>
-    </section>
+    <app-panel-content slot="left" heading="Plan A" description="Basic features for individuals."></app-panel-content>
+    <app-panel-content slot="right" heading="Plan B" description="Advanced features for teams."></app-panel-content>
   </app-dual-card-layout>`;
 
   const dualCardPageBody = `      <app-dual-card-layout>
-        <section slot="left">
-          <h3>Plan A</h3>
-          <p>Basic features for individuals.</p>
-        </section>
-        <section slot="right">
-          <h3>Plan B</h3>
-          <p>Advanced features for teams.</p>
-        </section>
+        <app-panel-content slot="left" heading="Plan A" description="Basic features for individuals."></app-panel-content>
+        <app-panel-content slot="right" heading="Plan B" description="Advanced features for teams."></app-panel-content>
       </app-dual-card-layout>`;
 
   const dualCardFiles = [
     { name: 'app-dual-card-layout.js', path: 'layouts/app-dual-card-layout.js', code: dualCardSource },
+    { name: 'app-panel-content.js', path: 'components/app-panel-content.js', code: panelContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Dual Card Layout',
-      ['./layouts/app-dual-card-layout.js'],
+      ['./layouts/app-dual-card-layout.js', './components/app-panel-content.js'],
       dualCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-dual-card-layout.js'],
+      ['@/layouts/app-dual-card-layout.js', '@/components/app-panel-content.js'],
       dualCardPageBody) },
   ];
 
   /* ── Hero Layout ── */
-  /* named slots: "nav" and "hero" */
-  /* uses app-nav component for the nav slot */
 
   const heroHtmlBody = `  <app-hero-layout style="height: 100vh;">
-    <!-- app-nav goes into the "nav" slot -->
+    <!-- app-nav component for the nav slot -->
     <app-nav slot="nav" brand="MyApp"
       items='[{ "label": "Home" }, { "label": "About" }, { "label": "Contact" }]'
       active="Home">
     </app-nav>
-    <section slot="hero">
-      <h1>Build Something Amazing</h1>
-      <p>A modern toolkit for web developers.</p>
-      <button>Get Started</button>
-    </section>
+    <app-hero-content slot="hero"
+      heading="Build Something Amazing"
+      description="A modern toolkit for web developers."
+      action="Get Started">
+    </app-hero-content>
   </app-hero-layout>`;
 
   const heroPageBody = `      <app-hero-layout>
-        <!-- app-nav goes into the "nav" slot -->
         <app-nav slot="nav" brand="MyApp"
           items='\${JSON.stringify([
             { label: "Home" },
@@ -254,21 +225,22 @@ export function layoutsPage(ctx) {
           ])}'
           active="Home">
         </app-nav>
-        <section slot="hero">
-          <h1>Build Something Amazing</h1>
-          <p>A modern toolkit for web developers.</p>
-          <button>Get Started</button>
-        </section>
+        <app-hero-content slot="hero"
+          heading="Build Something Amazing"
+          description="A modern toolkit for web developers."
+          action="Get Started">
+        </app-hero-content>
       </app-hero-layout>`;
 
   const heroFiles = [
     { name: 'app-hero-layout.js', path: 'layouts/app-hero-layout.js', code: heroSource },
     { name: 'app-nav.js', path: 'components/app-nav.js', code: navSource },
+    { name: 'app-hero-content.js', path: 'components/app-hero-content.js', code: heroContentSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Hero Layout',
-      ['./layouts/app-hero-layout.js', './components/app-nav.js'],
+      ['./layouts/app-hero-layout.js', './components/app-nav.js', './components/app-hero-content.js'],
       heroHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-hero-layout.js', '@/components/app-nav.js'],
+      ['@/layouts/app-hero-layout.js', '@/components/app-nav.js', '@/components/app-hero-content.js'],
       heroPageBody) },
   ];
 
