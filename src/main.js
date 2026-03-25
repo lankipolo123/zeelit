@@ -46,6 +46,10 @@ import './components/app-calendar.js';
 import './components/app-sidebar-nav.js';
 import './components/app-form.js';
 import './components/app-page-content.js';
+import './components/app-searchbar.js';
+import './components/app-hero-content.js';
+import './components/app-card-content.js';
+import './components/app-panel-content.js';
 
 // Layouts
 import './layouts/app-sidebar-layout.js';

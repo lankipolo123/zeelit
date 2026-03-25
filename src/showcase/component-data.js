@@ -43,6 +43,7 @@ export const COMPONENTS = [
   { id: 'sidebar-nav', label: 'Sidebar Nav', category: 'Navigation' },
   { id: 'form', label: 'Form', category: 'Forms' },
   { id: 'page-content', label: 'Page Content', category: 'Layout' },
+  { id: 'searchbar', label: 'Searchbar', category: 'Forms' },
 ];
 
 export const CATEGORIES = [...new Set(COMPONENTS.map(c => c.category))];

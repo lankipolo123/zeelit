@@ -52,6 +52,7 @@ import { calendarPage } from '../pages/calendar-page.js';
 import { sidebarNavPage } from '../pages/sidebar-nav-page.js';
 import { formPage } from '../pages/form-page.js';
 import { pageContentPage } from '../pages/page-content-page.js';
+import { searchbarPage } from '../pages/searchbar-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -101,6 +102,7 @@ const PAGE_MAP = {
   'sidebar-nav': sidebarNavPage,
   form: formPage,
   'page-content': pageContentPage,
+  searchbar: searchbarPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -522,6 +524,19 @@ ${usage}
             ${navLink('button', 'Components', isComponentPage)}
             ${navLink('layouts', 'Layouts', this.activePage === 'layouts')}
           </nav>
+
+          <div class="hidden sm:block" style="width: 220px; margin-right: 0.5rem;">
+            <app-searchbar
+              placeholder="Search..."
+              .items="${[
+                { id: 'home', label: 'Introduction' },
+                { id: 'installation', label: 'Installation' },
+                { id: 'layouts', label: 'Layouts' },
+                ...COMPONENTS,
+              ]}"
+              @app-select="${(e) => this.navigate(e.detail.value)}"
+            ></app-searchbar>
+          </div>
 
           <button @click="${() => this._toggleTheme()}" class="p-2 rounded-md cursor-pointer transition-colors" title="${this._dark ? 'Switch to light mode' : 'Switch to dark mode'}">
             ${this._dark ? html`
