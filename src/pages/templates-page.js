@@ -2,119 +2,105 @@ import { html } from 'lit';
 import centerCardSource from '../layouts/app-center-card-layout.js?raw';
 import sidebarLayoutSource from '../layouts/app-sidebar-layout.js?raw';
 
-/* ─── Helpers ─── */
-
-function makeHtml(title, scripts, body) {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — ZeeLit</title>
-  <link rel="stylesheet" href="./styles.css">
-${scripts.map(s => `  <script type="module" src="${s}"><\/script>`).join('\n')}
-</head>
-<body>
-
-${body}
-
-</body>
-</html>`;
-}
-
-function makePage(bt, imports, body) {
-  return `import { LitElement, html, css } from 'lit';
-${imports.map(i => `import '${i}';`).join('\n')}
-
-class MyPage extends LitElement {
-  static styles = css${bt}
-    :host {
-      display: block;
-      height: 100vh;
-    }
-  ${bt};
-
-  render() {
-    return html${bt}
-${body}
-    ${bt};
-  }
-}
-customElements.define('my-page', MyPage);`;
-}
-
 /* ─── Page ─── */
 
 export function templatesPage(ctx) {
-  const bt = '`';
 
   /* ══════════════════════════════════════════════════
      Template 1: Login — Right Card Layout
      ══════════════════════════════════════════════════ */
 
-  const loginCode = `<app-center-card-layout card-position="right" style="height: 100vh;">
-  <div style="width: 100%; max-width: 340px;">
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-      <div style="display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: var(--logo-bg); margin-bottom: 0.75rem;">
-        <span style="font-weight: 700; color: var(--logo-fg);">Z</span>
+  const loginCode = `<!-- Login page: two-panel split with form card on the right -->
+<div style="display: flex; height: 100vh; background: var(--bg);">
+  <!-- Left branding panel -->
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 3rem; background: var(--bg-card); border-right: 1px solid var(--border);">
+    <div style="max-width: 360px; text-align: center;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; background: var(--logo-bg); margin-bottom: 1.5rem;">
+        <span style="font-weight: 800; font-size: 1.25rem; color: var(--logo-fg);">Z</span>
       </div>
-      <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading);">Welcome back</h2>
-      <p style="font-size: 0.875rem; color: var(--fg-muted); margin-top: 0.25rem;">Sign in to your account</p>
+      <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--fg-heading); line-height: 1.2;">ZeeLit</h1>
+      <p style="font-size: 0.9rem; color: var(--fg-muted); margin-top: 0.75rem; line-height: 1.5;">
+        Build beautiful interfaces with our modern component library. Fast, accessible, and themeable.
+      </p>
     </div>
-
-    <app-form layout="vertical">
-      <app-form-field label="Email" name="email" type="text" placeholder="you@example.com" required></app-form-field>
-      <app-form-field label="Password" name="password" type="text" placeholder="••••••••" required></app-form-field>
-    </app-form>
-
-    <div style="display: flex; align-items: center; justify-content: space-between; margin: 0.75rem 0;">
-      <app-checkbox label="Remember me"></app-checkbox>
-      <a style="font-size: 0.8rem; color: var(--primary); cursor: pointer;">Forgot password?</a>
-    </div>
-
-    <app-button variant="default" style="width: 100%; display: block;">Sign In</app-button>
-
-    <app-separator style="margin: 1.25rem 0;"></app-separator>
-
-    <app-button variant="outline" style="width: 100%; display: block;">Continue with Google</app-button>
-
-    <p style="font-size: 0.8rem; color: var(--fg-muted); text-align: center; margin-top: 1.25rem;">
-      Don't have an account? <a style="color: var(--primary); cursor: pointer; font-weight: 500;">Sign up</a>
-    </p>
   </div>
-</app-center-card-layout>`;
 
-  const loginHtmlBody = `  ${loginCode}`;
+  <!-- Right login form panel -->
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem;">
+    <div style="width: 100%; max-width: 380px;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--fg-heading);">Welcome back</h2>
+      <p style="font-size: 0.875rem; color: var(--fg-muted); margin-top: 0.25rem;">Sign in to your account</p>
 
-  const loginPageBody = `      ${loginCode.split('\n').map(l => '      ' + l).join('\n').trim()}`;
+      <div style="margin-top: 1.5rem;">
+        <app-input label="Email" placeholder="you@example.com"></app-input>
+      </div>
+      <div style="margin-top: 1rem;">
+        <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
+        <app-checkbox label="Remember me"></app-checkbox>
+        <a style="font-size: 0.8rem; color: var(--primary); cursor: pointer; text-decoration: none;">Forgot password?</a>
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <app-button variant="default" style="width: 100%; display: block;">Sign In</app-button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;">
+        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+        <span style="font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em;">or</span>
+        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      </div>
+
+      <app-button variant="outline" style="width: 100%; display: block;">Continue with Google</app-button>
+
+      <p style="font-size: 0.8rem; color: var(--fg-muted); text-align: center; margin-top: 1.5rem;">
+        Don't have an account? <a style="color: var(--primary); cursor: pointer; font-weight: 600;">Sign up</a>
+      </p>
+    </div>
+  </div>
+</div>`;
 
   const loginFiles = [
-    { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
-    { name: 'index.html', path: 'index.html', code: makeHtml('Login',
-      ['./layouts/app-center-card-layout.js', './components/app-form.js', './components/app-button.js', './components/app-checkbox.js', './components/app-separator.js', './components/app-input.js'],
-      loginHtmlBody) },
-    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-center-card-layout.js', '@/components/app-form.js', '@/components/app-button.js', '@/components/app-checkbox.js', '@/components/app-separator.js', '@/components/app-input.js'],
-      loginPageBody) },
+    { name: 'index.html', path: 'index.html', code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — ZeeLit</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./components/app-input.js"><\/script>
+  <script type="module" src="./components/app-button.js"><\/script>
+  <script type="module" src="./components/app-checkbox.js"><\/script>
+</head>
+<body>
+
+${loginCode}
+
+</body>
+</html>` },
   ];
 
   /* ══════════════════════════════════════════════════
      Template 2: Dashboard — Sidebar with Pages + Logout Dialog
      ══════════════════════════════════════════════════ */
 
-  const dashboardCode = `<app-sidebar-layout style="height: 100vh;">
-  <div slot="sidebar" style="display: flex; flex-direction: column; height: 100%;">
+  const dashboardCode = `<!-- Dashboard: sidebar nav + content area with logout dialog -->
+<div style="display: flex; height: 100vh; background: var(--bg); color: var(--fg);">
+
+  <!-- Sidebar -->
+  <aside style="width: 260px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: var(--bg-card);">
+
     <!-- Brand -->
-    <div style="padding: 1.25rem 1rem; border-bottom: 1px solid var(--border);">
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
-          <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
-        </div>
-        <span style="font-weight: 600; color: var(--fg);">My App</span>
+    <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1.25rem 1.25rem; border-bottom: 1px solid var(--border);">
+      <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
+        <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
       </div>
+      <span style="font-weight: 700; font-size: 1rem; color: var(--fg);">My App</span>
     </div>
 
-    <!-- Navigation -->
+    <!-- Nav links -->
     <app-sidebar-nav
       items='[
         { "type": "heading", "label": "Main" },
@@ -134,40 +120,45 @@ export function templatesPage(ctx) {
       style="flex: 1; overflow-y: auto;"
     ></app-sidebar-nav>
 
-    <!-- User footer with logout -->
-    <div style="padding: 0.75rem 1rem; border-top: 1px solid var(--border);">
+    <!-- User footer -->
+    <div style="padding: 0.875rem 1.25rem; border-top: 1px solid var(--border);">
       <div style="display: flex; align-items: center; gap: 0.625rem;">
         <app-avatar fallback="JD" size="sm"></app-avatar>
         <div style="flex: 1; min-width: 0;">
-          <div style="font-size: 0.8rem; font-weight: 500; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">John Doe</div>
-          <div style="font-size: 0.7rem; color: var(--fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">john@example.com</div>
+          <div style="font-size: 0.8rem; font-weight: 600; color: var(--fg);">John Doe</div>
+          <div style="font-size: 0.7rem; color: var(--fg-muted);">john@example.com</div>
         </div>
-        <app-button variant="ghost" size="icon" onclick="this.closest('app-sidebar-layout').querySelector('#logout-dialog').show()">
-          <app-icon name="log-out" class="w-4 h-4"></app-icon>
+        <app-button variant="ghost" size="icon"
+          onclick="document.getElementById('logout-dialog').show()">
+          <app-icon name="log-out" style="width:1rem;height:1rem;"></app-icon>
         </app-button>
       </div>
     </div>
-  </div>
+  </aside>
 
-  <div slot="content" style="display: flex; flex-direction: column; height: 100%;">
+  <!-- Main content area -->
+  <main style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+
     <!-- Top bar -->
-    <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+    <header style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
       <div>
-        <h1 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading);">Dashboard</h1>
-        <p style="font-size: 0.8rem; color: var(--fg-muted);">Welcome back, John</p>
+        <h1 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Dashboard</h1>
+        <p style="font-size: 0.8rem; color: var(--fg-muted); margin: 0.125rem 0 0;">Welcome back, John</p>
       </div>
       <app-searchbar placeholder="Search..." style="width: 220px;"></app-searchbar>
-    </div>
+    </header>
 
-    <!-- Page content -->
+    <!-- Scrollable page body -->
     <div style="flex: 1; padding: 1.5rem; overflow-y: auto;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+      <!-- Stat cards -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
         <app-stat label="Total Revenue" value="$45,231" trend="up" trend-value="12%"></app-stat>
         <app-stat label="Subscriptions" value="2,350" trend="up" trend-value="8%"></app-stat>
         <app-stat label="Active Users" value="1,247" trend="down" trend-value="3%"></app-stat>
         <app-stat label="Bounce Rate" value="24.5%" trend="down" trend-value="5%"></app-stat>
       </div>
 
+      <!-- Activity card -->
       <app-card card-title="Recent Activity">
         <app-timeline items='[
           { "time": "2 min ago", "title": "New user signed up", "description": "jane@example.com created an account", "color": "var(--primary)" },
@@ -177,29 +168,44 @@ export function templatesPage(ctx) {
         ]'></app-timeline>
       </app-card>
     </div>
+  </main>
 
-    <!-- Logout dialog -->
-    <app-dialog id="logout-dialog" dialog-title="Log out" description="Are you sure you want to log out? You will need to sign in again to access your account.">
-      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
-        <app-button variant="outline" onclick="this.closest('app-dialog').close()">Cancel</app-button>
-        <app-button variant="destructive">Log Out</app-button>
-      </div>
-    </app-dialog>
-  </div>
-</app-sidebar-layout>`;
-
-  const dashboardHtmlBody = `  ${dashboardCode}`;
-
-  const dashboardPageBody = `      ${dashboardCode.split('\n').map(l => '      ' + l).join('\n').trim()}`;
+  <!-- Logout dialog (outside layout so it overlays properly) -->
+  <app-dialog id="logout-dialog"
+    dialog-title="Log out"
+    description="Are you sure you want to log out? You will need to sign in again.">
+    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+      <app-button variant="outline"
+        onclick="document.getElementById('logout-dialog').close()">Cancel</app-button>
+      <app-button variant="destructive">Log Out</app-button>
+    </div>
+  </app-dialog>
+</div>`;
 
   const dashboardFiles = [
-    { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: sidebarLayoutSource },
-    { name: 'index.html', path: 'index.html', code: makeHtml('Dashboard',
-      ['./layouts/app-sidebar-layout.js', './components/app-sidebar-nav.js', './components/app-avatar.js', './components/app-button.js', './components/app-icon.js', './components/app-searchbar.js', './components/app-stat.js', './components/app-card.js', './components/app-timeline.js', './components/app-dialog.js'],
-      dashboardHtmlBody) },
-    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-sidebar-layout.js', '@/components/app-sidebar-nav.js', '@/components/app-avatar.js', '@/components/app-button.js', '@/components/app-icon.js', '@/components/app-searchbar.js', '@/components/app-stat.js', '@/components/app-card.js', '@/components/app-timeline.js', '@/components/app-dialog.js'],
-      dashboardPageBody) },
+    { name: 'index.html', path: 'index.html', code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ZeeLit</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./components/app-sidebar-nav.js"><\/script>
+  <script type="module" src="./components/app-avatar.js"><\/script>
+  <script type="module" src="./components/app-button.js"><\/script>
+  <script type="module" src="./components/app-icon.js"><\/script>
+  <script type="module" src="./components/app-searchbar.js"><\/script>
+  <script type="module" src="./components/app-stat.js"><\/script>
+  <script type="module" src="./components/app-card.js"><\/script>
+  <script type="module" src="./components/app-timeline.js"><\/script>
+  <script type="module" src="./components/app-dialog.js"><\/script>
+</head>
+<body>
+
+${dashboardCode}
+
+</body>
+</html>` },
   ];
 
   /* ══════════════════════════════════════════════════
@@ -214,7 +220,7 @@ export function templatesPage(ctx) {
           Templates
         </h1>
         <p class="mt-2" style="color: var(--fg-muted)">
-          Ready-to-use page templates built with ZeeLit components and layouts. Copy and adapt for your project.
+          Ready-to-use page templates built with ZeeLit components. Copy and adapt for your project.
         </p>
       </div>
 
@@ -228,47 +234,65 @@ export function templatesPage(ctx) {
             Login Page
           </h3>
           <p class="text-sm mt-1" style="color: var(--fg-muted)">
-            Right-card login with email/password form, remember-me, social sign-in, and sign-up link.
+            Two-panel split with branding on the left and a login form on the right.
           </p>
         </div>
         ${ctx.renderDemo(
           'template-login',
           html`
-            <app-center-card-layout card-position="right" style="height: 500px;">
-              <div style="width: 100%; max-width: 340px;">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                  <div style="display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: var(--logo-bg); margin-bottom: 0.75rem;">
-                    <span style="font-weight: 700; color: var(--logo-fg);">Z</span>
+            <div style="display: flex; height: 500px; background: var(--bg); border-radius: 0.5rem; overflow: hidden; border: 1px solid var(--border);">
+              <!-- Left branding panel -->
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; background: var(--bg-card); border-right: 1px solid var(--border);">
+                <div style="max-width: 300px; text-align: center;">
+                  <div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; background: var(--logo-bg); margin-bottom: 1.25rem;">
+                    <span style="font-weight: 800; font-size: 1.25rem; color: var(--logo-fg);">Z</span>
                   </div>
-                  <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading);">Welcome back</h2>
-                  <p style="font-size: 0.875rem; color: var(--fg-muted); margin-top: 0.25rem;">Sign in to your account</p>
+                  <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--fg-heading); line-height: 1.2; margin: 0;">ZeeLit</h1>
+                  <p style="font-size: 0.85rem; color: var(--fg-muted); margin-top: 0.5rem; line-height: 1.5;">
+                    Build beautiful interfaces with our modern component library.
+                  </p>
                 </div>
-
-                <app-form layout="vertical">
-                  <app-form-field label="Email" name="email" type="text" placeholder="you@example.com" required></app-form-field>
-                  <app-form-field label="Password" name="password" type="text" placeholder="••••••••" required></app-form-field>
-                </app-form>
-
-                <div style="display: flex; align-items: center; justify-content: space-between; margin: 0.75rem 0;">
-                  <app-checkbox label="Remember me"></app-checkbox>
-                  <a style="font-size: 0.8rem; color: var(--primary); cursor: pointer;">Forgot password?</a>
-                </div>
-
-                <app-button variant="default" style="width: 100%; display: block;">Sign In</app-button>
-
-                <app-separator style="margin: 1.25rem 0;"></app-separator>
-
-                <app-button variant="outline" style="width: 100%; display: block;">Continue with Google</app-button>
-
-                <p style="font-size: 0.8rem; color: var(--fg-muted); text-align: center; margin-top: 1.25rem;">
-                  Don't have an account? <a style="color: var(--primary); cursor: pointer; font-weight: 500;">Sign up</a>
-                </p>
               </div>
-            </app-center-card-layout>
+
+              <!-- Right login form -->
+              <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+                <div style="width: 100%; max-width: 340px;">
+                  <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Welcome back</h2>
+                  <p style="font-size: 0.8rem; color: var(--fg-muted); margin: 0.25rem 0 0;">Sign in to your account</p>
+
+                  <div style="margin-top: 1.25rem;">
+                    <app-input label="Email" placeholder="you@example.com"></app-input>
+                  </div>
+                  <div style="margin-top: 0.75rem;">
+                    <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem;">
+                    <app-checkbox label="Remember me"></app-checkbox>
+                    <a style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Forgot password?</a>
+                  </div>
+
+                  <div style="margin-top: 1.25rem;">
+                    <app-button variant="default" style="width: 100%; display: block;">Sign In</app-button>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0;">
+                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                    <span style="font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em;">or</span>
+                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                  </div>
+
+                  <app-button variant="outline" style="width: 100%; display: block;">Continue with Google</app-button>
+
+                  <p style="font-size: 0.75rem; color: var(--fg-muted); text-align: center; margin-top: 1rem;">
+                    Don't have an account? <a style="color: var(--primary); cursor: pointer; font-weight: 600;">Sign up</a>
+                  </p>
+                </div>
+              </div>
+            </div>
           `,
           loginCode,
           {
-            importPath: '@/layouts/app-center-card-layout.js',
             files: loginFiles,
             title: 'Login Template',
           },
@@ -285,25 +309,25 @@ export function templatesPage(ctx) {
             Dashboard with Sidebar
           </h3>
           <p class="text-sm mt-1" style="color: var(--fg-muted)">
-            Full sidebar navigation with grouped pages, user profile footer, stat cards, activity timeline, and a logout confirmation dialog.
+            Sidebar navigation with grouped pages, user profile, stat cards, activity timeline, and logout dialog.
           </p>
         </div>
         ${ctx.renderDemo(
           'template-dashboard',
           html`
-            <app-sidebar-layout style="height: 550px;">
-              <div slot="sidebar" style="display: flex; flex-direction: column; height: 100%;">
+            <div style="display: flex; height: 550px; background: var(--bg); color: var(--fg); border-radius: 0.5rem; overflow: hidden; border: 1px solid var(--border); position: relative;">
+
+              <!-- Sidebar -->
+              <aside style="width: 240px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: var(--bg-card);">
                 <!-- Brand -->
-                <div style="padding: 1.25rem 1rem; border-bottom: 1px solid var(--border);">
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
-                      <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
-                    </div>
-                    <span style="font-weight: 600; color: var(--fg);">My App</span>
+                <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1rem 1rem; border-bottom: 1px solid var(--border);">
+                  <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
                   </div>
+                  <span style="font-weight: 700; color: var(--fg);">My App</span>
                 </div>
 
-                <!-- Navigation -->
+                <!-- Nav -->
                 <app-sidebar-nav
                   .items="${[
                     { type: 'heading', label: 'Main' },
@@ -323,34 +347,38 @@ export function templatesPage(ctx) {
                   style="flex: 1; overflow-y: auto;"
                 ></app-sidebar-nav>
 
-                <!-- User footer with logout -->
+                <!-- User footer -->
                 <div style="padding: 0.75rem 1rem; border-top: 1px solid var(--border);">
-                  <div style="display: flex; align-items: center; gap: 0.625rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
                     <app-avatar fallback="JD" size="sm"></app-avatar>
                     <div style="flex: 1; min-width: 0;">
-                      <div style="font-size: 0.8rem; font-weight: 500; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">John Doe</div>
-                      <div style="font-size: 0.7rem; color: var(--fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">john@example.com</div>
+                      <div style="font-size: 0.8rem; font-weight: 600; color: var(--fg);">John Doe</div>
+                      <div style="font-size: 0.7rem; color: var(--fg-muted);">john@example.com</div>
                     </div>
-                    <app-button variant="ghost" size="icon" @click="${(e) => { const dlg = e.target.closest('app-sidebar-layout').querySelector('#logout-dialog-demo'); if (dlg) dlg.show(); }}">
+                    <app-button variant="ghost" size="icon" @click="${(e) => {
+                      const dlg = e.target.closest('[style*="display: flex"]').querySelector('#tpl-logout-dialog');
+                      if (dlg) dlg.show();
+                    }}">
                       <app-icon name="log-out" class="w-4 h-4"></app-icon>
                     </app-button>
                   </div>
                 </div>
-              </div>
+              </aside>
 
-              <div slot="content" style="display: flex; flex-direction: column; height: 100%;">
+              <!-- Main content -->
+              <main style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
                 <!-- Top bar -->
-                <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                <header style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
                   <div>
-                    <h1 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading);">Dashboard</h1>
-                    <p style="font-size: 0.8rem; color: var(--fg-muted);">Welcome back, John</p>
+                    <h1 style="font-size: 1.125rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Dashboard</h1>
+                    <p style="font-size: 0.75rem; color: var(--fg-muted); margin: 0.125rem 0 0;">Welcome back, John</p>
                   </div>
-                  <app-searchbar placeholder="Search..." style="width: 220px;"></app-searchbar>
-                </div>
+                  <app-searchbar placeholder="Search..." style="width: 200px;"></app-searchbar>
+                </header>
 
-                <!-- Page content -->
-                <div style="flex: 1; padding: 1.5rem; overflow-y: auto;">
-                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                <!-- Scrollable body -->
+                <div style="flex: 1; padding: 1.25rem; overflow-y: auto;">
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
                     <app-stat label="Total Revenue" value="$45,231" trend="up" trend-value="12%"></app-stat>
                     <app-stat label="Subscriptions" value="2,350" trend="up" trend-value="8%"></app-stat>
                     <app-stat label="Active Users" value="1,247" trend="down" trend-value="3%"></app-stat>
@@ -366,20 +394,21 @@ export function templatesPage(ctx) {
                     ]}"></app-timeline>
                   </app-card>
                 </div>
+              </main>
 
-                <!-- Logout dialog -->
-                <app-dialog id="logout-dialog-demo" dialog-title="Log out" description="Are you sure you want to log out? You will need to sign in again to access your account.">
-                  <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
-                    <app-button variant="outline" @click="${(e) => e.target.closest('app-dialog').close()}">Cancel</app-button>
-                    <app-button variant="destructive">Log Out</app-button>
-                  </div>
-                </app-dialog>
-              </div>
-            </app-sidebar-layout>
+              <!-- Logout dialog -->
+              <app-dialog id="tpl-logout-dialog"
+                dialog-title="Log out"
+                description="Are you sure you want to log out? You will need to sign in again.">
+                <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+                  <app-button variant="outline" @click="${(e) => e.target.closest('app-dialog').close()}">Cancel</app-button>
+                  <app-button variant="destructive">Log Out</app-button>
+                </div>
+              </app-dialog>
+            </div>
           `,
           dashboardCode,
           {
-            importPath: '@/layouts/app-sidebar-layout.js',
             files: dashboardFiles,
             title: 'Dashboard Template',
           },
