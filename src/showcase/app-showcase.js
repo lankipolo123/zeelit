@@ -53,6 +53,7 @@ import { sidebarNavPage } from '../pages/sidebar-nav-page.js';
 import { formPage } from '../pages/form-page.js';
 import { pageContentPage } from '../pages/page-content-page.js';
 import { searchbarPage } from '../pages/searchbar-page.js';
+import { templatesPage } from '../pages/templates-page.js';
 
 const PAGE_MAP = {
   home: homePage,
@@ -103,6 +104,7 @@ const PAGE_MAP = {
   form: formPage,
   'page-content': pageContentPage,
   searchbar: searchbarPage,
+  templates: templatesPage,
 };
 
 export class AppShowcase extends LitElement {
@@ -523,6 +525,7 @@ ${usage}
             ${navLink('installation', 'Installation', this.activePage === 'installation')}
             ${navLink('button', 'Components', isComponentPage)}
             ${navLink('layouts', 'Layouts', this.activePage === 'layouts')}
+            ${navLink('templates', 'Templates', this.activePage === 'templates')}
           </nav>
 
           <div class="hidden sm:block" style="width: 220px; margin-right: 0.5rem;">
@@ -532,6 +535,7 @@ ${usage}
                 { id: 'home', label: 'Introduction' },
                 { id: 'installation', label: 'Installation' },
                 { id: 'layouts', label: 'Layouts' },
+                { id: 'templates', label: 'Templates' },
                 ...COMPONENTS,
               ]}"
               @app-select="${(e) => this.navigate(e.detail.value)}"
@@ -575,6 +579,7 @@ ${usage}
             ${link('home', 'Introduction')}
             ${link('installation', 'Installation')}
             ${link('layouts', 'Layouts')}
+            ${link('templates', 'Templates')}
           ` : ''}
           ${visibleComponents.map(comp => link(comp.id, comp.label))}
         </nav>
