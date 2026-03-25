@@ -40,7 +40,7 @@ import './components/app-stat.js';
 import './components/app-tag-input.js';
 import './components/app-stepper.js';
 import './components/app-timeline.js';
-import './components/app-command.js';
+
 import './components/app-chip.js';
 import './components/app-calendar.js';
 import './components/app-sidebar-nav.js';

@@ -46,7 +46,7 @@ import { statPage } from '../pages/stat-page.js';
 import { tagInputPage } from '../pages/tag-input-page.js';
 import { stepperPage } from '../pages/stepper-page.js';
 import { timelinePage } from '../pages/timeline-page.js';
-import { commandPage } from '../pages/command-page.js';
+
 import { chipPage } from '../pages/chip-page.js';
 import { calendarPage } from '../pages/calendar-page.js';
 import { sidebarNavPage } from '../pages/sidebar-nav-page.js';
@@ -96,7 +96,7 @@ const PAGE_MAP = {
   'tag-input': tagInputPage,
   stepper: stepperPage,
   timeline: timelinePage,
-  command: commandPage,
+
   chip: chipPage,
   calendar: calendarPage,
   'sidebar-nav': sidebarNavPage,

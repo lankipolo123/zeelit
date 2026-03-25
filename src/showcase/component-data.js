@@ -37,7 +37,7 @@ export const COMPONENTS = [
   { id: 'tag-input', label: 'Tag Input', category: 'Forms' },
   { id: 'stepper', label: 'Stepper', category: 'Navigation' },
   { id: 'timeline', label: 'Timeline', category: 'Data Display' },
-  { id: 'command', label: 'Command', category: 'Overlay' },
+
   { id: 'chip', label: 'Chip', category: 'Data Display' },
   { id: 'calendar', label: 'Calendar', category: 'Forms' },
   { id: 'sidebar-nav', label: 'Sidebar Nav', category: 'Navigation' },
