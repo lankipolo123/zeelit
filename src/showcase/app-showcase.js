@@ -512,8 +512,8 @@ ${usage}
     `;
 
     return html`
-      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-16 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
-        <div class="flex h-full items-center px-4 md:px-6">
+      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-24 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
+        <div class="flex h-full items-center px-6 md:px-8">
           <button @click="${() => this.sidebarOpen = true}" class="mr-3 cursor-pointer md:hidden" style="color: var(--fg-muted)">
             <app-icon name="menu" class="w-5 h-5"></app-icon>
           </button>
@@ -670,9 +670,9 @@ ${usage}
         ${this.sidebarCollapsed ? html`
           <div class="relative w-16 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
             <!-- Branding collapsed -->
-            <div class="flex items-center justify-center h-16 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
-              <div class="h-9 w-9 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                <span class="font-bold text-sm" style="color: var(--logo-fg)">Z</span>
+            <div class="flex items-center justify-center h-24 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
+              <div class="h-12 w-12 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
+                <span class="font-bold text-lg" style="color: var(--logo-fg)">Z</span>
               </div>
             </div>
             <!-- Vertical text centered -->
@@ -688,11 +688,11 @@ ${usage}
           <div class="relative shrink-0 hidden md:block" style="width: clamp(300px, 28%, 420px)">
             <aside class="h-full overflow-hidden flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
               <!-- Sidebar branding -->
-              <div class="flex items-center gap-2 px-4 h-16 shrink-0" style="border-bottom: 1px solid var(--border)">
-                <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                  <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+              <div class="flex items-center gap-3 px-5 h-24 shrink-0" style="border-bottom: 1px solid var(--border)">
+                <div class="h-10 w-10 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
+                  <span class="font-bold text-base" style="color: var(--logo-fg)">Z</span>
                 </div>
-                <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
+                <span class="text-lg font-bold tracking-tight" style="color: var(--fg)">ZeeLit</span>
               </div>
               <!-- Component grid -->
               ${this._sidebarNav()}
@@ -709,12 +709,12 @@ ${usage}
           <div class="fixed inset-0 z-50 md:hidden">
             <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => this.sidebarOpen = false}"></div>
             <aside class="fixed inset-y-0 left-0 w-80 overflow-hidden flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
-              <div class="flex items-center justify-between p-4" style="border-bottom: 1px solid var(--border)">
-                <div class="flex items-center gap-2">
-                  <div class="h-7 w-7 rounded-md flex items-center justify-center" style="background: var(--logo-bg)">
-                    <span class="font-bold text-xs" style="color: var(--logo-fg)">Z</span>
+              <div class="flex items-center justify-between px-5 h-24" style="border-bottom: 1px solid var(--border)">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
+                    <span class="font-bold text-base" style="color: var(--logo-fg)">Z</span>
                   </div>
-                  <span class="font-semibold tracking-tight" style="color: var(--fg)">ZeeLit</span>
+                  <span class="text-lg font-bold tracking-tight" style="color: var(--fg)">ZeeLit</span>
                 </div>
                 <button @click="${() => this.sidebarOpen = false}" class="p-1 rounded cursor-pointer" style="color: var(--fg-subtle)">
                   <app-icon name="x" class="w-4 h-4"></app-icon>
