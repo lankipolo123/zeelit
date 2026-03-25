@@ -61,70 +61,249 @@ customElements.define('my-page', MyPage);`;
 export function layoutsPage(ctx) {
   const bt = '`';
 
-  /* ── Sidebar Layout files ── */
-  const sidebarFiles = [
-    { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: layoutSource },
-    { name: 'index.html', path: 'index.html', code: makeHtml('Sidebar Layout',
-      ['./layouts/app-sidebar-layout.js', './components/app-sidebar-nav.js', './components/app-page-content.js'],
-      `  <app-sidebar-layout style="height: 100vh;">
+  /* ── Sidebar Layout ── */
+
+  const sidebarHtmlBody = `  <app-sidebar-layout style="height: 100vh;">
     <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
     <app-page-content slot="content" heading="Home" description="Welcome to your app.">
       <p>Your page body content goes here.</p>
     </app-page-content>
-  </app-sidebar-layout>`)},
-    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
-      ['@/layouts/app-sidebar-layout.js', '@/components/app-sidebar-nav.js', '@/components/app-page-content.js'],
-      `      <app-sidebar-layout>
+  </app-sidebar-layout>`;
+
+  const sidebarPageBody = `      <app-sidebar-layout>
         <app-sidebar-nav slot="sidebar" header="My App"></app-sidebar-nav>
         <app-page-content slot="content" heading="Home" description="Welcome to your app.">
           <p>Your page body content goes here.</p>
         </app-page-content>
-      </app-sidebar-layout>`)},
+      </app-sidebar-layout>`;
+
+  const sidebarFiles = [
+    { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: layoutSource },
+    { name: 'index.html', path: 'index.html', code: makeHtml('Sidebar Layout',
+      ['./layouts/app-sidebar-layout.js', './components/app-sidebar-nav.js', './components/app-page-content.js'],
+      sidebarHtmlBody) },
+    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
+      ['@/layouts/app-sidebar-layout.js', '@/components/app-sidebar-nav.js', '@/components/app-page-content.js'],
+      sidebarPageBody) },
   ];
 
-  /* ── Center Card Layout files ── */
+  /* ── Center Card Layout ── */
+
+  const centerCardHtmlBody = `  <app-center-card-layout style="height: 100vh;">
+    <div>
+      <h2>Welcome Back</h2>
+      <p>Sign in to your account</p>
+      <form>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </app-center-card-layout>`;
+
+  const centerCardPageBody = `      <app-center-card-layout>
+        <div>
+          <h2>Welcome Back</h2>
+          <p>Sign in to your account</p>
+          <form>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+      </app-center-card-layout>`;
+
   const centerCardFiles = [
     { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Center Card Layout',
       ['./layouts/app-center-card-layout.js'],
-      '  <app-center-card-layout style="height: 100vh;"></app-center-card-layout>')},
+      centerCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
       ['@/layouts/app-center-card-layout.js'],
-      '      <app-center-card-layout></app-center-card-layout>')},
+      centerCardPageBody) },
   ];
 
-  /* ── Split Layout files ── */
+  /* ── Left Card Layout ── */
+
+  const leftCardHtmlBody = `  <app-center-card-layout card-position="left" style="height: 100vh;">
+    <div>
+      <h2>Get Started</h2>
+      <p>Create your free account</p>
+      <form>
+        <input type="text" placeholder="Full Name" />
+        <input type="email" placeholder="Email" />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </app-center-card-layout>`;
+
+  const leftCardPageBody = `      <app-center-card-layout card-position="left">
+        <div>
+          <h2>Get Started</h2>
+          <p>Create your free account</p>
+          <form>
+            <input type="text" placeholder="Full Name" />
+            <input type="email" placeholder="Email" />
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </app-center-card-layout>`;
+
+  const leftCardFiles = [
+    { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+    { name: 'index.html', path: 'index.html', code: makeHtml('Left Card Layout',
+      ['./layouts/app-center-card-layout.js'],
+      leftCardHtmlBody) },
+    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
+      ['@/layouts/app-center-card-layout.js'],
+      leftCardPageBody) },
+  ];
+
+  /* ── Right Card Layout ── */
+
+  const rightCardHtmlBody = `  <app-center-card-layout card-position="right" style="height: 100vh;">
+    <div>
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you</p>
+      <form>
+        <input type="text" placeholder="Your Name" />
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </app-center-card-layout>`;
+
+  const rightCardPageBody = `      <app-center-card-layout card-position="right">
+        <div>
+          <h2>Contact Us</h2>
+          <p>We'd love to hear from you</p>
+          <form>
+            <input type="text" placeholder="Your Name" />
+            <textarea placeholder="Message"></textarea>
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </app-center-card-layout>`;
+
+  const rightCardFiles = [
+    { name: 'app-center-card-layout.js', path: 'layouts/app-center-card-layout.js', code: centerCardSource },
+    { name: 'index.html', path: 'index.html', code: makeHtml('Right Card Layout',
+      ['./layouts/app-center-card-layout.js'],
+      rightCardHtmlBody) },
+    { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
+      ['@/layouts/app-center-card-layout.js'],
+      rightCardPageBody) },
+  ];
+
+  /* ── Split Layout ── */
+
+  const splitHtmlBody = `  <app-split-layout style="height: 100vh;">
+    <div slot="left">
+      <h2>Left Panel</h2>
+      <p>Navigation, filters, or any sidebar content.</p>
+    </div>
+    <div slot="right">
+      <h2>Right Panel</h2>
+      <p>Main content, details, or a preview pane.</p>
+    </div>
+  </app-split-layout>`;
+
+  const splitPageBody = `      <app-split-layout>
+        <div slot="left">
+          <h2>Left Panel</h2>
+          <p>Navigation, filters, or any sidebar content.</p>
+        </div>
+        <div slot="right">
+          <h2>Right Panel</h2>
+          <p>Main content, details, or a preview pane.</p>
+        </div>
+      </app-split-layout>`;
+
   const splitFiles = [
     { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js', code: splitSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Split Layout',
       ['./layouts/app-split-layout.js'],
-      '  <app-split-layout style="height: 100vh;"></app-split-layout>')},
+      splitHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
       ['@/layouts/app-split-layout.js'],
-      '      <app-split-layout></app-split-layout>')},
+      splitPageBody) },
   ];
 
-  /* ── Dual Card Layout files ── */
+  /* ── Dual Card Layout ── */
+
+  const dualCardHtmlBody = `  <app-dual-card-layout style="height: 100vh;">
+    <div slot="left">
+      <h3>Plan A</h3>
+      <p>Basic features for individuals.</p>
+      <button>Choose Plan</button>
+    </div>
+    <div slot="right">
+      <h3>Plan B</h3>
+      <p>Advanced features for teams.</p>
+      <button>Choose Plan</button>
+    </div>
+  </app-dual-card-layout>`;
+
+  const dualCardPageBody = `      <app-dual-card-layout>
+        <div slot="left">
+          <h3>Plan A</h3>
+          <p>Basic features for individuals.</p>
+          <button>Choose Plan</button>
+        </div>
+        <div slot="right">
+          <h3>Plan B</h3>
+          <p>Advanced features for teams.</p>
+          <button>Choose Plan</button>
+        </div>
+      </app-dual-card-layout>`;
+
   const dualCardFiles = [
     { name: 'app-dual-card-layout.js', path: 'layouts/app-dual-card-layout.js', code: dualCardSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Dual Card Layout',
       ['./layouts/app-dual-card-layout.js'],
-      '  <app-dual-card-layout style="height: 100vh;"></app-dual-card-layout>')},
+      dualCardHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
       ['@/layouts/app-dual-card-layout.js'],
-      '      <app-dual-card-layout></app-dual-card-layout>')},
+      dualCardPageBody) },
   ];
 
-  /* ── Hero Layout files ── */
+  /* ── Hero Layout ── */
+
+  const heroHtmlBody = `  <app-hero-layout style="height: 100vh;">
+    <nav slot="nav">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div slot="hero">
+      <h1>Build Something Amazing</h1>
+      <p>A modern toolkit for web developers.</p>
+      <button>Get Started</button>
+    </div>
+  </app-hero-layout>`;
+
+  const heroPageBody = `      <app-hero-layout>
+        <nav slot="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <div slot="hero">
+          <h1>Build Something Amazing</h1>
+          <p>A modern toolkit for web developers.</p>
+          <button>Get Started</button>
+        </div>
+      </app-hero-layout>`;
+
   const heroFiles = [
     { name: 'app-hero-layout.js', path: 'layouts/app-hero-layout.js', code: heroSource },
     { name: 'app-nav.js', path: 'components/app-nav.js', code: navSource },
     { name: 'index.html', path: 'index.html', code: makeHtml('Hero Layout',
       ['./layouts/app-hero-layout.js'],
-      '  <app-hero-layout style="height: 100vh;"></app-hero-layout>')},
+      heroHtmlBody) },
     { name: 'my-page.js', path: 'pages/my-page.js', code: makePage(bt,
       ['@/layouts/app-hero-layout.js'],
-      '      <app-hero-layout></app-hero-layout>')},
+      heroPageBody) },
   ];
 
   return html`
@@ -184,7 +363,7 @@ export function layoutsPage(ctx) {
           html`
             <app-center-card-layout style="height: 400px;"></app-center-card-layout>
           `,
-          `<app-center-card-layout style="height: 100vh;"></app-center-card-layout>`,
+          centerCardHtmlBody.trim(),
           {
             importPath: '@/layouts/app-center-card-layout.js',
             files: centerCardFiles,
@@ -211,10 +390,10 @@ export function layoutsPage(ctx) {
           html`
             <app-center-card-layout card-position="left" style="height: 400px;"></app-center-card-layout>
           `,
-          `<app-center-card-layout card-position="left" style="height: 100vh;"></app-center-card-layout>`,
+          leftCardHtmlBody.trim(),
           {
             importPath: '@/layouts/app-center-card-layout.js',
-            files: centerCardFiles,
+            files: leftCardFiles,
             title: 'Left Card Layout',
           },
         )}
@@ -238,10 +417,10 @@ export function layoutsPage(ctx) {
           html`
             <app-center-card-layout card-position="right" style="height: 400px;"></app-center-card-layout>
           `,
-          `<app-center-card-layout card-position="right" style="height: 100vh;"></app-center-card-layout>`,
+          rightCardHtmlBody.trim(),
           {
             importPath: '@/layouts/app-center-card-layout.js',
-            files: centerCardFiles,
+            files: rightCardFiles,
             title: 'Right Card Layout',
           },
         )}
@@ -265,7 +444,7 @@ export function layoutsPage(ctx) {
           html`
             <app-split-layout style="height: 400px;"></app-split-layout>
           `,
-          `<app-split-layout style="height: 100vh;"></app-split-layout>`,
+          splitHtmlBody.trim(),
           {
             importPath: '@/layouts/app-split-layout.js',
             files: splitFiles,
@@ -284,7 +463,7 @@ export function layoutsPage(ctx) {
             Dual Card Layout
           </h3>
           <p class="text-sm mt-1" style="color: var(--fg-muted)">
-            One container with two sections inside.
+            One container with two cards inside.
           </p>
         </div>
         ${ctx.renderDemo(
@@ -292,7 +471,7 @@ export function layoutsPage(ctx) {
           html`
             <app-dual-card-layout style="height: 400px;"></app-dual-card-layout>
           `,
-          `<app-dual-card-layout style="height: 100vh;"></app-dual-card-layout>`,
+          dualCardHtmlBody.trim(),
           {
             importPath: '@/layouts/app-dual-card-layout.js',
             files: dualCardFiles,
@@ -319,7 +498,7 @@ export function layoutsPage(ctx) {
           html`
             <app-hero-layout style="height: 400px;"></app-hero-layout>
           `,
-          `<app-hero-layout style="height: 100vh;"></app-hero-layout>`,
+          heroHtmlBody.trim(),
           {
             importPath: '@/layouts/app-hero-layout.js',
             files: heroFiles,
