@@ -514,8 +514,8 @@ ${usage}
     `;
 
     return html`
-      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-24 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
-        <div class="flex h-full items-center px-6 md:px-8">
+      <header class="sticky top-0 z-40 w-full backdrop-blur-md h-16 shrink-0" style="border-bottom: 1px solid var(--border); background: var(--bg-header)">
+        <div class="flex h-full items-center px-4 md:px-6">
           <button @click="${() => this.sidebarOpen = true}" class="mr-3 cursor-pointer md:hidden" style="color: var(--fg-muted)">
             <app-icon name="menu" class="w-5 h-5"></app-icon>
           </button>
@@ -675,7 +675,7 @@ ${usage}
         ${this.sidebarCollapsed ? html`
           <div class="relative w-16 shrink-0 hidden md:flex flex-col items-center select-none" style="border-right: 1px solid var(--border); background: var(--bg)">
             <!-- Branding collapsed -->
-            <div class="flex items-center justify-center h-24 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
+            <div class="flex items-center justify-center h-16 w-full shrink-0" style="border-bottom: 1px solid var(--border)">
               <div class="h-12 w-12 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
                 <span class="font-bold text-lg" style="color: var(--logo-fg)">Z</span>
               </div>
@@ -690,10 +690,10 @@ ${usage}
             </button>
           </div>
         ` : html`
-          <div class="relative shrink-0 hidden md:block" style="width: clamp(300px, 28%, 420px)">
+          <div class="relative shrink-0 hidden md:block" style="width: clamp(240px, 22%, 340px)">
             <aside class="h-full overflow-hidden flex flex-col" style="border-right: 1px solid var(--border); background: var(--bg)">
               <!-- Sidebar branding -->
-              <div class="flex items-center gap-3 px-5 h-24 shrink-0" style="border-bottom: 1px solid var(--border)">
+              <div class="flex items-center gap-3 px-4 h-16 shrink-0" style="border-bottom: 1px solid var(--border)">
                 <div class="h-10 w-10 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
                   <span class="font-bold text-base" style="color: var(--logo-fg)">Z</span>
                 </div>
@@ -714,7 +714,7 @@ ${usage}
           <div class="fixed inset-0 z-50 md:hidden">
             <div class="fixed inset-0" style="background: var(--overlay)" @click="${() => this.sidebarOpen = false}"></div>
             <aside class="fixed inset-y-0 left-0 w-80 overflow-hidden flex flex-col" style="background: var(--bg); border-right: 1px solid var(--border)">
-              <div class="flex items-center justify-between px-5 h-24" style="border-bottom: 1px solid var(--border)">
+              <div class="flex items-center justify-between px-4 h-16" style="border-bottom: 1px solid var(--border)">
                 <div class="flex items-center gap-3">
                   <div class="h-10 w-10 rounded-lg flex items-center justify-center" style="background: var(--logo-bg)">
                     <span class="font-bold text-base" style="color: var(--logo-fg)">Z</span>
@@ -737,7 +737,7 @@ ${usage}
 
           <!-- 3: Page content -->
           <main class="flex-1 overflow-y-auto">
-            <div class="max-w-4xl px-8 py-10 lg:py-14">
+            <div class="max-w-5xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 md:py-10 lg:py-12">
               ${this._renderPage()}
             </div>
           </main>
