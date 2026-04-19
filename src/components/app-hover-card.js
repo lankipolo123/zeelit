@@ -5,11 +5,13 @@ export class AppHoverCard extends LitElement {
 
   static properties = {
     _open: { state: true },
+    _pos: { state: true },
   };
 
   constructor() {
     super();
     this._open = false;
+    this._pos = '';
     this._timer = null;
     this._userNodes = null;
   }
@@ -42,9 +44,17 @@ export class AppHoverCard extends LitElement {
     }
   }
 
+  _calcPos(r) {
+    const g = 8;
+    return `top:${r.bottom + g}px;left:${r.left + r.width / 2}px;transform:translateX(-50%)`;
+  }
+
   _show() {
     clearTimeout(this._timer);
-    this._timer = setTimeout(() => { this._open = true; }, 200);
+    this._timer = setTimeout(() => {
+      this._pos = this._calcPos(this.getBoundingClientRect());
+      this._open = true;
+    }, 200);
   }
 
   _hide() {
@@ -60,8 +70,8 @@ export class AppHoverCard extends LitElement {
       >
         <span data-trigger class="cursor-pointer"></span>
         ${this._open ? html`
-          <div class="absolute left-1/2 -translate-x-1/2 mt-2 z-50 w-72 rounded-lg p-4 shadow-lg animate-in"
-            style="background: var(--bg-card); border: 1px solid var(--border);"
+          <div class="fixed z-[9999] w-72 rounded-lg p-4 shadow-lg"
+            style="${this._pos}; background: var(--bg-card); border: 1px solid var(--border);"
             @mouseenter="${this._show}"
             @mouseleave="${this._hide}"
           >

@@ -6,12 +6,14 @@ export class AppDropdown extends LitElement {
   static properties = {
     items: { type: Array },
     open: { type: Boolean, state: true },
+    _pos: { state: true },
   };
 
   constructor() {
     super();
     this.items = [];
     this.open = false;
+    this._pos = '';
     this._userNodes = null;
     this._onDocumentClick = this._onDocumentClick.bind(this);
   }
@@ -48,7 +50,15 @@ export class AppDropdown extends LitElement {
     }
   }
 
+  _calcPos(r) {
+    const g = 4;
+    return `top:${r.bottom + g}px;left:${r.left}px`;
+  }
+
   _toggle() {
+    if (!this.open) {
+      this._pos = this._calcPos(this.getBoundingClientRect());
+    }
     this.open = !this.open;
   }
 
@@ -68,7 +78,7 @@ export class AppDropdown extends LitElement {
         <div data-dropdown-trigger @click=${() => this._toggle()} class="cursor-pointer">
         </div>
         ${this.open ? html`
-          <div class="absolute left-0 mt-1 z-50 min-w-[8rem] rounded-md p-1 shadow-md" style="border: 1px solid var(--border); background: var(--bg-card); color: var(--fg)">
+          <div class="fixed z-[9999] min-w-[8rem] rounded-md p-1 shadow-md" style="${this._pos}; border: 1px solid var(--border); background: var(--bg-card); color: var(--fg)">
             ${this.items.map(item => html`
               <button
                 @click=${() => this._selectItem(item)}

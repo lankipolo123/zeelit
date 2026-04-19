@@ -7,6 +7,7 @@ export class AppTooltip extends LitElement {
     text: { type: String },
     position: { type: String },
     _visible: { state: true },
+    _pos: { state: true },
   };
 
   constructor() {
@@ -14,6 +15,7 @@ export class AppTooltip extends LitElement {
     this.text = '';
     this.position = 'top';
     this._visible = false;
+    this._pos = '';
     this._userNodes = null;
   }
 
@@ -37,20 +39,22 @@ export class AppTooltip extends LitElement {
     }
   }
 
-  _show() { this._visible = true; }
-  _hide() { this._visible = false; }
-
-  get _tooltipClasses() {
-    const base = 'absolute z-50 px-2.5 py-1.5 text-xs rounded-md shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150';
-    const visibility = this._visible ? 'opacity-100' : 'opacity-0 invisible';
-    const positions = {
-      top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-      bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-      left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-      right: 'left-full top-1/2 -translate-y-1/2 ml-2',
-    };
-    return `${base} ${visibility} ${positions[this.position] || positions.top}`;
+  _calcPos(r) {
+    const g = 8;
+    switch (this.position) {
+      case 'bottom': return `top:${r.bottom + g}px;left:${r.left + r.width / 2}px;transform:translateX(-50%)`;
+      case 'left':   return `top:${r.top + r.height / 2}px;right:${window.innerWidth - r.left + g}px;transform:translateY(-50%)`;
+      case 'right':  return `top:${r.top + r.height / 2}px;left:${r.right + g}px;transform:translateY(-50%)`;
+      default:       return `bottom:${window.innerHeight - r.top + g}px;left:${r.left + r.width / 2}px;transform:translateX(-50%)`;
+    }
   }
+
+  _show() {
+    this._pos = this._calcPos(this.getBoundingClientRect());
+    this._visible = true;
+  }
+
+  _hide() { this._visible = false; }
 
   render() {
     return html`
@@ -58,7 +62,11 @@ export class AppTooltip extends LitElement {
         @mouseenter="${this._show}"
         @mouseleave="${this._hide}">
         <div data-tooltip-trigger></div>
-        <div class="${this._tooltipClasses}" style="background: var(--primary); color: var(--primary-fg); border: 1px solid var(--border);" role="tooltip">${this.text}</div>
+        ${this._visible ? html`
+          <div class="fixed z-[9999] px-2.5 py-1.5 text-xs rounded-md shadow-lg whitespace-nowrap pointer-events-none"
+            style="${this._pos}; background: var(--primary); color: var(--primary-fg); border: 1px solid var(--border);"
+            role="tooltip">${this.text}</div>
+        ` : ''}
       </div>
     `;
   }

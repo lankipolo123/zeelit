@@ -6,6 +6,7 @@ export class AppPopover extends LitElement {
   static properties = {
     _open: { state: true },
     position: { type: String },
+    _pos: { state: true },
   };
 
   constructor() {
@@ -13,6 +14,7 @@ export class AppPopover extends LitElement {
     this._open = false;
     this.position = 'bottom';
     this._userNodes = null;
+    this._pos = '';
     this._onDocClick = this._onDocClick.bind(this);
   }
 
@@ -46,18 +48,21 @@ export class AppPopover extends LitElement {
     if (this._open && !this.contains(e.target)) this._open = false;
   }
 
-  _toggle() {
-    this._open = !this._open;
+  _calcPos(r) {
+    const g = 8;
+    switch (this.position) {
+      case 'top':   return `bottom:${window.innerHeight - r.top + g}px;left:${r.left + r.width / 2}px;transform:translateX(-50%)`;
+      case 'left':  return `top:${r.top + r.height / 2}px;right:${window.innerWidth - r.left + g}px;transform:translateY(-50%)`;
+      case 'right': return `top:${r.top + r.height / 2}px;left:${r.right + g}px;transform:translateY(-50%)`;
+      default:      return `top:${r.bottom + g}px;left:${r.left + r.width / 2}px;transform:translateX(-50%)`;
+    }
   }
 
-  get _posClasses() {
-    const positions = {
-      top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-      bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-      left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-      right: 'left-full top-1/2 -translate-y-1/2 ml-2',
-    };
-    return positions[this.position] || positions.bottom;
+  _toggle() {
+    if (!this._open) {
+      this._pos = this._calcPos(this.getBoundingClientRect());
+    }
+    this._open = !this._open;
   }
 
   render() {
@@ -69,7 +74,7 @@ export class AppPopover extends LitElement {
           </slot>
         </button>
         ${this._open ? html`
-          <div class="absolute ${this._posClasses} z-50 w-72 rounded-md p-4 shadow-md" style="border: 1px solid var(--border); background: var(--bg-card); color: var(--fg);" data-popover-content>
+          <div class="fixed z-[9999] w-72 rounded-md p-4 shadow-md" style="${this._pos}; border: 1px solid var(--border); background: var(--bg-card); color: var(--fg);" data-popover-content>
           </div>
         ` : html`<div class="hidden" data-popover-content></div>`}
       </div>
