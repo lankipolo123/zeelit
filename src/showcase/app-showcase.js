@@ -572,6 +572,19 @@ ${usage}
       `;
     };
 
+    const compLink = (id, label) => {
+      const active = this.activePage === id;
+      const activeBg = 'var(--sidebar-active-bg, rgba(0,0,0,0.06))';
+      return html`
+        <a @click="${() => this.navigate(id)}"
+          class="px-3 py-2.5 text-[13px] cursor-pointer transition-colors rounded-md text-center truncate"
+          style="color: ${active ? 'var(--fg)' : 'var(--fg-muted)'}; font-weight: ${active ? '600' : '400'}; background: ${active ? activeBg : 'transparent'}"
+          @mouseenter=${(e) => { if (!active) e.currentTarget.style.background = 'var(--bg-hover)'; }}
+          @mouseleave=${(e) => { e.currentTarget.style.background = active ? activeBg : 'transparent'; }}
+        >${label}</a>
+      `;
+    };
+
     return html`
       <div class="flex-1 flex flex-col">
         <nav class="p-4 grid grid-cols-3 gap-2.5 content-start flex-1 overflow-hidden">
@@ -581,7 +594,7 @@ ${usage}
             ${link('layouts', 'Layouts')}
             ${link('templates', 'Templates')}
           ` : ''}
-          ${visibleComponents.map(comp => link(comp.id, comp.label))}
+          ${visibleComponents.map(comp => compLink(comp.id, comp.label))}
         </nav>
         ${totalPages > 1 ? html`
           <div class="px-3 pb-3 flex items-center justify-between shrink-0">
