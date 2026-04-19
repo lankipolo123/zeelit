@@ -394,8 +394,16 @@ export function homePage(ctx) {
                 <a @click="${() => ctx.navigate(c.id)}"
                   class="px-3 py-2.5 rounded-md text-sm cursor-pointer transition-colors text-center truncate"
                   style="border: 1px solid var(--border); color: var(--fg-muted); background: var(--bg-card)"
-                  @mouseenter=${(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--fg)'; }}
-                  @mouseleave=${(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}
+                  @mouseenter=${(e) => {
+                    e.currentTarget.style.borderColor = 'var(--primary)';
+                    e.currentTarget.style.color = 'var(--fg)';
+                    e.currentTarget.style.background = 'var(--bg-muted)';
+                  }}
+                  @mouseleave=${(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.color = 'var(--fg-muted)';
+                    e.currentTarget.style.background = 'var(--bg-card)';
+                  }}
                 >${c.label}</a>
               `)}
             </div>
