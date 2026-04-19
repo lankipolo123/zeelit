@@ -89,8 +89,9 @@ body {
             <code class="px-1.5 py-0.5 rounded text-xs" style="color: var(--fg); background: var(--bg-muted)">src/components/</code> directory.
           </p>
           <p class="text-sm mt-2" style="color: var(--fg-muted)">
-            Components that show icons also need <code class="px-1.5 py-0.5 rounded text-xs" style="color: var(--fg); background: var(--bg-muted)">src/lib/icons.js</code>
-            and <code class="px-1.5 py-0.5 rounded text-xs" style="color: var(--fg); background: var(--bg-muted)">src/components/app-icon.js</code> — copy those too.
+            Components that show icons rely on the <code class="px-1.5 py-0.5 rounded text-xs" style="color: var(--fg); background: var(--bg-muted)">&lt;app-icon&gt;</code> element,
+            which is registered by <code class="px-1.5 py-0.5 rounded text-xs" style="color: var(--fg); background: var(--bg-muted)">src/lib/icons.js</code>.
+            Copy that file too, and load it <strong style="color: var(--fg-heading)">before</strong> any component scripts.
           </p>
         </div>
 
@@ -98,7 +99,10 @@ body {
         <div>
           <h2 class="text-xl font-semibold mb-3" style="color: var(--fg-heading)">5. Import and use</h2>
           <p class="text-sm mb-2" style="color: var(--fg-muted)">Import the component file once, then use its custom element tag anywhere in your HTML or Lit templates.</p>
-          <div class="code-block">import '@/components/app-button.js';
+          <div class="code-block">// Load icons first — registers the &lt;app-icon&gt; element used by many components
+import '@/lib/icons.js';
+
+import '@/components/app-button.js';
 import '@/components/app-input.js';
 
 // In your HTML or Lit render():
@@ -115,6 +119,8 @@ import '@/components/app-input.js';
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
   &lt;link rel="stylesheet" href="./style.css"&gt;
+  &lt;!-- icons.js must come first — it registers &lt;app-icon&gt; --&gt;
+  &lt;script type="module" src="./lib/icons.js"&gt;&lt;/script&gt;
   &lt;script type="module" src="./components/app-button.js"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;

@@ -33,10 +33,16 @@ export class AppSidebarNav extends LitElement {
     return this.items || [];
   }
 
+  // Resolve a stable ID from an item regardless of which key the caller used.
+  _itemId(item) {
+    return item.id ?? item.value ?? item.label ?? '';
+  }
+
   _select(item) {
-    this.active = item.id || item.label;
+    const id = this._itemId(item);
+    this.active = id;
     this.dispatchEvent(new CustomEvent('app-change', {
-      detail: { value: this.active, item },
+      detail: { value: id, item },
       bubbles: true,
       composed: true,
     }));
@@ -90,18 +96,19 @@ export class AppSidebarNav extends LitElement {
 
   _renderHeading(item) {
     if (this.collapsed) return '';
+    const text = item.label ?? item.heading ?? '';
     return html`
       <p
         class="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider"
         style="color: var(--fg-subtle)"
       >
-        ${item.heading}
+        ${text}
       </p>
     `;
   }
 
   _renderNavItem(item) {
-    const id = item.id || item.label;
+    const id = this._itemId(item);
     const isActive = id === this.active;
     const layoutClass = this.collapsed ? 'justify-center px-0 py-2.5' : 'px-3 py-2';
 
@@ -115,7 +122,7 @@ export class AppSidebarNav extends LitElement {
         @click=${() => this._select(item)}
       >
         ${item.icon ? html`
-          <span class="text-base shrink-0">${item.icon}</span>
+          <app-icon name="${item.icon}" class="w-4 h-4 shrink-0"></app-icon>
         ` : ''}
 
         ${!this.collapsed ? html`
@@ -170,8 +177,9 @@ export class AppSidebarNav extends LitElement {
         <!-- Nav items -->
         <nav class="flex-1 overflow-y-auto p-2 space-y-0.5">
           ${items.map(item => {
-            if (item.separator) return this._renderSeparator();
-            if (item.heading) return this._renderHeading(item);
+            const type = item.type;
+            if (type === 'separator' || item.separator) return this._renderSeparator();
+            if (type === 'heading' || item.heading) return this._renderHeading(item);
             return this._renderNavItem(item);
           })}
         </nav>

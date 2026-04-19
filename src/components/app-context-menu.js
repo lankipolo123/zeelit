@@ -48,9 +48,9 @@ export class AppContextMenu extends LitElement {
 
   _onContext(e) {
     e.preventDefault();
-    const rect = this.getBoundingClientRect();
-    this._x = e.clientX - rect.left;
-    this._y = e.clientY - rect.top;
+    // Use viewport coordinates so the menu escapes any overflow:hidden container.
+    this._x = e.clientX;
+    this._y = e.clientY;
     this._open = true;
   }
 
@@ -67,9 +67,9 @@ export class AppContextMenu extends LitElement {
       <div class="relative" @contextmenu="${this._onContext}">
         <div data-ctx-trigger></div>
         ${this._open ? html`
-          <div class="absolute z-50 min-w-[160px] rounded-md py-1 shadow-md"
+          <div class="fixed z-[9999] min-w-[160px] rounded-md py-1 shadow-md"
             style="left: ${this._x}px; top: ${this._y}px; background: var(--bg-card); border: 1px solid var(--border);">
-            ${this.items.map((item, i) =>
+            ${this.items.map((item) =>
               item === '-'
                 ? html`<div class="my-1 h-px" style="background: var(--border)"></div>`
                 : html`
