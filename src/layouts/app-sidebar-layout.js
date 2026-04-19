@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 
 export class AppSidebarLayout extends LitElement {
   static properties = {
-    sidebarWidth: { type: String },
+    sidebarWidth: { type: String, attribute: 'sidebar-width' },
   };
 
   static styles = css`

@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import centerCardSource from '../layouts/app-center-card-layout.js?raw';
 import sidebarLayoutSource from '../layouts/app-sidebar-layout.js?raw';
+import splitLayoutSource from '../layouts/app-split-layout.js?raw';
 
 /* ─── Page ─── */
 
@@ -67,28 +68,29 @@ export function templatesPage(ctx) {
   }
 
   /* ══════════════════════════════════════════════════
-     Template 1: Login — Right Card Layout
+     Template 1: Login — app-split-layout
      ══════════════════════════════════════════════════ */
 
-  const loginCode = `<!-- Login page: two-panel split with form card on the right -->
-<div style="display: flex; height: 100vh; background: var(--bg);">
-  <!-- Left branding panel -->
-  <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 3rem; background: var(--bg-card); border-right: 1px solid var(--border);">
+  const loginCode = `<!-- Login page using app-split-layout: branding left, form right -->
+<app-split-layout style="height: 100vh;">
+
+  <!-- Left: Branding panel -->
+  <div slot="left" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem; height: 100%; width: 100%;">
     <div style="max-width: 360px; text-align: center;">
       <div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; background: var(--logo-bg); margin-bottom: 1.5rem;">
         <span style="font-weight: 800; font-size: 1.25rem; color: var(--logo-fg);">Z</span>
       </div>
-      <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--fg-heading); line-height: 1.2;">ZeeLit</h1>
+      <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--fg-heading); line-height: 1.2; margin: 0;">ZeeLit</h1>
       <p style="font-size: 0.9rem; color: var(--fg-muted); margin-top: 0.75rem; line-height: 1.5;">
         Build beautiful interfaces with our modern component library. Fast, accessible, and themeable.
       </p>
     </div>
   </div>
 
-  <!-- Right login form panel -->
-  <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem;">
+  <!-- Right: Login form panel -->
+  <div slot="right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem; height: 100%; width: 100%;">
     <div style="width: 100%; max-width: 380px;">
-      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--fg-heading);">Welcome back</h2>
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Welcome back</h2>
       <p style="font-size: 0.875rem; color: var(--fg-muted); margin-top: 0.25rem;">Sign in to your account</p>
 
       <div style="margin-top: 1.5rem;">
@@ -120,9 +122,11 @@ export function templatesPage(ctx) {
       </p>
     </div>
   </div>
-</div>`;
+
+</app-split-layout>`;
 
   const loginFiles = [
+    { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js', code: splitLayoutSource },
     {
       name: 'index.html', path: 'index.html', code: `<!DOCTYPE html>
 <html lang="en">
@@ -131,6 +135,7 @@ export function templatesPage(ctx) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login — ZeeLit</title>
   <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./layouts/app-split-layout.js"><\/script>
   <script type="module" src="./components/app-input.js"><\/script>
   <script type="module" src="./components/app-button.js"><\/script>
   <script type="module" src="./components/app-checkbox.js"><\/script>
@@ -144,17 +149,17 @@ ${loginCode}
   ];
 
   /* ══════════════════════════════════════════════════
-     Template 2: Dashboard — Sidebar with Pages + Logout Dialog
+     Template 2: Dashboard — app-sidebar-layout
      ══════════════════════════════════════════════════ */
 
-  const dashboardCode = `<!-- Dashboard: sidebar nav + content area with logout dialog -->
-<div style="display: flex; height: 100vh; background: var(--bg); color: var(--fg);">
+  const dashboardCode = `<!-- Dashboard using app-sidebar-layout: sidebar nav + main content area -->
+<app-sidebar-layout sidebar-width="260px" style="height: 100vh;">
 
-  <!-- Sidebar -->
-  <aside style="width: 260px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: var(--bg-card);">
+  <!-- Sidebar slot -->
+  <div slot="sidebar" style="display: flex; flex-direction: column; height: 100%;">
 
     <!-- Brand -->
-    <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1.25rem 1.25rem; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1.25rem; border-bottom: 1px solid var(--border);">
       <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
         <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
       </div>
@@ -178,11 +183,11 @@ ${loginCode}
         { "value": "billing", "label": "Billing", "icon": "credit-card" }
       ]'
       active="dashboard"
-      style="flex: 1; overflow-y: auto;"
+      style="flex: 1; min-height: 0; overflow-y: auto;"
     ></app-sidebar-nav>
 
     <!-- User footer -->
-    <div style="padding: 0.875rem 1.25rem; border-top: 1px solid var(--border);">
+    <div style="padding: 0.875rem 1.25rem; border-top: 1px solid var(--border); flex-shrink: 0;">
       <div style="display: flex; align-items: center; gap: 0.625rem;">
         <app-avatar fallback="JD" size="sm"></app-avatar>
         <div style="flex: 1; min-width: 0;">
@@ -195,10 +200,10 @@ ${loginCode}
         </app-button>
       </div>
     </div>
-  </aside>
+  </div>
 
-  <!-- Main content area -->
-  <main style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+  <!-- Content slot -->
+  <div slot="content" style="display: flex; flex-direction: column; height: 100%;">
 
     <!-- Top bar -->
     <header style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
@@ -210,8 +215,7 @@ ${loginCode}
     </header>
 
     <!-- Scrollable page body -->
-    <div style="flex: 1; padding: 1.5rem; overflow-y: auto;">
-      <!-- Stat cards -->
+    <div style="flex: 1; padding: 1.5rem; overflow-y: auto; min-height: 0;">
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
         <app-stat label="Total Revenue" value="$45,231" trend="up" trend-value="12%"></app-stat>
         <app-stat label="Subscriptions" value="2,350" trend="up" trend-value="8%"></app-stat>
@@ -219,7 +223,6 @@ ${loginCode}
         <app-stat label="Bounce Rate" value="24.5%" trend="down" trend-value="5%"></app-stat>
       </div>
 
-      <!-- Activity card -->
       <app-card card-title="Recent Activity">
         <app-timeline items='[
           { "time": "2 min ago", "title": "New user signed up", "description": "jane@example.com created an account", "color": "var(--primary)" },
@@ -229,21 +232,23 @@ ${loginCode}
         ]'></app-timeline>
       </app-card>
     </div>
-  </main>
+  </div>
 
-  <!-- Logout dialog (outside layout so it overlays properly) -->
-  <app-dialog id="logout-dialog"
-    dialog-title="Log out"
-    description="Are you sure you want to log out? You will need to sign in again.">
-    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
-      <app-button variant="outline"
-        onclick="document.getElementById('logout-dialog').close()">Cancel</app-button>
-      <app-button variant="destructive">Log Out</app-button>
-    </div>
-  </app-dialog>
-</div>`;
+</app-sidebar-layout>
+
+<!-- Logout dialog (outside layout so it overlays properly) -->
+<app-dialog id="logout-dialog"
+  dialog-title="Log out"
+  description="Are you sure you want to log out? You will need to sign in again.">
+  <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+    <app-button variant="outline"
+      onclick="document.getElementById('logout-dialog').close()">Cancel</app-button>
+    <app-button variant="destructive">Log Out</app-button>
+  </div>
+</app-dialog>`;
 
   const dashboardFiles = [
+    { name: 'app-sidebar-layout.js', path: 'layouts/app-sidebar-layout.js', code: sidebarLayoutSource },
     {
       name: 'index.html', path: 'index.html', code: `<!DOCTYPE html>
 <html lang="en">
@@ -252,6 +257,7 @@ ${loginCode}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — ZeeLit</title>
   <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./layouts/app-sidebar-layout.js"><\/script>
   <script type="module" src="./components/app-sidebar-nav.js"><\/script>
   <script type="module" src="./components/app-avatar.js"><\/script>
   <script type="module" src="./components/app-button.js"><\/script>
@@ -292,11 +298,12 @@ ${dashboardCode}
       ${renderSection(
     'template-login',
     'Login Page',
-    'Two-panel split with branding on the left and a login form on the right.',
+    'Two-panel split with branding on the left and a login form on the right. Uses app-split-layout.',
     html`
-          <div style="display: flex; height: 500px; background: var(--bg); border-radius: 0.5rem; overflow: hidden; border: 1px solid var(--border);">
-            <!-- Left branding panel -->
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; background: var(--bg-card); border-right: 1px solid var(--border);">
+          <app-split-layout style="height: 500px; border-radius: 0.5rem; overflow: hidden;">
+
+            <!-- Left: Branding -->
+            <div slot="left" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; height: 100%; width: 100%;">
               <div style="max-width: 300px; text-align: center;">
                 <div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; background: var(--logo-bg); margin-bottom: 1.25rem;">
                   <span style="font-weight: 800; font-size: 1.25rem; color: var(--logo-fg);">Z</span>
@@ -308,8 +315,8 @@ ${dashboardCode}
               </div>
             </div>
 
-            <!-- Right login form -->
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+            <!-- Right: Login form -->
+            <div slot="right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; height: 100%; width: 100%;">
               <div style="width: 100%; max-width: 340px;">
                 <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Welcome back</h2>
                 <p style="font-size: 0.8rem; color: var(--fg-muted); margin: 0.25rem 0 0;">Sign in to your account</p>
@@ -343,7 +350,7 @@ ${dashboardCode}
                 </p>
               </div>
             </div>
-          </div>
+          </app-split-layout>
         `,
     loginCode,
     {
@@ -358,23 +365,24 @@ ${dashboardCode}
       ${renderSection(
     'template-dashboard',
     'Dashboard with Sidebar',
-    'Sidebar navigation with grouped pages, user profile, stat cards, activity timeline, and logout dialog.',
+    'Sidebar navigation with grouped pages, user profile, stat cards, activity timeline, and logout dialog. Uses app-sidebar-layout.',
     html`
-          <div style="display: flex; height: 550px; background: var(--bg); color: var(--fg); border-radius: 0.5rem; overflow: hidden; border: 1px solid var(--border); position: relative;">
+          <div style="position: relative; height: 550px; border-radius: 0.5rem; overflow: hidden;">
+            <app-sidebar-layout sidebar-width="240px" style="height: 100%;">
 
-            <!-- Sidebar -->
-            <aside style="width: 240px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: var(--bg-card);">
-              <!-- Brand -->
-              <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1rem 1rem; border-bottom: 1px solid var(--border);">
-                <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
-                  <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
+              <!-- Sidebar -->
+              <div slot="sidebar" style="display: flex; flex-direction: column; height: 100%;">
+                <!-- Brand -->
+                <div style="display: flex; align-items: center; gap: 0.625rem; padding: 1rem; border-bottom: 1px solid var(--border); flex-shrink: 0;">
+                  <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--logo-bg); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-weight: 700; font-size: 0.75rem; color: var(--logo-fg);">Z</span>
+                  </div>
+                  <span style="font-weight: 700; color: var(--fg);">My App</span>
                 </div>
-                <span style="font-weight: 700; color: var(--fg);">My App</span>
-              </div>
 
-              <!-- Nav -->
-              <app-sidebar-nav
-                .items="${[
+                <!-- Nav -->
+                <app-sidebar-nav
+                  .items="${[
         { type: 'heading', label: 'Main' },
         { value: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard', badge: '3' },
         { value: 'analytics', label: 'Analytics', icon: 'bar-chart-2' },
@@ -388,58 +396,61 @@ ${dashboardCode}
         { value: 'settings', label: 'Settings', icon: 'settings' },
         { value: 'billing', label: 'Billing', icon: 'credit-card' },
       ]}"
-                active="dashboard"
-                style="flex: 1; overflow-y: auto;"
-              ></app-sidebar-nav>
+                  active="dashboard"
+                  style="flex: 1; min-height: 0; overflow-y: auto;"
+                ></app-sidebar-nav>
 
-              <!-- User footer -->
-              <div style="padding: 0.75rem 1rem; border-top: 1px solid var(--border);">
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                  <app-avatar fallback="JD" size="sm"></app-avatar>
-                  <div style="flex: 1; min-width: 0;">
-                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--fg);">John Doe</div>
-                    <div style="font-size: 0.7rem; color: var(--fg-muted);">john@example.com</div>
-                  </div>
-                  <app-button variant="ghost" size="icon" @click="${(e) => {
-        const dlg = e.target.closest('[style*="display: flex"]').querySelector('#tpl-logout-dialog');
+                <!-- User footer -->
+                <div style="padding: 0.75rem 1rem; border-top: 1px solid var(--border); flex-shrink: 0;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <app-avatar fallback="JD" size="sm"></app-avatar>
+                    <div style="flex: 1; min-width: 0;">
+                      <div style="font-size: 0.8rem; font-weight: 600; color: var(--fg);">John Doe</div>
+                      <div style="font-size: 0.7rem; color: var(--fg-muted);">john@example.com</div>
+                    </div>
+                    <app-button variant="ghost" size="icon" @click="${(e) => {
+        const dlg = e.target.getRootNode().host?.closest('[style*="position: relative"]')?.querySelector('#tpl-logout-dialog')
+          || document.querySelector('#tpl-logout-dialog');
         if (dlg) dlg.show();
       }}">
-                    <app-icon name="log-out" class="w-4 h-4"></app-icon>
-                  </app-button>
+                      <app-icon name="log-out" class="w-4 h-4"></app-icon>
+                    </app-button>
+                  </div>
                 </div>
               </div>
-            </aside>
 
-            <!-- Main content -->
-            <main style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
-              <!-- Top bar -->
-              <header style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
-                <div>
-                  <h1 style="font-size: 1.125rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Dashboard</h1>
-                  <p style="font-size: 0.75rem; color: var(--fg-muted); margin: 0.125rem 0 0;">Welcome back, John</p>
-                </div>
-                <app-searchbar placeholder="Search..." style="width: 200px;"></app-searchbar>
-              </header>
+              <!-- Content -->
+              <div slot="content" style="display: flex; flex-direction: column; height: 100%;">
+                <!-- Top bar -->
+                <header style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
+                  <div>
+                    <h1 style="font-size: 1.125rem; font-weight: 700; color: var(--fg-heading); margin: 0;">Dashboard</h1>
+                    <p style="font-size: 0.75rem; color: var(--fg-muted); margin: 0.125rem 0 0;">Welcome back, John</p>
+                  </div>
+                  <app-searchbar placeholder="Search..." style="width: 200px;"></app-searchbar>
+                </header>
 
-              <!-- Scrollable body -->
-              <div style="flex: 1; padding: 1.25rem; overflow-y: auto;">
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
-                  <app-stat label="Total Revenue" value="$45,231" trend="up" trend-value="12%"></app-stat>
-                  <app-stat label="Subscriptions" value="2,350" trend="up" trend-value="8%"></app-stat>
-                  <app-stat label="Active Users" value="1,247" trend="down" trend-value="3%"></app-stat>
-                  <app-stat label="Bounce Rate" value="24.5%" trend="down" trend-value="5%"></app-stat>
-                </div>
+                <!-- Scrollable body -->
+                <div style="flex: 1; min-height: 0; padding: 1.25rem; overflow-y: auto;">
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <app-stat label="Total Revenue" value="$45,231" trend="up" trend-value="12%"></app-stat>
+                    <app-stat label="Subscriptions" value="2,350" trend="up" trend-value="8%"></app-stat>
+                    <app-stat label="Active Users" value="1,247" trend="down" trend-value="3%"></app-stat>
+                    <app-stat label="Bounce Rate" value="24.5%" trend="down" trend-value="5%"></app-stat>
+                  </div>
 
-                <app-card card-title="Recent Activity">
-                  <app-timeline .items="${[
+                  <app-card card-title="Recent Activity">
+                    <app-timeline .items="${[
         { time: '2 min ago', title: 'New user signed up', description: 'jane@example.com created an account', color: 'var(--primary)' },
         { time: '1 hour ago', title: 'Payment received', description: '$99.00 from Pro plan subscription' },
         { time: '3 hours ago', title: 'Blog post published', description: 'Getting Started with ZeeLit' },
         { time: 'Yesterday', title: 'Server update', description: 'Deployed v2.4.1 to production' },
       ]}"></app-timeline>
-                </app-card>
+                  </app-card>
+                </div>
               </div>
-            </main>
+
+            </app-sidebar-layout>
 
             <!-- Logout dialog -->
             <app-dialog id="tpl-logout-dialog"
