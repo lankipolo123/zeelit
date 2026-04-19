@@ -395,8 +395,8 @@ export function homePage(ctx) {
                   class="px-3 py-2.5 rounded-md text-sm cursor-pointer transition-colors text-center truncate"
                   style="border: 1px solid var(--border); color: var(--fg-muted); background: var(--bg-card)"
                   @mouseenter=${(e) => {
-                    e.currentTarget.style.borderColor = 'var(--primary)';
-                    e.currentTarget.style.color = 'var(--fg)';
+                    e.currentTarget.style.borderColor = '#f59e0b';
+                    e.currentTarget.style.color = '#f59e0b';
                     e.currentTarget.style.background = 'var(--bg-muted)';
                   }}
                   @mouseleave=${(e) => {
