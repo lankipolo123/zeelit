@@ -737,7 +737,7 @@ ${usage}
 
           <!-- 3: Page content -->
           <main class="flex-1 overflow-y-auto">
-            <div class="max-w-5xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 md:py-10 lg:py-12">
+            <div class="w-full px-4 sm:px-6 md:px-8 xl:px-12 py-8 md:py-10 lg:py-12">
               ${this._renderPage()}
             </div>
           </main>
