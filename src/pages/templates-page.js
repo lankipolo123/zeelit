@@ -185,19 +185,34 @@ import './pages/login-page.js';
 export const defaultRoute = '/login';
 
 export const routes = {
-  '/login':    () => html\`<login-page slot="right"></login-page>\`,
-  // '/register': () => html\`<register-page slot="left"></register-page>\`,
+  '/login':    () => html\`<login-page></login-page>\`,
+  // '/register': () => html\`<register-page></register-page>\`,
 };`;
 
   const authLayoutCode = `// layouts/auth-layout.js
 import { LitElement, html, css } from 'lit';
 import { routes, defaultRoute } from '../router.js';
-import 'zeelit/layouts/app-split-layout.js';
 import '../components/app-brand.js';
 
 export class AuthLayout extends LitElement {
   static styles = css\`
-    :host { display: block; width: 100%; height: 100vh; }
+    :host {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .panel + .panel {
+      border-left: 1px solid var(--border);
+    }
   \`;
 
   static properties = {
@@ -213,15 +228,11 @@ export class AuthLayout extends LitElement {
   render() {
     const page = (routes[this.route] ?? routes[defaultRoute])();
     return this.brandSide === 'right' ? html\`
-      <app-split-layout>
-        \${page}
-        <app-brand slot="right"></app-brand>
-      </app-split-layout>
+      <div class="panel">\${page}</div>
+      <div class="panel"><app-brand></app-brand></div>
     \` : html\`
-      <app-split-layout>
-        <app-brand slot="left"></app-brand>
-        \${page}
-      </app-split-layout>
+      <div class="panel"><app-brand></app-brand></div>
+      <div class="panel">\${page}</div>
     \`;
   }
 }
@@ -360,7 +371,6 @@ customElements.define('login-page', LoginPage);`;
     { name: 'login-page.js',       path: 'pages/login-page.js',           code: loginPageCode },
     { name: 'app-brand.js',        path: 'components/app-brand.js',       code: appBrandCode },
     { name: 'login-form.js',       path: 'components/login-form.js',      code: loginFormCode },
-    { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js',   code: splitLayoutSource },
     { name: 'app-form.js',         path: 'components/app-form.js',        code: formSource },
     { name: 'app-input.js',        path: 'components/app-input.js',       code: inputSource },
     { name: 'app-button.js',       path: 'components/app-button.js',      code: buttonSource },
