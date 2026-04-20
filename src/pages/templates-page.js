@@ -85,14 +85,27 @@ export function templatesPage(ctx) {
   }
 
   /* ══════════════════════════════════════════════════
-     Shared: main.js + index.html
-     These are the same for every project — routes.js
-     is what changes per template.
+     Shared boilerplate
      ══════════════════════════════════════════════════ */
+
+  const indexHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My App</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="module" src="./main.js"><\/script>
+</head>
+<body>
+  <my-app></my-app>
+</body>
+</html>`;
 
   const mainJs = `// main.js
 import { LitElement, html, css } from 'lit';
-import { routes, defaultRoute } from './routes.js';
+import { routes, defaultRoute } from './router.js';
+import './app-layout.js';
 
 class MyApp extends LitElement {
   static styles = css\`
@@ -109,10 +122,40 @@ class MyApp extends LitElement {
     });
   }
 
-  navigate(path) {
-    window.location.hash = path;
-    this.route = path;
+  render() {
+    return html\`<app-layout .route=\${this.route}></app-layout>\`;
   }
+}
+
+customElements.define('my-app', MyApp);`;
+
+  /* ══════════════════════════════════════════════════
+     Template 1 — Login
+     ══════════════════════════════════════════════════ */
+
+  const loginRouterJs = `// router.js
+import { html } from 'lit';
+import 'zeelit/lib/icons.js';
+import 'zeelit/layouts/app-split-layout.js';
+import './pages/login-page.js';
+
+export const defaultRoute = '/login';
+
+export const routes = {
+  '/login': () => html\`<login-page></login-page>\`,
+  // '/signup': () => html\`<signup-page></signup-page>\`,
+};`;
+
+  const loginAppLayoutJs = `// app-layout.js
+import { LitElement, html, css } from 'lit';
+import { routes, defaultRoute } from './router.js';
+
+export class AppLayout extends LitElement {
+  static styles = css\`
+    :host { display: block; width: 100%; height: 100%; }
+  \`;
+
+  static properties = { route: { type: String } };
 
   render() {
     const page = routes[this.route] ?? routes[defaultRoute];
@@ -120,53 +163,26 @@ class MyApp extends LitElement {
   }
 }
 
-customElements.define('my-app', MyApp);`;
-
-  const indexHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My App</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script type="module" src="./main.js"><\/script>
-</head>
-<body>
-  <my-app></my-app>
-</body>
-</html>`;
-
-  /* ══════════════════════════════════════════════════
-     Template 1 — Login
-     ══════════════════════════════════════════════════ */
-
-  const loginRoutesJs = `// routes.js
-import { html } from 'lit';
-import '@/lib/icons.js';
-import '@/layouts/app-split-layout.js';
-import '@/pages/login-page.js';
-// Add more pages here as your app grows:
-// import '@/pages/signup-page.js';
-// import '@/pages/dashboard-page.js';
-
-export const defaultRoute = '/login';
-
-export const routes = {
-  '/login':  () => html\`<login-page></login-page>\`,
-  // '/signup':    () => html\`<signup-page></signup-page>\`,
-  // '/dashboard': () => html\`<dashboard-page></dashboard-page>\`,
-};`;
+customElements.define('app-layout', AppLayout);`;
 
   const loginPageCode = `// pages/login-page.js
 import { LitElement, html, css } from 'lit';
-import '@/layouts/app-split-layout.js';
-import '@/components/app-input.js';
-import '@/components/app-button.js';
-import '@/components/app-checkbox.js';
+import 'zeelit/layouts/app-split-layout.js';
+import 'zeelit/components/app-input.js';
+import 'zeelit/components/app-button.js';
+import 'zeelit/components/app-checkbox.js';
 
 export class LoginPage extends LitElement {
   static styles = css\`
     :host { display: block; height: 100vh; }
+    .panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
+    .brand { max-width:320px; text-align:center; }
+    .logo-mark { display:inline-flex; align-items:center; justify-content:center; width:3.5rem; height:3.5rem; border-radius:0.75rem; background:var(--logo-bg); margin-bottom:1.5rem; }
+    .form-inner { width:100%; max-width:380px; }
+    form { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
+    .divider { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; }
+    .divider hr { flex:1; border:none; border-top:1px solid var(--border); }
+    .form-row { display:flex; align-items:center; justify-content:space-between; }
   \`;
 
   _onSubmit(e) {
@@ -178,39 +194,35 @@ export class LoginPage extends LitElement {
     return html\`
       <app-split-layout>
 
-        <!-- Left: Branding -->
-        <div slot="left" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;height:100%;width:100%;">
-          <div style="max-width:360px;text-align:center;">
-            <div style="display:inline-flex;align-items:center;justify-content:center;width:3.5rem;height:3.5rem;border-radius:0.75rem;background:var(--logo-bg);margin-bottom:1.5rem;">
+        <div slot="left" class="panel">
+          <div class="brand">
+            <div class="logo-mark">
               <span style="font-weight:800;font-size:1.25rem;color:var(--logo-fg);">Z</span>
             </div>
-            <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);line-height:1.2;margin:0;">My App</h1>
+            <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);margin:0;">My App</h1>
             <p style="font-size:0.9rem;color:var(--fg-muted);margin-top:0.75rem;line-height:1.5;">
               Build beautiful interfaces with our modern component library.
             </p>
           </div>
         </div>
 
-        <!-- Right: Login form -->
-        <div slot="right" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;height:100%;width:100%;">
-          <div style="width:100%;max-width:380px;">
+        <div slot="right" class="panel">
+          <div class="form-inner">
             <h2 style="font-size:1.5rem;font-weight:700;color:var(--fg-heading);margin:0;">Welcome back</h2>
-            <p style="font-size:0.875rem;color:var(--fg-muted);margin-top:0.25rem;">Sign in to your account</p>
+            <p style="font-size:0.875rem;color:var(--fg-muted);margin:0.25rem 0 0;">Sign in to your account</p>
 
-            <form @submit=\${this._onSubmit} style="margin-top:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+            <form @submit=\${this._onSubmit}>
               <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
               <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
-              <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div class="form-row">
                 <app-checkbox label="Remember me"></app-checkbox>
                 <a style="font-size:0.8rem;color:var(--primary);cursor:pointer;">Forgot password?</a>
               </div>
               <app-button type="submit" style="width:100%;display:block;">Sign In</app-button>
             </form>
 
-            <div style="display:flex;align-items:center;gap:1rem;margin:1.5rem 0;">
-              <div style="flex:1;height:1px;background:var(--border);"></div>
-              <span style="font-size:0.75rem;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">or</span>
-              <div style="flex:1;height:1px;background:var(--border);"></div>
+            <div class="divider">
+              <hr /><span style="font-size:0.75rem;color:var(--fg-muted);">or</span><hr />
             </div>
 
             <app-button variant="outline" style="width:100%;display:block;">Continue with Google</app-button>
@@ -230,11 +242,11 @@ export class LoginPage extends LitElement {
 customElements.define('login-page', LoginPage);`;
 
   const loginFiles = [
-    { name: 'routes.js',            path: 'routes.js',                       code: loginRoutesJs },
-    { name: 'main.js',              path: 'main.js',                         code: mainJs },
-    { name: 'index.html',           path: 'index.html',                      code: indexHtml },
-    { name: 'login-page.js',        path: 'pages/login-page.js',             code: loginPageCode },
-    { name: 'app-split-layout.js',  path: 'layouts/app-split-layout.js',     code: splitLayoutSource },
+    { name: 'index.html',          path: 'index.html',               code: indexHtml },
+    { name: 'main.js',             path: 'main.js',                  code: mainJs },
+    { name: 'router.js',           path: 'router.js',                code: loginRouterJs },
+    { name: 'app-layout.js',       path: 'app-layout.js',            code: loginAppLayoutJs },
+    { name: 'login-page.js',       path: 'pages/login-page.js',      code: loginPageCode },
   ];
 
   const loginPreviewFn = (fullscreen) => html`
@@ -279,17 +291,16 @@ customElements.define('login-page', LoginPage);`;
      Template 2 — Dashboard
      ══════════════════════════════════════════════════ */
 
-  const dashboardRoutesJs = `// routes.js
+  const dashboardRouterJs = `// router.js
 import { html } from 'lit';
-import '@/lib/icons.js';
-import '@/layouts/app-sidebar-layout.js';
-import '@/pages/login-page.js';
-import '@/pages/dashboard-page.js';
-// Add more pages here as your app grows:
-// import '@/pages/reports-page.js';
-// import '@/pages/settings-page.js';
+import 'zeelit/lib/icons.js';
+import './pages/login-page.js';
+import './pages/dashboard-page.js';
+// import './pages/reports-page.js';
+// import './pages/settings-page.js';
 
 export const defaultRoute = '/login';
+export const publicRoutes  = ['/login'];
 
 export const routes = {
   '/login':     () => html\`<login-page></login-page>\`,
@@ -298,140 +309,87 @@ export const routes = {
   // '/settings':  () => html\`<settings-page></settings-page>\`,
 };`;
 
-  const dashboardPageCode = `// pages/dashboard-page.js
+  const dashboardAppLayoutJs = `// app-layout.js
 import { LitElement, html, css } from 'lit';
-import '@/layouts/app-sidebar-layout.js';
-import '@/components/app-sidebar-nav.js';
-import '@/components/app-avatar.js';
-import '@/components/app-button.js';
-import '@/components/app-searchbar.js';
-import '@/components/app-stat.js';
-import '@/components/app-card.js';
-import '@/components/app-timeline.js';
-import '@/components/app-dialog.js';
+import { routes, defaultRoute, publicRoutes } from './router.js';
+import 'zeelit/layouts/app-sidebar-layout.js';
+import 'zeelit/components/app-sidebar-nav.js';
+import 'zeelit/components/app-avatar.js';
+import 'zeelit/components/app-button.js';
+import 'zeelit/components/app-dialog.js';
 
-export class DashboardPage extends LitElement {
-  static properties = {
-    loading: { type: Boolean },
-    stats:   { type: Object },
-    error:   { type: String },
-  };
+const NAV_ITEMS = [
+  { type: 'heading', label: 'Main' },
+  { value: '/dashboard', label: 'Dashboard', icon: 'layout-dashboard' },
+  { value: '/reports',   label: 'Reports',   icon: 'file-text' },
+  { value: '/users',     label: 'Users',     icon: 'users' },
+  { type: 'separator' },
+  { value: '/settings',  label: 'Settings',  icon: 'settings' },
+];
 
+export class AppLayout extends LitElement {
   static styles = css\`
-    :host { display: block; height: 100vh; }
+    :host { display: block; width: 100%; height: 100vh; }
+    .logo { display:flex; align-items:center; gap:0.625rem; padding:1.25rem; border-bottom:1px solid var(--border); flex-shrink:0; }
+    .logo-mark { width:2rem; height:2rem; border-radius:0.5rem; background:var(--logo-bg); display:flex; align-items:center; justify-content:center; }
+    .user-row { display:flex; align-items:center; gap:0.625rem; padding:0.875rem 1.25rem; border-top:1px solid var(--border); flex-shrink:0; }
+    .user-info { flex:1; min-width:0; }
+    .user-name { font-size:0.8rem; font-weight:600; color:var(--fg); }
+    .user-email { font-size:0.7rem; color:var(--fg-muted); }
   \`;
 
-  constructor() {
-    super();
-    this.loading = false;
-    this.error   = '';
-    this.stats   = { revenue: '$45,231', users: '2,350', active: '1,247', bounce: '24.5%' };
-  }
+  static properties = { route: { type: String } };
 
-  async connectedCallback() {
-    super.connectedCallback();
-    // await this.loadStats();
+  _navigate(e) {
+    window.location.hash = e.detail.value;
   }
-
-  // async loadStats() {
-  //   this.loading = true;
-  //   try {
-  //     this.stats = await myService.getStats();
-  //   } catch (e) {
-  //     this.error = 'Failed to load stats.';
-  //   } finally {
-  //     this.loading = false;
-  //   }
-  // }
 
   _showLogout() {
-    this.renderRoot.querySelector('#logout-dialog').show();
+    this.renderRoot.querySelector('app-dialog')?.show();
   }
 
   render() {
+    const page = (routes[this.route] ?? routes[defaultRoute])();
+
+    if (publicRoutes.includes(this.route)) return page;
+
     return html\`
       <app-sidebar-layout sidebar-width="260px">
 
-        <!-- Sidebar -->
         <div slot="sidebar" style="display:flex;flex-direction:column;height:100%;">
-
-          <div style="display:flex;align-items:center;gap:0.625rem;padding:1.25rem;border-bottom:1px solid var(--border);flex-shrink:0;">
-            <div style="width:2rem;height:2rem;border-radius:0.5rem;background:var(--logo-bg);display:flex;align-items:center;justify-content:center;">
+          <div class="logo">
+            <div class="logo-mark">
               <span style="font-weight:700;font-size:0.75rem;color:var(--logo-fg);">Z</span>
             </div>
             <span style="font-weight:700;font-size:1rem;color:var(--fg);">My App</span>
           </div>
 
           <app-sidebar-nav
-            .items=\${[
-              { type: 'heading', label: 'Main' },
-              { value: '/dashboard', label: 'Dashboard', icon: 'layout-dashboard' },
-              { value: '/reports',   label: 'Reports',   icon: 'file-text' },
-              { value: '/users',     label: 'Users',     icon: 'users' },
-              { type: 'separator' },
-              { value: '/settings',  label: 'Settings',  icon: 'settings' },
-            ]}
-            active=\${window.location.hash.replace('#', '') || '/dashboard'}
-            @app-nav-select=\${(e) => { window.location.hash = e.detail.value; }}
+            .items=\${NAV_ITEMS}
+            active=\${this.route}
+            @app-nav-select=\${this._navigate}
             style="flex:1;min-height:0;overflow-y:auto;"
           ></app-sidebar-nav>
 
-          <div style="padding:0.875rem 1.25rem;border-top:1px solid var(--border);flex-shrink:0;">
-            <div style="display:flex;align-items:center;gap:0.625rem;">
-              <app-avatar fallback="JD" size="sm"></app-avatar>
-              <div style="flex:1;min-width:0;">
-                <div style="font-size:0.8rem;font-weight:600;color:var(--fg);">John Doe</div>
-                <div style="font-size:0.7rem;color:var(--fg-muted);">john@example.com</div>
-              </div>
-              <app-button variant="ghost" size="icon" @click=\${() => this._showLogout()}>
-                <app-icon name="log-out" style="width:1rem;height:1rem;"></app-icon>
-              </app-button>
+          <div class="user-row">
+            <app-avatar fallback="JD" size="sm"></app-avatar>
+            <div class="user-info">
+              <div class="user-name">John Doe</div>
+              <div class="user-email">john@example.com</div>
             </div>
+            <app-button variant="ghost" size="icon" @click=\${this._showLogout}>
+              <app-icon name="log-out" style="width:1rem;height:1rem;"></app-icon>
+            </app-button>
           </div>
         </div>
 
-        <!-- Content -->
         <div slot="content" style="display:flex;flex-direction:column;height:100%;">
-
-          <header style="padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-            <div>
-              <h1 style="font-size:1.25rem;font-weight:700;color:var(--fg-heading);margin:0;">Dashboard</h1>
-              <p style="font-size:0.8rem;color:var(--fg-muted);margin:0.125rem 0 0;">Welcome back, John</p>
-            </div>
-            <app-searchbar placeholder="Search..." style="width:220px;"></app-searchbar>
-          </header>
-
-          <div style="flex:1;min-height:0;padding:1.5rem;overflow-y:auto;" class=\${this.loading ? 'opacity-50 pointer-events-none' : ''}>
-            \${this.error ? html\`
-              <div style="background:#ffebee;color:#d32f2f;padding:1rem;border-radius:8px;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;">
-                \${this.error}
-                <app-button variant="destructive" @click=\${() => this.loadStats()}>Retry</app-button>
-              </div>
-            \` : ''}
-
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;">
-              <app-stat label="Revenue"     value=\${this.stats.revenue} trend="up"   trend-value="12%"></app-stat>
-              <app-stat label="Users"       value=\${this.stats.users}   trend="up"   trend-value="8%"></app-stat>
-              <app-stat label="Active"      value=\${this.stats.active}  trend="down" trend-value="3%"></app-stat>
-              <app-stat label="Bounce Rate" value=\${this.stats.bounce}  trend="down" trend-value="5%"></app-stat>
-            </div>
-
-            <app-card card-title="Recent Activity">
-              <app-timeline .items=\${[
-                { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com', color: 'var(--primary)' },
-                { time: '1 hour ago',  title: 'Payment received',    description: '$99.00 from Pro plan' },
-                { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
-                { time: 'Yesterday',   title: 'Server updated',      description: 'Deployed v2.4.1' },
-              ]}></app-timeline>
-            </app-card>
-          </div>
+          \${page}
         </div>
 
       </app-sidebar-layout>
 
-      <app-dialog id="logout-dialog"
-        dialog-title="Log out"
-        description="Are you sure you want to log out?">
+      <app-dialog dialog-title="Log out" description="Are you sure you want to log out?">
         <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1rem;">
           <app-button variant="outline" @click=\${(e) => e.target.closest('app-dialog').close()}>Cancel</app-button>
           <app-button variant="destructive">Log Out</app-button>
@@ -441,14 +399,72 @@ export class DashboardPage extends LitElement {
   }
 }
 
+customElements.define('app-layout', AppLayout);`;
+
+  const dashboardPageCode = `// pages/dashboard-page.js
+import { LitElement, html, css } from 'lit';
+import 'zeelit/components/app-searchbar.js';
+import 'zeelit/components/app-stat.js';
+import 'zeelit/components/app-card.js';
+import 'zeelit/components/app-timeline.js';
+
+export class DashboardPage extends LitElement {
+  static styles = css\`
+    :host { display: flex; flex-direction: column; height: 100%; }
+    header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+    .content { flex:1; min-height:0; padding:1.5rem; overflow-y:auto; }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+  \`;
+
+  static properties = {
+    stats: { type: Object },
+  };
+
+  constructor() {
+    super();
+    this.stats = { revenue: '\$45,231', users: '2,350', active: '1,247', bounce: '24.5%' };
+  }
+
+  render() {
+    return html\`
+      <header>
+        <div>
+          <h1 style="font-size:1.25rem;font-weight:700;color:var(--fg-heading);margin:0;">Dashboard</h1>
+          <p style="font-size:0.8rem;color:var(--fg-muted);margin:0.125rem 0 0;">Welcome back, John</p>
+        </div>
+        <app-searchbar placeholder="Search..." style="width:220px;"></app-searchbar>
+      </header>
+
+      <div class="content">
+        <div class="stats">
+          <app-stat label="Revenue"     value=\${this.stats.revenue} trend="up"   trend-value="12%"></app-stat>
+          <app-stat label="Users"       value=\${this.stats.users}   trend="up"   trend-value="8%"></app-stat>
+          <app-stat label="Active"      value=\${this.stats.active}  trend="down" trend-value="3%"></app-stat>
+          <app-stat label="Bounce Rate" value=\${this.stats.bounce}  trend="down" trend-value="5%"></app-stat>
+        </div>
+
+        <app-card card-title="Recent Activity">
+          <app-timeline .items=\${[
+            { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com', color: 'var(--primary)' },
+            { time: '1 hour ago',  title: 'Payment received',    description: '\$99.00 from Pro plan' },
+            { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
+            { time: 'Yesterday',   title: 'Server updated',      description: 'Deployed v2.4.1' },
+          ]}></app-timeline>
+        </app-card>
+      </div>
+    \`;
+  }
+}
+
 customElements.define('dashboard-page', DashboardPage);`;
 
   const dashboardFiles = [
-    { name: 'routes.js',              path: 'routes.js',                         code: dashboardRoutesJs },
-    { name: 'main.js',                path: 'main.js',                           code: mainJs },
-    { name: 'index.html',             path: 'index.html',                        code: indexHtml },
-    { name: 'dashboard-page.js',      path: 'pages/dashboard-page.js',           code: dashboardPageCode },
-    { name: 'app-sidebar-layout.js',  path: 'layouts/app-sidebar-layout.js',     code: sidebarLayoutSource },
+    { name: 'index.html',          path: 'index.html',               code: indexHtml },
+    { name: 'main.js',             path: 'main.js',                  code: mainJs },
+    { name: 'router.js',           path: 'router.js',                code: dashboardRouterJs },
+    { name: 'app-layout.js',       path: 'app-layout.js',            code: dashboardAppLayoutJs },
+    { name: 'login-page.js',       path: 'pages/login-page.js',      code: loginPageCode },
+    { name: 'dashboard-page.js',   path: 'pages/dashboard-page.js',  code: dashboardPageCode },
   ];
 
   const dashboardPreviewFn = (fullscreen) => html`
@@ -534,9 +550,9 @@ customElements.define('dashboard-page', DashboardPage);`;
       <div>
         <h1 class="text-3xl font-bold tracking-tight" style="color:var(--fg-heading)">Templates</h1>
         <p class="mt-2" style="color:var(--fg-muted)">
-          Full page templates using the
-          <code class="px-1.5 py-0.5 rounded text-xs" style="color:var(--fg);background:var(--bg-muted)">index.html → main.js → routes.js → page</code>
-          pattern. Copy the page file, add it to <code class="px-1.5 py-0.5 rounded text-xs" style="color:var(--fg);background:var(--bg-muted)">routes.js</code>, done.
+          Full page templates following the
+          <code class="px-1.5 py-0.5 rounded text-xs" style="color:var(--fg);background:var(--bg-muted)">index.html → main.js → router.js → app-layout → page</code>
+          pattern. <code class="px-1.5 py-0.5 rounded text-xs" style="color:var(--fg);background:var(--bg-muted)">app-layout</code> is the root shell — add your page to <code class="px-1.5 py-0.5 rounded text-xs" style="color:var(--fg);background:var(--bg-muted)">router.js</code>, done.
         </p>
       </div>
 
@@ -545,7 +561,7 @@ customElements.define('dashboard-page', DashboardPage);`;
       ${renderTemplate(
         'template-login',
         'Login Page',
-        'Two-panel split — branding left, form right. Copy login-page.js and register /login in routes.js.',
+        'Two-panel split layout — branding left, form right. app-layout renders the page directly; add more routes to router.js as your app grows.',
         loginPreviewFn,
         loginPageCode,
         loginFiles,
@@ -556,9 +572,9 @@ customElements.define('dashboard-page', DashboardPage);`;
       ${renderTemplate(
         'template-dashboard',
         'Dashboard Page',
-        'Sidebar nav, stat cards, activity feed, logout dialog. Copy dashboard-page.js and register /dashboard in routes.js.',
+        'Sidebar shell in app-layout — authenticated routes get the nav, public routes (login) render full-screen. Add pages to router.js and slot them in.',
         dashboardPreviewFn,
-        dashboardPageCode,
+        dashboardAppLayoutJs,
         dashboardFiles,
       )}
     </div>
