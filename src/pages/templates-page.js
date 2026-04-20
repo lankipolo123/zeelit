@@ -135,8 +135,6 @@ customElements.define('my-app', MyApp);`;
 
   const loginRouterJs = `// router.js
 import { html } from 'lit';
-import 'zeelit/lib/icons.js';
-import 'zeelit/layouts/app-split-layout.js';
 import './pages/login-page.js';
 
 export const defaultRoute = '/login';
@@ -149,17 +147,40 @@ export const routes = {
   const loginAppLayoutJs = `// app-layout.js
 import { LitElement, html, css } from 'lit';
 import { routes, defaultRoute } from './router.js';
+import 'zeelit/layouts/app-split-layout.js';
 
 export class AppLayout extends LitElement {
   static styles = css\`
-    :host { display: block; width: 100%; height: 100%; }
+    :host { display: block; width: 100%; height: 100vh; }
+    .brand-panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
+    .brand { max-width:320px; text-align:center; }
+    .logo-mark { display:inline-flex; align-items:center; justify-content:center; width:3.5rem; height:3.5rem; border-radius:0.75rem; background:var(--logo-bg); margin-bottom:1.5rem; }
+    .page-panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
   \`;
 
   static properties = { route: { type: String } };
 
   render() {
-    const page = routes[this.route] ?? routes[defaultRoute];
-    return page();
+    const page = (routes[this.route] ?? routes[defaultRoute])();
+
+    return html\`
+      <app-split-layout>
+        <div slot="left" class="brand-panel">
+          <div class="brand">
+            <div class="logo-mark">
+              <span style="font-weight:800;font-size:1.25rem;color:var(--logo-fg);">Z</span>
+            </div>
+            <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);margin:0;">My App</h1>
+            <p style="font-size:0.9rem;color:var(--fg-muted);margin-top:0.75rem;line-height:1.5;">
+              Build beautiful interfaces with our modern component library.
+            </p>
+          </div>
+        </div>
+        <div slot="right" class="page-panel">
+          \${page}
+        </div>
+      </app-split-layout>
+    \`;
   }
 }
 
@@ -167,18 +188,13 @@ customElements.define('app-layout', AppLayout);`;
 
   const loginPageCode = `// pages/login-page.js
 import { LitElement, html, css } from 'lit';
-import 'zeelit/layouts/app-split-layout.js';
 import 'zeelit/components/app-input.js';
 import 'zeelit/components/app-button.js';
 import 'zeelit/components/app-checkbox.js';
 
 export class LoginPage extends LitElement {
   static styles = css\`
-    :host { display: block; height: 100vh; }
-    .panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
-    .brand { max-width:320px; text-align:center; }
-    .logo-mark { display:inline-flex; align-items:center; justify-content:center; width:3.5rem; height:3.5rem; border-radius:0.75rem; background:var(--logo-bg); margin-bottom:1.5rem; }
-    .form-inner { width:100%; max-width:380px; }
+    :host { display: block; width: 100%; max-width: 380px; }
     form { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
     .divider { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; }
     .divider hr { flex:1; border:none; border-top:1px solid var(--border); }
@@ -192,49 +208,29 @@ export class LoginPage extends LitElement {
 
   render() {
     return html\`
-      <app-split-layout>
+      <h2 style="font-size:1.5rem;font-weight:700;color:var(--fg-heading);margin:0;">Welcome back</h2>
+      <p style="font-size:0.875rem;color:var(--fg-muted);margin:0.25rem 0 0;">Sign in to your account</p>
 
-        <div slot="left" class="panel">
-          <div class="brand">
-            <div class="logo-mark">
-              <span style="font-weight:800;font-size:1.25rem;color:var(--logo-fg);">Z</span>
-            </div>
-            <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);margin:0;">My App</h1>
-            <p style="font-size:0.9rem;color:var(--fg-muted);margin-top:0.75rem;line-height:1.5;">
-              Build beautiful interfaces with our modern component library.
-            </p>
-          </div>
+      <form @submit=\${this._onSubmit}>
+        <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
+        <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
+        <div class="form-row">
+          <app-checkbox label="Remember me"></app-checkbox>
+          <a style="font-size:0.8rem;color:var(--primary);cursor:pointer;">Forgot password?</a>
         </div>
+        <app-button type="submit" style="width:100%;display:block;">Sign In</app-button>
+      </form>
 
-        <div slot="right" class="panel">
-          <div class="form-inner">
-            <h2 style="font-size:1.5rem;font-weight:700;color:var(--fg-heading);margin:0;">Welcome back</h2>
-            <p style="font-size:0.875rem;color:var(--fg-muted);margin:0.25rem 0 0;">Sign in to your account</p>
+      <div class="divider">
+        <hr /><span style="font-size:0.75rem;color:var(--fg-muted);">or</span><hr />
+      </div>
 
-            <form @submit=\${this._onSubmit}>
-              <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
-              <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
-              <div class="form-row">
-                <app-checkbox label="Remember me"></app-checkbox>
-                <a style="font-size:0.8rem;color:var(--primary);cursor:pointer;">Forgot password?</a>
-              </div>
-              <app-button type="submit" style="width:100%;display:block;">Sign In</app-button>
-            </form>
+      <app-button variant="outline" style="width:100%;display:block;">Continue with Google</app-button>
 
-            <div class="divider">
-              <hr /><span style="font-size:0.75rem;color:var(--fg-muted);">or</span><hr />
-            </div>
-
-            <app-button variant="outline" style="width:100%;display:block;">Continue with Google</app-button>
-
-            <p style="font-size:0.8rem;color:var(--fg-muted);text-align:center;margin-top:1.5rem;">
-              Don't have an account?
-              <a style="color:var(--primary);cursor:pointer;font-weight:600;">Sign up</a>
-            </p>
-          </div>
-        </div>
-
-      </app-split-layout>
+      <p style="font-size:0.8rem;color:var(--fg-muted);text-align:center;margin-top:1.5rem;">
+        Don't have an account?
+        <a style="color:var(--primary);cursor:pointer;font-weight:600;">Sign up</a>
+      </p>
     \`;
   }
 }
