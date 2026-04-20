@@ -19,6 +19,7 @@ import badgeSource          from '../components/app-badge.js?raw';
 import progressSource       from '../components/app-progress.js?raw';
 import tabsSource           from '../components/app-tabs.js?raw';
 import dataTableSource      from '../components/app-data-table.js?raw';
+import formSource           from '../components/app-form.js?raw';
 
 export function templatesPage(ctx) {
 
@@ -156,45 +157,29 @@ import './pages/login-page.js';
 export const defaultRoute = '/login';
 
 export const routes = {
-  '/login': () => html\`<login-page></login-page>\`,
-  // '/signup': () => html\`<signup-page></signup-page>\`,
+  '/login': () => html\`<login-page slot="right"></login-page>\`,
+  // '/signup': () => html\`<signup-page slot="right"></signup-page>\`,
 };`;
 
   const loginAppLayoutJs = `// app-layout.js
 import { LitElement, html, css } from 'lit';
 import { routes, defaultRoute } from './router.js';
 import 'zeelit/layouts/app-split-layout.js';
+import './components/app-brand.js';
 
 export class AppLayout extends LitElement {
   static styles = css\`
     :host { display: block; width: 100%; height: 100vh; }
-    .brand-panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
-    .brand { max-width:320px; text-align:center; }
-    .logo-mark { display:inline-flex; align-items:center; justify-content:center; width:3.5rem; height:3.5rem; border-radius:0.75rem; background:var(--logo-bg); margin-bottom:1.5rem; }
-    .page-panel { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem; }
   \`;
 
   static properties = { route: { type: String } };
 
   render() {
     const page = (routes[this.route] ?? routes[defaultRoute])();
-
     return html\`
       <app-split-layout>
-        <div slot="left" class="brand-panel">
-          <div class="brand">
-            <div class="logo-mark">
-              <span style="font-weight:800;font-size:1.25rem;color:var(--logo-fg);">Z</span>
-            </div>
-            <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);margin:0;">My App</h1>
-            <p style="font-size:0.9rem;color:var(--fg-muted);margin-top:0.75rem;line-height:1.5;">
-              Build beautiful interfaces with our modern component library.
-            </p>
-          </div>
-        </div>
-        <div slot="right" class="page-panel">
-          \${page}
-        </div>
+        <app-brand slot="left"></app-brand>
+        \${page}
       </app-split-layout>
     \`;
   }
@@ -202,20 +187,51 @@ export class AppLayout extends LitElement {
 
 customElements.define('app-layout', AppLayout);`;
 
-  const loginPageCode = `// pages/login-page.js
+  const appBrandCode = `// components/app-brand.js
 import { LitElement, html, css } from 'lit';
+
+export class AppBrand extends LitElement {
+  static styles = css\`
+    :host { display:flex; flex-direction:column; align-items:center; text-align:center; max-width:320px; }
+    .mark { display:inline-flex; align-items:center; justify-content:center; width:3.5rem; height:3.5rem; border-radius:0.75rem; background:var(--logo-bg); margin-bottom:1.5rem; }
+  \`;
+
+  static properties = {
+    name:    { type: String },
+    tagline: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.name    = 'My App';
+    this.tagline = 'Build beautiful interfaces with our modern component library.';
+  }
+
+  render() {
+    return html\`
+      <div class="mark">
+        <span style="font-weight:800;font-size:1.25rem;color:var(--logo-fg);">\${this.name.charAt(0)}</span>
+      </div>
+      <h1 style="font-size:1.75rem;font-weight:800;color:var(--fg-heading);margin:0;">\${this.name}</h1>
+      <p style="font-size:0.9rem;color:var(--fg-muted);margin-top:0.75rem;line-height:1.5;">\${this.tagline}</p>
+    \`;
+  }
+}
+
+customElements.define('app-brand', AppBrand);`;
+
+  const loginFormCode = `// components/login-form.js
+import { LitElement, html, css } from 'lit';
+import 'zeelit/components/app-form.js';
 import 'zeelit/components/app-input.js';
-import 'zeelit/components/app-button.js';
 import 'zeelit/components/app-checkbox.js';
+import 'zeelit/components/app-button.js';
 import 'zeelit/components/app-alert.js';
 import 'zeelit/components/app-separator.js';
 
-export class LoginPage extends LitElement {
+export class LoginForm extends LitElement {
   static styles = css\`
-    :host { display: block; width: 100%; max-width: 380px; }
-    form { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
-    .or-row { display:flex; align-items:center; gap:0.75rem; margin:1.5rem 0; }
-    .form-row { display:flex; align-items:center; justify-content:space-between; }
+    :host { display:block; width:100%; max-width:380px; }
   \`;
 
   static properties = { error: { type: String } };
@@ -226,42 +242,39 @@ export class LoginPage extends LitElement {
   }
 
   _onSubmit(e) {
-    e.preventDefault();
+    // e.detail contains { email, password, remember }
     // this.error = 'Invalid email or password.';
   }
 
   render() {
     return html\`
-      <h2 style="font-size:1.5rem;font-weight:700;color:var(--fg-heading);margin:0;">Welcome back</h2>
-      <p style="font-size:0.875rem;color:var(--fg-muted);margin:0.25rem 0 0;">Sign in to your account</p>
-
       \${this.error ? html\`
-        <app-alert variant="destructive" alert-title="Sign in failed" style="margin-top:1rem;">\${this.error}</app-alert>
+        <app-alert variant="destructive" alert-title="Sign in failed" style="margin-bottom:1rem;">\${this.error}</app-alert>
       \` : ''}
 
-      <form @submit=\${this._onSubmit}>
-        <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
-        <app-input label="Password" type="password" placeholder="Enter your password"></app-input>
-        <div class="form-row">
-          <app-checkbox label="Remember me"></app-checkbox>
-          <a style="font-size:0.8rem;color:var(--primary);cursor:pointer;">Forgot password?</a>
-        </div>
-        <app-button type="submit" style="width:100%;display:block;">Sign In</app-button>
-      </form>
+      <app-form @app-submit=\${this._onSubmit}>
+        <app-input label="Email" name="email" placeholder="you@example.com" type="email"></app-input>
+        <app-input label="Password" name="password" type="password" placeholder="Enter your password"></app-input>
+        <app-checkbox label="Remember me" name="remember"></app-checkbox>
+        <app-button type="submit" style="width:100%;display:block;margin-top:0.5rem;">Sign In</app-button>
+      </app-form>
 
-      <div class="or-row">
-        <app-separator></app-separator>
-        <span style="font-size:0.75rem;color:var(--fg-muted);white-space:nowrap;">or</span>
-        <app-separator></app-separator>
-      </div>
+      <app-separator label="or" style="margin:1.5rem 0;"></app-separator>
 
       <app-button variant="outline" style="width:100%;display:block;">Continue with Google</app-button>
-
-      <p style="font-size:0.8rem;color:var(--fg-muted);text-align:center;margin-top:1.5rem;">
-        Don't have an account?
-        <a style="color:var(--primary);cursor:pointer;font-weight:600;">Sign up</a>
-      </p>
     \`;
+  }
+}
+
+customElements.define('login-form', LoginForm);`;
+
+  const loginPageCode = `// pages/login-page.js
+import { LitElement, html } from 'lit';
+import '../components/login-form.js';
+
+export class LoginPage extends LitElement {
+  render() {
+    return html\`<login-form></login-form>\`;
   }
 }
 
@@ -273,7 +286,10 @@ customElements.define('login-page', LoginPage);`;
     { name: 'router.js',           path: 'router.js',                     code: loginRouterJs },
     { name: 'app-layout.js',       path: 'app-layout.js',                 code: loginAppLayoutJs },
     { name: 'login-page.js',       path: 'pages/login-page.js',           code: loginPageCode },
+    { name: 'app-brand.js',        path: 'components/app-brand.js',       code: appBrandCode },
+    { name: 'login-form.js',       path: 'components/login-form.js',      code: loginFormCode },
     { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js',   code: splitLayoutSource },
+    { name: 'app-form.js',         path: 'components/app-form.js',        code: formSource },
     { name: 'app-input.js',        path: 'components/app-input.js',       code: inputSource },
     { name: 'app-button.js',       path: 'components/app-button.js',      code: buttonSource },
     { name: 'app-checkbox.js',     path: 'components/app-checkbox.js',    code: checkboxSource },
