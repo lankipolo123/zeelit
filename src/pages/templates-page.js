@@ -1,8 +1,24 @@
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { highlightCode } from '../showcase/code-highlight.js';
-import sidebarLayoutSource from '../layouts/app-sidebar-layout.js?raw';
-import splitLayoutSource from '../layouts/app-split-layout.js?raw';
+import sidebarLayoutSource  from '../layouts/app-sidebar-layout.js?raw';
+import splitLayoutSource    from '../layouts/app-split-layout.js?raw';
+import inputSource          from '../components/app-input.js?raw';
+import buttonSource         from '../components/app-button.js?raw';
+import checkboxSource       from '../components/app-checkbox.js?raw';
+import alertSource          from '../components/app-alert.js?raw';
+import separatorSource      from '../components/app-separator.js?raw';
+import searchbarSource      from '../components/app-searchbar.js?raw';
+import statSource           from '../components/app-stat.js?raw';
+import cardSource           from '../components/app-card.js?raw';
+import timelineSource       from '../components/app-timeline.js?raw';
+import sidebarNavSource     from '../components/app-sidebar-nav.js?raw';
+import avatarSource         from '../components/app-avatar.js?raw';
+import dialogSource         from '../components/app-dialog.js?raw';
+import badgeSource          from '../components/app-badge.js?raw';
+import progressSource       from '../components/app-progress.js?raw';
+import tabsSource           from '../components/app-tabs.js?raw';
+import dataTableSource      from '../components/app-data-table.js?raw';
 
 export function templatesPage(ctx) {
 
@@ -191,25 +207,37 @@ import { LitElement, html, css } from 'lit';
 import 'zeelit/components/app-input.js';
 import 'zeelit/components/app-button.js';
 import 'zeelit/components/app-checkbox.js';
+import 'zeelit/components/app-alert.js';
+import 'zeelit/components/app-separator.js';
 
 export class LoginPage extends LitElement {
   static styles = css\`
     :host { display: block; width: 100%; max-width: 380px; }
     form { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
-    .divider { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; }
-    .divider hr { flex:1; border:none; border-top:1px solid var(--border); }
+    .or-row { display:flex; align-items:center; gap:0.75rem; margin:1.5rem 0; }
     .form-row { display:flex; align-items:center; justify-content:space-between; }
   \`;
 
+  static properties = { error: { type: String } };
+
+  constructor() {
+    super();
+    this.error = '';
+  }
+
   _onSubmit(e) {
     e.preventDefault();
-    // handle login logic
+    // this.error = 'Invalid email or password.';
   }
 
   render() {
     return html\`
       <h2 style="font-size:1.5rem;font-weight:700;color:var(--fg-heading);margin:0;">Welcome back</h2>
       <p style="font-size:0.875rem;color:var(--fg-muted);margin:0.25rem 0 0;">Sign in to your account</p>
+
+      \${this.error ? html\`
+        <app-alert variant="destructive" alert-title="Sign in failed" style="margin-top:1rem;">\${this.error}</app-alert>
+      \` : ''}
 
       <form @submit=\${this._onSubmit}>
         <app-input label="Email" placeholder="you@example.com" type="email"></app-input>
@@ -221,8 +249,10 @@ export class LoginPage extends LitElement {
         <app-button type="submit" style="width:100%;display:block;">Sign In</app-button>
       </form>
 
-      <div class="divider">
-        <hr /><span style="font-size:0.75rem;color:var(--fg-muted);">or</span><hr />
+      <div class="or-row">
+        <app-separator></app-separator>
+        <span style="font-size:0.75rem;color:var(--fg-muted);white-space:nowrap;">or</span>
+        <app-separator></app-separator>
       </div>
 
       <app-button variant="outline" style="width:100%;display:block;">Continue with Google</app-button>
@@ -238,11 +268,17 @@ export class LoginPage extends LitElement {
 customElements.define('login-page', LoginPage);`;
 
   const loginFiles = [
-    { name: 'index.html',          path: 'index.html',               code: indexHtml },
-    { name: 'main.js',             path: 'main.js',                  code: mainJs },
-    { name: 'router.js',           path: 'router.js',                code: loginRouterJs },
-    { name: 'app-layout.js',       path: 'app-layout.js',            code: loginAppLayoutJs },
-    { name: 'login-page.js',       path: 'pages/login-page.js',      code: loginPageCode },
+    { name: 'index.html',          path: 'index.html',                    code: indexHtml },
+    { name: 'main.js',             path: 'main.js',                       code: mainJs },
+    { name: 'router.js',           path: 'router.js',                     code: loginRouterJs },
+    { name: 'app-layout.js',       path: 'app-layout.js',                 code: loginAppLayoutJs },
+    { name: 'login-page.js',       path: 'pages/login-page.js',           code: loginPageCode },
+    { name: 'app-split-layout.js', path: 'layouts/app-split-layout.js',   code: splitLayoutSource },
+    { name: 'app-input.js',        path: 'components/app-input.js',       code: inputSource },
+    { name: 'app-button.js',       path: 'components/app-button.js',      code: buttonSource },
+    { name: 'app-checkbox.js',     path: 'components/app-checkbox.js',    code: checkboxSource },
+    { name: 'app-alert.js',        path: 'components/app-alert.js',       code: alertSource },
+    { name: 'app-separator.js',    path: 'components/app-separator.js',   code: separatorSource },
   ];
 
   const loginPreviewFn = (fullscreen) => html`
@@ -403,6 +439,10 @@ import 'zeelit/components/app-searchbar.js';
 import 'zeelit/components/app-stat.js';
 import 'zeelit/components/app-card.js';
 import 'zeelit/components/app-timeline.js';
+import 'zeelit/components/app-badge.js';
+import 'zeelit/components/app-progress.js';
+import 'zeelit/components/app-tabs.js';
+import 'zeelit/components/app-data-table.js';
 
 export class DashboardPage extends LitElement {
   static styles = css\`
@@ -410,15 +450,79 @@ export class DashboardPage extends LitElement {
     header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
     .content { flex:1; min-height:0; padding:1.5rem; overflow-y:auto; }
     .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
+    .channel-row { display:flex; flex-direction:column; gap:0.25rem; margin-bottom:0.75rem; }
+    .channel-label { display:flex; justify-content:space-between; font-size:0.8rem; color:var(--fg-muted); margin-bottom:0.25rem; }
   \`;
 
-  static properties = {
-    stats: { type: Object },
-  };
+  static properties = { stats: { type: Object } };
 
   constructor() {
     super();
     this.stats = { revenue: '\$45,231', users: '2,350', active: '1,247', bounce: '24.5%' };
+  }
+
+  get _overviewTab() {
+    return html\`
+      <div class="stats">
+        <app-stat label="Revenue"     value=\${this.stats.revenue} trend="up"   trend-value="12%"></app-stat>
+        <app-stat label="Users"       value=\${this.stats.users}   trend="up"   trend-value="8%"></app-stat>
+        <app-stat label="Active"      value=\${this.stats.active}  trend="down" trend-value="3%"></app-stat>
+        <app-stat label="Bounce Rate" value=\${this.stats.bounce}  trend="down" trend-value="5%"></app-stat>
+      </div>
+      <div class="grid-2">
+        <app-card card-title="Recent Activity">
+          <app-timeline .items=\${[
+            { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com',     color: 'var(--primary)' },
+            { time: '1 hour ago',  title: 'Payment received',    description: '\$99.00 — Pro plan' },
+            { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
+            { time: 'Yesterday',   title: 'Server updated',      description: 'Deployed v2.4.1' },
+          ]}></app-timeline>
+        </app-card>
+        <app-card card-title="Traffic Sources">
+          <div class="channel-row">
+            <div class="channel-label"><span>Organic Search</span><span>54%</span></div>
+            <app-progress value="54"></app-progress>
+          </div>
+          <div class="channel-row">
+            <div class="channel-label"><span>Direct</span><span>28%</span></div>
+            <app-progress value="28" variant="success"></app-progress>
+          </div>
+          <div class="channel-row">
+            <div class="channel-label"><span>Referral</span><span>12%</span></div>
+            <app-progress value="12" variant="warning"></app-progress>
+          </div>
+          <div class="channel-row">
+            <div class="channel-label"><span>Social</span><span>6%</span></div>
+            <app-progress value="6" variant="destructive"></app-progress>
+          </div>
+        </app-card>
+      </div>
+    \`;
+  }
+
+  get _usersTab() {
+    return html\`
+      <app-data-table .config=\${{
+        searchable: true,
+        selectable: true,
+        pageSize: 5,
+        columns: [
+          { key: 'name',   label: 'Name',   sortable: true },
+          { key: 'email',  label: 'Email',  sortable: true },
+          { key: 'plan',   label: 'Plan',   sortable: true },
+          { key: 'status', label: 'Status', sortable: true },
+        ],
+        data: [
+          { name: 'Alice Johnson', email: 'alice@example.com', plan: 'Pro',  status: 'Active' },
+          { name: 'Bob Smith',     email: 'bob@example.com',   plan: 'Free', status: 'Active' },
+          { name: 'Carol White',   email: 'carol@example.com', plan: 'Pro',  status: 'Inactive' },
+          { name: 'David Lee',     email: 'david@example.com', plan: 'Team', status: 'Active' },
+          { name: 'Eva Martinez',  email: 'eva@example.com',   plan: 'Free', status: 'Pending' },
+          { name: 'Frank Brown',   email: 'frank@example.com', plan: 'Pro',  status: 'Active' },
+        ],
+      }}></app-data-table>
+    \`;
   }
 
   render() {
@@ -432,21 +536,10 @@ export class DashboardPage extends LitElement {
       </header>
 
       <div class="content">
-        <div class="stats">
-          <app-stat label="Revenue"     value=\${this.stats.revenue} trend="up"   trend-value="12%"></app-stat>
-          <app-stat label="Users"       value=\${this.stats.users}   trend="up"   trend-value="8%"></app-stat>
-          <app-stat label="Active"      value=\${this.stats.active}  trend="down" trend-value="3%"></app-stat>
-          <app-stat label="Bounce Rate" value=\${this.stats.bounce}  trend="down" trend-value="5%"></app-stat>
-        </div>
-
-        <app-card card-title="Recent Activity">
-          <app-timeline .items=\${[
-            { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com', color: 'var(--primary)' },
-            { time: '1 hour ago',  title: 'Payment received',    description: '\$99.00 from Pro plan' },
-            { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
-            { time: 'Yesterday',   title: 'Server updated',      description: 'Deployed v2.4.1' },
-          ]}></app-timeline>
-        </app-card>
+        <app-tabs .tabs=\${[
+          { id: 'overview', label: 'Overview', content: this._overviewTab },
+          { id: 'users',    label: 'Users',    content: this._usersTab },
+        ]}></app-tabs>
       </div>
     \`;
   }
@@ -455,12 +548,29 @@ export class DashboardPage extends LitElement {
 customElements.define('dashboard-page', DashboardPage);`;
 
   const dashboardFiles = [
-    { name: 'index.html',          path: 'index.html',               code: indexHtml },
-    { name: 'main.js',             path: 'main.js',                  code: mainJs },
-    { name: 'router.js',           path: 'router.js',                code: dashboardRouterJs },
-    { name: 'app-layout.js',       path: 'app-layout.js',            code: dashboardAppLayoutJs },
-    { name: 'login-page.js',       path: 'pages/login-page.js',      code: loginPageCode },
-    { name: 'dashboard-page.js',   path: 'pages/dashboard-page.js',  code: dashboardPageCode },
+    { name: 'index.html',             path: 'index.html',                      code: indexHtml },
+    { name: 'main.js',                path: 'main.js',                         code: mainJs },
+    { name: 'router.js',              path: 'router.js',                       code: dashboardRouterJs },
+    { name: 'app-layout.js',          path: 'app-layout.js',                   code: dashboardAppLayoutJs },
+    { name: 'login-page.js',          path: 'pages/login-page.js',             code: loginPageCode },
+    { name: 'dashboard-page.js',      path: 'pages/dashboard-page.js',         code: dashboardPageCode },
+    { name: 'app-sidebar-layout.js',  path: 'layouts/app-sidebar-layout.js',   code: sidebarLayoutSource },
+    { name: 'app-sidebar-nav.js',     path: 'components/app-sidebar-nav.js',   code: sidebarNavSource },
+    { name: 'app-avatar.js',          path: 'components/app-avatar.js',        code: avatarSource },
+    { name: 'app-button.js',          path: 'components/app-button.js',        code: buttonSource },
+    { name: 'app-dialog.js',          path: 'components/app-dialog.js',        code: dialogSource },
+    { name: 'app-searchbar.js',       path: 'components/app-searchbar.js',     code: searchbarSource },
+    { name: 'app-stat.js',            path: 'components/app-stat.js',          code: statSource },
+    { name: 'app-card.js',            path: 'components/app-card.js',          code: cardSource },
+    { name: 'app-timeline.js',        path: 'components/app-timeline.js',      code: timelineSource },
+    { name: 'app-badge.js',           path: 'components/app-badge.js',         code: badgeSource },
+    { name: 'app-progress.js',        path: 'components/app-progress.js',      code: progressSource },
+    { name: 'app-tabs.js',            path: 'components/app-tabs.js',          code: tabsSource },
+    { name: 'app-data-table.js',      path: 'components/app-data-table.js',    code: dataTableSource },
+    { name: 'app-input.js',           path: 'components/app-input.js',         code: inputSource },
+    { name: 'app-checkbox.js',        path: 'components/app-checkbox.js',      code: checkboxSource },
+    { name: 'app-alert.js',           path: 'components/app-alert.js',         code: alertSource },
+    { name: 'app-separator.js',       path: 'components/app-separator.js',     code: separatorSource },
   ];
 
   const dashboardPreviewFn = (fullscreen) => html`
@@ -510,20 +620,56 @@ customElements.define('dashboard-page', DashboardPage);`;
             <app-searchbar placeholder="Search..." style="width:200px;"></app-searchbar>
           </header>
           <div style="flex:1;min-height:0;padding:1.25rem;overflow-y:auto;">
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1.25rem;">
-              <app-stat label="Revenue"     value="$45,231" trend="up"   trend-value="12%"></app-stat>
-              <app-stat label="Users"       value="2,350"   trend="up"   trend-value="8%"></app-stat>
-              <app-stat label="Active"      value="1,247"   trend="down" trend-value="3%"></app-stat>
-              <app-stat label="Bounce Rate" value="24.5%"   trend="down" trend-value="5%"></app-stat>
-            </div>
-            <app-card card-title="Recent Activity">
-              <app-timeline .items="${[
-                { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com', color: 'var(--primary)' },
-                { time: '1 hour ago',  title: 'Payment received',    description: '$99.00 from Pro plan' },
-                { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
-                { time: 'Yesterday',   title: 'Server updated',      description: 'Deployed v2.4.1' },
-              ]}"></app-timeline>
-            </app-card>
+            <app-tabs .tabs="${[
+              { id: 'overview', label: 'Overview', content: html`
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem;">
+                  <app-stat label="Revenue"     value="$45,231" trend="up"   trend-value="12%"></app-stat>
+                  <app-stat label="Users"       value="2,350"   trend="up"   trend-value="8%"></app-stat>
+                  <app-stat label="Active"      value="1,247"   trend="down" trend-value="3%"></app-stat>
+                  <app-stat label="Bounce Rate" value="24.5%"   trend="down" trend-value="5%"></app-stat>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                  <app-card card-title="Recent Activity">
+                    <app-timeline .items="${[
+                      { time: '2 min ago',   title: 'New user signed up',  description: 'jane@example.com', color: 'var(--primary)' },
+                      { time: '1 hour ago',  title: 'Payment received',    description: '$99.00 — Pro plan' },
+                      { time: '3 hours ago', title: 'Post published',      description: 'Getting Started guide' },
+                    ]}"></app-timeline>
+                  </app-card>
+                  <app-card card-title="Traffic Sources">
+                    ${['Organic Search','Direct','Referral','Social'].map((label, i) => {
+                      const vals = [54, 28, 12, 6];
+                      const vars = ['default','success','warning','destructive'];
+                      return html`
+                        <div style="margin-bottom:0.6rem;">
+                          <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--fg-muted);margin-bottom:0.2rem;">
+                            <span>${label}</span><span>${vals[i]}%</span>
+                          </div>
+                          <app-progress value="${vals[i]}" variant="${vars[i]}"></app-progress>
+                        </div>`;
+                    })}
+                  </app-card>
+                </div>
+              ` },
+              { id: 'users', label: 'Users', content: html`
+                <app-data-table .config="${{
+                  searchable: true, selectable: true, pageSize: 5,
+                  columns: [
+                    { key: 'name',   label: 'Name',   sortable: true },
+                    { key: 'email',  label: 'Email',  sortable: true },
+                    { key: 'plan',   label: 'Plan',   sortable: true },
+                    { key: 'status', label: 'Status', sortable: true },
+                  ],
+                  data: [
+                    { name: 'Alice Johnson', email: 'alice@example.com', plan: 'Pro',  status: 'Active' },
+                    { name: 'Bob Smith',     email: 'bob@example.com',   plan: 'Free', status: 'Active' },
+                    { name: 'Carol White',   email: 'carol@example.com', plan: 'Pro',  status: 'Inactive' },
+                    { name: 'David Lee',     email: 'david@example.com', plan: 'Team', status: 'Active' },
+                    { name: 'Eva Martinez',  email: 'eva@example.com',   plan: 'Free', status: 'Pending' },
+                  ],
+                }}"></app-data-table>
+              ` },
+            ]}"></app-tabs>
           </div>
         </div>
       </app-sidebar-layout>
@@ -570,7 +716,7 @@ customElements.define('dashboard-page', DashboardPage);`;
         'Dashboard Page',
         'Sidebar shell in app-layout — authenticated routes get the nav, public routes (login) render full-screen. Add pages to router.js and slot them in.',
         dashboardPreviewFn,
-        dashboardAppLayoutJs,
+        dashboardPageCode,
         dashboardFiles,
       )}
     </div>
