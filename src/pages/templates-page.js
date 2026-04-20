@@ -234,16 +234,15 @@ export class LoginForm extends LitElement {
     :host { display:block; width:100%; max-width:380px; }
   \`;
 
-  static properties = { error: { type: String } };
+  static properties = {
+    error:   { type: String },
+    loading: { type: Boolean },
+  };
 
   constructor() {
     super();
-    this.error = '';
-  }
-
-  _onSubmit(e) {
-    // e.detail contains { email, password, remember }
-    // this.error = 'Invalid email or password.';
+    this.error   = '';
+    this.loading = false;
   }
 
   render() {
@@ -252,11 +251,13 @@ export class LoginForm extends LitElement {
         <app-alert variant="destructive" alert-title="Sign in failed" style="margin-bottom:1rem;">\${this.error}</app-alert>
       \` : ''}
 
-      <app-form @app-submit=\${this._onSubmit}>
+      <app-form>
         <app-input label="Email" name="email" placeholder="you@example.com" type="email"></app-input>
         <app-input label="Password" name="password" type="password" placeholder="Enter your password"></app-input>
         <app-checkbox label="Remember me" name="remember"></app-checkbox>
-        <app-button type="submit" style="width:100%;display:block;margin-top:0.5rem;">Sign In</app-button>
+        <app-button type="submit" ?disabled=\${this.loading} style="width:100%;display:block;margin-top:0.5rem;">
+          \${this.loading ? 'Signing in…' : 'Sign In'}
+        </app-button>
       </app-form>
 
       <app-separator label="or" style="margin:1.5rem 0;"></app-separator>
@@ -273,8 +274,38 @@ import { LitElement, html } from 'lit';
 import '../components/login-form.js';
 
 export class LoginPage extends LitElement {
+  static properties = {
+    error:   { type: String },
+    loading: { type: Boolean },
+  };
+
+  constructor() {
+    super();
+    this.error   = '';
+    this.loading = false;
+  }
+
+  async _onSubmit(e) {
+    this.loading = true;
+    this.error   = '';
+    try {
+      // await authService.login(e.detail.email, e.detail.password);
+      window.location.hash = '/dashboard';
+    } catch {
+      this.error = 'Invalid email or password.';
+    } finally {
+      this.loading = false;
+    }
+  }
+
   render() {
-    return html\`<login-form></login-form>\`;
+    return html\`
+      <login-form
+        .error=\${this.error}
+        .loading=\${this.loading}
+        @app-submit=\${this._onSubmit}
+      ></login-form>
+    \`;
   }
 }
 
