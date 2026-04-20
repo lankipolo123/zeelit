@@ -150,33 +150,74 @@ customElements.define('my-app', MyApp);`;
      Template 1 — Login
      ══════════════════════════════════════════════════ */
 
+  const loginMainJs = `// main.js
+import { LitElement, html, css } from 'lit';
+import { routes, defaultRoute } from './router.js';
+import './auth-layout.js';
+
+class MyApp extends LitElement {
+  static styles = css\`
+    :host { display: block; width: 100%; height: 100%; }
+  \`;
+
+  static properties = { route: { type: String } };
+
+  constructor() {
+    super();
+    this.route = window.location.hash.replace('#', '') || defaultRoute;
+    window.addEventListener('hashchange', () => {
+      this.route = window.location.hash.replace('#', '') || defaultRoute;
+    });
+  }
+
+  render() {
+    return html\`<auth-layout .route=\${this.route}></auth-layout>\`;
+  }
+}
+
+customElements.define('my-app', MyApp);`;
+
   const loginRouterJs = `// router.js
 import { html } from 'lit';
 import './pages/login-page.js';
+// import './pages/register-page.js';
 
 export const defaultRoute = '/login';
 
 export const routes = {
-  '/login': () => html\`<login-page slot="right"></login-page>\`,
-  // '/signup': () => html\`<signup-page slot="right"></signup-page>\`,
+  '/login':    () => html\`<login-page slot="right"></login-page>\`,
+  // '/register': () => html\`<register-page slot="left"></register-page>\`,
 };`;
 
-  const loginAppLayoutJs = `// app-layout.js
+  const authLayoutCode = `// auth-layout.js
 import { LitElement, html, css } from 'lit';
 import { routes, defaultRoute } from './router.js';
 import 'zeelit/layouts/app-split-layout.js';
 import './components/app-brand.js';
 
-export class AppLayout extends LitElement {
+export class AuthLayout extends LitElement {
   static styles = css\`
     :host { display: block; width: 100%; height: 100vh; }
   \`;
 
-  static properties = { route: { type: String } };
+  static properties = {
+    route:     { type: String },
+    brandSide: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.brandSide = 'left';
+  }
 
   render() {
     const page = (routes[this.route] ?? routes[defaultRoute])();
-    return html\`
+    return this.brandSide === 'right' ? html\`
+      <app-split-layout>
+        \${page}
+        <app-brand slot="right"></app-brand>
+      </app-split-layout>
+    \` : html\`
       <app-split-layout>
         <app-brand slot="left"></app-brand>
         \${page}
@@ -185,7 +226,7 @@ export class AppLayout extends LitElement {
   }
 }
 
-customElements.define('app-layout', AppLayout);`;
+customElements.define('auth-layout', AuthLayout);`;
 
   const appBrandCode = `// components/app-brand.js
 import { LitElement, html, css } from 'lit';
@@ -313,9 +354,9 @@ customElements.define('login-page', LoginPage);`;
 
   const loginFiles = [
     { name: 'index.html',          path: 'index.html',                    code: indexHtml },
-    { name: 'main.js',             path: 'main.js',                       code: mainJs },
+    { name: 'main.js',             path: 'main.js',                       code: loginMainJs },
     { name: 'router.js',           path: 'router.js',                     code: loginRouterJs },
-    { name: 'app-layout.js',       path: 'app-layout.js',                 code: loginAppLayoutJs },
+    { name: 'auth-layout.js',      path: 'auth-layout.js',                code: authLayoutCode },
     { name: 'login-page.js',       path: 'pages/login-page.js',           code: loginPageCode },
     { name: 'app-brand.js',        path: 'components/app-brand.js',       code: appBrandCode },
     { name: 'login-form.js',       path: 'components/login-form.js',      code: loginFormCode },
@@ -750,9 +791,9 @@ customElements.define('dashboard-page', DashboardPage);`;
       ${renderTemplate(
         'template-login',
         'Login Page',
-        'Two-panel split layout — branding left, form right. app-layout renders the page directly; add more routes to router.js as your app grows.',
+        'auth-layout owns the split panel — brand-side flips left/right per route. Login: brand left, form right. Register: brand right, form left.',
         loginPreviewFn,
-        loginPageCode,
+        authLayoutCode,
         loginFiles,
       )}
 
