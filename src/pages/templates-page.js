@@ -153,7 +153,7 @@ customElements.define('my-app', MyApp);`;
   const loginMainJs = `// main.js
 import { LitElement, html, css } from 'lit';
 import { routes, defaultRoute } from './router.js';
-import './auth-layout.js';
+import './layouts/auth-layout.js';
 
 class MyApp extends LitElement {
   static styles = css\`
@@ -189,11 +189,11 @@ export const routes = {
   // '/register': () => html\`<register-page slot="left"></register-page>\`,
 };`;
 
-  const authLayoutCode = `// auth-layout.js
+  const authLayoutCode = `// layouts/auth-layout.js
 import { LitElement, html, css } from 'lit';
-import { routes, defaultRoute } from './router.js';
+import { routes, defaultRoute } from '../router.js';
 import 'zeelit/layouts/app-split-layout.js';
-import './components/app-brand.js';
+import '../components/app-brand.js';
 
 export class AuthLayout extends LitElement {
   static styles = css\`
@@ -356,7 +356,7 @@ customElements.define('login-page', LoginPage);`;
     { name: 'index.html',          path: 'index.html',                    code: indexHtml },
     { name: 'main.js',             path: 'main.js',                       code: loginMainJs },
     { name: 'router.js',           path: 'router.js',                     code: loginRouterJs },
-    { name: 'auth-layout.js',      path: 'auth-layout.js',                code: authLayoutCode },
+    { name: 'auth-layout.js',      path: 'layouts/auth-layout.js',        code: authLayoutCode },
     { name: 'login-page.js',       path: 'pages/login-page.js',           code: loginPageCode },
     { name: 'app-brand.js',        path: 'components/app-brand.js',       code: appBrandCode },
     { name: 'login-form.js',       path: 'components/login-form.js',      code: loginFormCode },
